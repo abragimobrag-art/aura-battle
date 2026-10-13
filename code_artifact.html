@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АУРА-БАТЛ — Музыкальная битва со звуком</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: rgba(15, 15, 15, 0.96);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: 24px;
+            padding: 35px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 0 50px rgba(255, 170, 0, 0.2);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ffbb00, #ff5500, #ffdd33);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
+        }
+
+        .config-banner-row {
+            background: #111111;
+            border: 1px solid #332600;
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .config-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #b39b59;
+            text-transform: uppercase;
+        }
+
+        .banner-upload-btn {
+            background: linear-gradient(90deg, #221c00, #3d3100);
+            border: 1px solid #7a6200;
+            color: #ffbb00;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .banner-upload-btn:hover {
+            border-color: #ffbb00;
+            background: #4d3d00;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            background: #111111;
+            padding: 18px;
+            border-radius: 16px;
+            border: 1px solid #26200c;
+        }
+
+        .input-label {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #b39b59;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .track-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #080808;
+            border: 1px solid #332b0d;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            margin-top: 8px;
+        }
+
+        .track-input:focus {
+            border-color: #ffbb00;
+            box-shadow: 0 0 12px rgba(255, 187, 0, 0.4);
+        }
+
+        .file-upload-btn {
+            background: #221c00;
+            border: 1px solid #4d3d00;
+            color: #ffcc00;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+
+        .file-upload-btn:hover {
+            background: #382e00;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .vs-divider {
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin: 12px 0;
+            color: #ffbb00;
+            text-shadow: 0 0 10px rgba(255, 187, 0, 0.8);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, #b37400, #ff5500, #ffbb00);
+            border: none;
+            border-radius: 14px;
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 25px rgba(255, 170, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 35px rgba(255, 187, 0, 0.6);
+        }
+
+        .output-container {
+            margin-top: 30px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            animation: auraPulse 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes auraPulse {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .track-card {
+            background: #0d0d0d;
+            border: 1px solid #2b2308;
+            padding: 18px;
+            border-radius: 14px;
+        }
+
+        .track-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #ffbb00;
+            margin-bottom: 10px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            color: #cccccc;
+        }
+
+        .total-score {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #1a1605;
+        }
+
+        .winner-card {
+            background: linear-gradient(135deg, rgba(255, 187, 0, 0.15), rgba(255, 85, 0, 0.25));
+            border: 2px solid #ffbb00;
+            border-radius: 18px;
+            padding: 22px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 187, 0, 0.4);
+            margin-top: 10px;
+        }
+
+        .winner-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 10px #ffbb00;
+            margin-bottom: 8px;
+        }
+
+        .winner-name {
+            font-size: 1.3rem;
+            color: #ffcc00;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .winner-diff {
+            font-size: 1rem;
+            color: #e0e0e0;
+        }
+
+        #auraOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 5, 5, 0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        #auraOverlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #auraOverlay img {
+            max-width: 92vw;
+            max-height: 92vh;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 0 80px rgba(255, 170, 0, 0.8);
+            transform: scale(0.7);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #auraOverlay.active img {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+
+<div id="auraOverlay">
+    <!-- Использование файла картинки по относительному пути -->
+    <img id="overlayImg" src="ауратом.jpg" alt="Аура Флэш" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'800\' viewBox=\'0 0 600 800\'><rect width=\'100%\' height=\'100%\' fill=\'%23111\'/><text x=\'50%\' y=\'50%\' fill=\'%23ffbb00\' font-size=\'30\' text-anchor=\'middle\' font-family=\'sans-serif\'>🔥 АУРА ТОМ 🔥\n(Положите ауратом.jpg рядом с html)</text></svg>'">
+</div>
+
+<div class="container">
+    <div class="title">🔥 АУРА-БАТЛ 🔥</div>
+
+    <div class="input-group">
+        <div class="input-label">
+            <span>🎵 Участник 1</span>
+            <label class="file-upload-btn">
+                📁 Загрузить файл <input type="file" id="file1" accept="audio/*" onchange="handleFileUpload(1)">
+            </label>
+        </div>
+        <input type="text" id="track1" class="track-input" placeholder="Название — Исполнитель">
+    </div>
+
+    <div class="vs-divider">VS</div>
+
+    <div class="input-group">
+        <div class="input-label">
+            <span>🎵 Участник 2</span>
+            <label class="file-upload-btn">
+                📁 Загрузить файл <input type="file" id="file2" accept="audio/*" onchange="handleFileUpload(2)">
+            </label>
+        </div>
+        <input type="text" id="track2" class="track-input" placeholder="Название — Исполнитель">
+    </div>
+
+    <button class="btn" onclick="calculateBattle()">Рассчитать Ауру 🔥⚡</button>
+
+    <div class="output-container" id="outputContainer">
+        
+        <div class="track-card">
+            <div class="track-title" id="t1Name">Участник 1</div>
+            <div class="stat-row"><span>Базовая аура:</span><span id="t1Base">+0</span></div>
+            <div class="stat-row"><span>Штрафы:</span><span id="t1Penalty">-0</span></div>
+            <div class="total-score">ИТОГ: <span id="t1Total">0</span> АУРЫ</div>
+        </div>
+
+        <div class="track-card">
+            <div class="track-title" id="t2Name">Участник 2</div>
+            <div class="stat-row"><span>Базовая аура:</span><span id="t2Base">+0</span></div>
+            <div class="stat-row"><span>Штрафы:</span><span id="t2Penalty">-0</span></div>
+            <div class="total-score">ИТОГ: <span id="t2Total">0</span> АУРЫ</div>
+        </div>
+
+        <div class="winner-card">
+            <div class="winner-title">👑 ПОБЕДИТЕЛЬ АУРА-БАТЛА 👑</div>
+            <div class="winner-name" id="winnerName">---</div>
+            <div class="winner-diff" id="winnerDiff">Разница: 0 ауры</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let audioObjects = { 1: null, 2: null };
+
+    function handleFileUpload(trackNum) {
+        const fileInput = document.getElementById(`file${trackNum}`);
+        const textInput = document.getElementById(`track${trackNum}`);
+        
+        if (fileInput.files && fileInput.files[0]) {
+            const file = fileInput.files[0];
+            textInput.value = file.name.replace(/\.[^/.]+$/, "");
+        }
+    }
+
+    function playVictorySoundEffect() {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext();
+
+            // Эпичный торжественный фанфарный звук из встроенного синтезатора
+            const notes = [
+                { freq: 523.25, time: 0.0, duration: 0.2 },   // C5
+                { freq: 659.25, time: 0.15, duration: 0.2 },  // E5
+                { freq: 783.99, time: 0.3, duration: 0.2 },   // G5
+                { freq: 1046.50, time: 0.45, duration: 0.7 }  // C6 (Финал)
+            ];
+
+            notes.forEach(note => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(note.freq, ctx.currentTime + note.time);
+
+                gain.gain.setValueAtTime(0.25, ctx.currentTime + note.time);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + note.time + note.duration);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start(ctx.currentTime + note.time);
+                osc.stop(ctx.currentTime + note.time + note.duration);
+            });
+        } catch (e) {
+            console.log("Звук заблокирован до взаимодействия");
+        }
+    }
+
+    function calculateAuraFromString(str) {
+        let hash = 0;
+        const cleanStr = str.toLowerCase().trim();
+        for (let i = 0; i < cleanStr.length; i++) {
+            hash = cleanStr.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        
+        let base = Math.abs((hash * 13) % 90000000) + 10000000; 
+        let penalty = Math.abs((hash * 7) % 40000000); 
+
+        base = Math.round(base / 5) * 5;
+        penalty = Math.round(penalty / 5) * 5;
+
+        return { base, penalty, total: base - penalty };
+    }
+
+    function formatNum(num) {
+        return num.toLocaleString('ru-RU');
+    }
+
+    function calculateBattle() {
+        const t1 = document.getElementById('track1').value.trim();
+        const t2 = document.getElementById('track2').value.trim();
+
+        if (!t1 || !t2) {
+            const container = document.getElementById('outputContainer');
+            container.style.display = 'flex';
+            document.getElementById('t1Name').innerText = 'Ошибка';
+            document.getElementById('t1Base').innerText = '+0';
+            document.getElementById('t1Penalty').innerText = '-0';
+            document.getElementById('t1Total').innerText = '0';
+            document.getElementById('t2Name').innerText = 'Заполни оба поля!';
+            document.getElementById('t2Base').innerText = '+0';
+            document.getElementById('t2Penalty').innerText = '-0';
+            document.getElementById('t2Total').innerText = '0';
+            document.getElementById('winnerName').innerText = 'Заполни оба трека!';
+            document.getElementById('winnerDiff').innerText = '---';
+            return;
+        }
+
+        const overlay = document.getElementById('auraOverlay');
+        const container = document.getElementById('outputContainer');
+
+        container.style.display = 'none';
+
+        // Показываем полноэкранный оверлей и воспроизводим встроенный фанфарный звук
+        overlay.classList.add('active');
+        playVictorySoundEffect();
+
+        // Показываем картинку 3 секунды, затем плавно скрываем и выводим результаты
+        setTimeout(() => {
+            overlay.classList.remove('active');
+
+            setTimeout(() => {
+                const res1 = calculateAuraFromString(t1);
+                const res2 = calculateAuraFromString(t2);
+
+                document.getElementById('t1Name').innerText = t1;
+                document.getElementById('t1Base').innerText = '+' + formatNum(res1.base);
+                document.getElementById('t1Penalty').innerText = '-' + formatNum(res1.penalty);
+                document.getElementById('t1Total').innerText = formatNum(res1.total);
+
+                document.getElementById('t2Name').innerText = t2;
+                document.getElementById('t2Base').innerText = '+' + formatNum(res2.base);
+                document.getElementById('t2Penalty').innerText = '-' + formatNum(res2.penalty);
+                document.getElementById('t2Total').innerText = formatNum(res2.total);
+
+                const isTrack1Winner = res1.total >= res2.total;
+                const winner = isTrack1Winner ? t1 : t2;
+                const winScore = Math.max(res1.total, res2.total);
+                const loseScore = Math.min(res1.total, res2.total);
+                const diff = winScore - loseScore;
+
+                document.getElementById('winnerName').innerText = `«${winner}» (${formatNum(winScore)} ауры)`;
+                document.getElementById('winnerDiff').innerText = `Превосходство по ауре: +${formatNum(diff)} 🔥⚡`;
+
+                container.style.display = 'flex';
+            }, 500);
+        }, 3000);
+    }
+</script>
+</body>
+</html>
