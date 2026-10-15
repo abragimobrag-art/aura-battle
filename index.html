@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>АУРА-БАТЛ — Музыкальная битва со звуком</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>АУРА-БАТЛ — Эпическая Битва</title>
     <style>
         :root {
             --primary-color: #ffbb00;
@@ -18,75 +18,78 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #050505;
+            background-color: #030303;
             color: #ffffff;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Кнопка сброса в нижнем левом углу */
         .reset-global-btn {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 60px;
-            height: 60px;
+            bottom: 15px;
+            left: 15px;
+            width: 50px;
+            height: 50px;
             background: var(--card-bg);
             border: 2px solid var(--primary-color);
-            border-radius: 14px;
+            border-radius: 12px;
             cursor: pointer;
             padding: 4px;
             box-shadow: 0 0 15px var(--glow-color);
-            transition: transform 0.2s, box-shadow 0.2s;
             z-index: 1000;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .reset-global-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px var(--glow-color);
-        }
-
         .reset-global-btn img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 10px;
-            display: block;
+            border-radius: 8px;
         }
 
         .container {
-            background: rgba(15, 15, 15, 0.96);
+            background: rgba(12, 12, 12, 0.98);
             border: 1px solid var(--primary-color);
-            border-radius: 24px;
-            padding: 35px;
+            border-radius: 20px;
+            padding: 20px;
             width: 100%;
             max-width: 750px;
             box-shadow: 0 0 var(--glow-intensity) var(--glow-color);
             position: relative;
-            transition: box-shadow 0.3s, border-color 0.3s;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 35px;
+                border-radius: 24px;
+            }
         }
 
         .tabs {
             display: flex;
             gap: 6px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            justify-content: center;
             flex-wrap: wrap;
         }
 
         .tab-btn {
             flex: 1;
-            min-width: 80px;
+            min-width: 90px;
+            max-width: 160px;
             padding: 10px;
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -94,8 +97,9 @@
             font-weight: 700;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s;
             font-size: 0.8rem;
+            text-align: center;
+            transition: all 0.2s;
         }
 
         .tab-btn.active {
@@ -107,37 +111,44 @@
 
         .tab-content {
             display: none;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .tab-content.active {
             display: block;
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .profile-bar {
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 18px;
+            padding: 12px 16px;
             border-radius: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .profile-info {
             font-weight: 800;
             color: var(--primary-color);
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .xp-bar-container {
             width: 150px;
-            height: 10px;
+            height: 8px;
             background: #222;
-            border-radius: 5px;
+            border-radius: 4px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-top: 4px;
+            margin-top: 6px;
         }
 
         .xp-bar-fill {
@@ -151,735 +162,581 @@
             background: linear-gradient(90deg, #9c27b0, #e91e63);
             border: none;
             color: #fff;
-            padding: 8px 12px;
+            padding: 8px 14px;
             border-radius: 8px;
             font-weight: 800;
             font-size: 0.75rem;
             cursor: pointer;
             margin-top: 8px;
-            box-shadow: 0 0 15px rgba(156, 39, 176, 0.5);
             display: none;
             text-transform: uppercase;
-        }
-
-        .rebirth-btn:hover {
-            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(156, 39, 176, 0.6);
+            letter-spacing: 0.5px;
         }
 
         .title {
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--primary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-shadow: 0 0 20px var(--glow-color);
             cursor: pointer;
-            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .title { font-size: 2.2rem; }
         }
 
         .logo-letters {
             display: inline-block;
-            transition: transform 0.15s ease, color 0.15s ease, text-shadow 0.15s ease;
-        }
-        .logo-letters:hover {
-            transform: scale(1.05);
+            transition: transform 0.15s ease, color 0.15s ease;
+            cursor: pointer;
         }
 
         .logo-letters.active-hit {
             color: #d1c4e9 !important;
             -webkit-text-fill-color: #d1c4e9 !important;
-            text-shadow: 0 0 15px #9c27b0, 0 0 25px #ff55ff !important;
-            transform: scale(1.2);
+            text-shadow: 0 0 15px #9c27b0;
+            transform: scale(1.25);
         }
 
         #easterEggBtnContainer {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: none;
-            animation: auraPulse 0.5s ease;
         }
 
         .secret-btn {
             background: #111;
             border: 3px solid #9c27b0;
-            border-radius: 18px;
-            padding: 6px;
+            border-radius: 16px;
+            padding: 4px;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(156, 39, 176, 0.8);
+            box-shadow: 0 0 25px rgba(156, 39, 176, 0.8);
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .secret-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 40px rgba(156, 39, 176, 1);
         }
 
         .secret-btn img {
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
             object-fit: cover;
             border: 2px solid #ffbb00;
-            display: block;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: var(--card-bg);
-            padding: 18px;
-            border-radius: 16px;
+            padding: 14px;
+            border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .input-label {
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: var(--primary-color);
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
         .track-input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 10px 12px;
             background: #080808;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
+            border-radius: 8px;
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
-            margin-top: 8px;
-        }
-
-        .track-input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 12px var(--glow-color);
+            margin-top: 6px;
         }
 
         .file-upload-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
-            transition: background 0.2s;
         }
 
-        .file-upload-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        input[type="file"] {
-            display: none;
-        }
+        input[type="file"] { display: none; }
 
         .vs-divider {
             text-align: center;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 900;
-            margin: 12px 0;
+            margin: 10px 0;
             color: var(--primary-color);
             text-shadow: 0 0 10px var(--glow-color);
         }
 
         .btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             color: #000;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 900;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 25px var(--glow-color);
-            transition: all 0.2s ease;
-        }
-
-        .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 35px var(--glow-color);
+            box-shadow: 0 0 20px var(--glow-color);
         }
 
         .output-container {
-            margin-top: 30px;
+            margin-top: 20px;
             display: none;
             flex-direction: column;
-            gap: 15px;
-            animation: auraPulse 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            gap: 12px;
         }
 
-        @keyframes auraPulse {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
+        @keyframes auraGreenGlow {
+            0% { box-shadow: 0 0 10px rgba(0, 255, 100, 0.4); border-color: #00ff64; }
+            50% { box-shadow: 0 0 35px rgba(0, 255, 100, 0.8), inset 0 0 15px rgba(0, 255, 100, 0.4); border-color: #00ff64; }
+            100% { box-shadow: 0 0 10px rgba(0, 255, 100, 0.4); border-color: #00ff64; }
         }
+        @keyframes auraBlueGlow {
+            0% { box-shadow: 0 0 15px rgba(0, 150, 255, 0.5); border-color: #0096ff; }
+            50% { box-shadow: 0 0 45px rgba(0, 150, 255, 0.9), inset 0 0 20px rgba(0, 150, 255, 0.5); border-color: #0096ff; }
+            100% { box-shadow: 0 0 15px rgba(0, 150, 255, 0.5); border-color: #0096ff; }
+        }
+        @keyframes auraPurpleGlow {
+            0% { box-shadow: 0 0 20px rgba(180, 0, 255, 0.6); border-color: #b400ff; }
+            50% { box-shadow: 0 0 55px rgba(180, 0, 255, 1), inset 0 0 25px rgba(180, 0, 255, 0.6); border-color: #b400ff; }
+            100% { box-shadow: 0 0 20px rgba(180, 0, 255, 0.6); border-color: #b400ff; }
+        }
+        @keyframes auraRedGlow {
+            0% { box-shadow: 0 0 20px rgba(255, 0, 50, 0.7); border-color: #ff0032; }
+            50% { box-shadow: 0 0 65px rgba(255, 0, 50, 1), inset 0 0 30px rgba(255, 0, 50, 0.7); border-color: #ff0032; }
+            100% { box-shadow: 0 0 20px rgba(255, 0, 50, 0.7); border-color: #ff0032; }
+        }
+        @keyframes auraRoyalGoldGlow {
+            0% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 100, 0, 0.6); border-color: #ffd700; transform: scale(1.01); }
+            50% { box-shadow: 0 0 80px rgba(255, 215, 0, 1), 0 0 120px rgba(255, 50, 0, 0.9), inset 0 0 40px rgba(255, 215, 0, 0.8); border-color: #fff; transform: scale(1.02); }
+            100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 100, 0, 0.6); border-color: #ffd700; transform: scale(1.01); }
+        }
+
+        .tier-green { animation: auraGreenGlow 2s infinite ease-in-out; border: 2px solid #00ff64 !important; background: linear-gradient(135deg, #0a1a0a, #111) !important; }
+        .tier-blue { animation: auraBlueGlow 2s infinite ease-in-out; border: 2px solid #0096ff !important; background: linear-gradient(135deg, #0a1220, #111) !important; }
+        .tier-purple { animation: auraPurpleGlow 1.8s infinite ease-in-out; border: 2px solid #b400ff !important; background: linear-gradient(135deg, #180a24, #111) !important; }
+        .tier-red { animation: auraRedGlow 1.5s infinite ease-in-out; border: 2px solid #ff0032 !important; background: linear-gradient(135deg, #240a0a, #111) !important; }
+        .tier-gold { animation: auraRoyalGoldGlow 1.2s infinite ease-in-out; border: 3px solid #ffd700 !important; background: linear-gradient(135deg, #2e2400, #161200, #2e2400) !important; }
+
+        .tier-text-green { color: #00ff64 !important; text-shadow: 0 0 10px rgba(0,255,100,0.5); }
+        .tier-text-blue { color: #0096ff !important; text-shadow: 0 0 10px rgba(0,150,255,0.6); }
+        .tier-text-purple { color: #b400ff !important; text-shadow: 0 0 15px rgba(180,0,255,0.7); }
+        .tier-text-red { color: #ff0032 !important; text-shadow: 0 0 20px rgba(255,0,50,0.8); }
+        .tier-text-gold { color: #ffd700 !important; text-shadow: 0 0 25px rgba(255,215,0,1), 0 0 10px #ff5500; font-weight: 900; }
 
         .track-card {
             background: #0d0d0d;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 18px;
-            border-radius: 14px;
+            padding: 14px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
 
         .track-title {
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--primary-color);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .stat-row {
             display: flex;
             justify-content: space-between;
-            font-size: 0.95rem;
-            margin-bottom: 6px;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
             color: #cccccc;
         }
 
         .total-score {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 800;
             color: #fff;
-            margin-top: 8px;
-            padding-top: 8px;
+            margin-top: 6px;
+            padding-top: 6px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .winner-card {
             background: linear-gradient(135deg, rgba(255, 187, 0, 0.15), rgba(255, 85, 0, 0.25));
             border: 2px solid var(--primary-color);
-            border-radius: 18px;
-            padding: 22px;
+            border-radius: 16px;
+            padding: 18px;
             text-align: center;
-            box-shadow: 0 0 30px var(--glow-color);
+            box-shadow: 0 0 25px var(--glow-color);
             margin-top: 10px;
         }
 
-        .winner-title {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 0 0 10px var(--primary-color);
-            margin-bottom: 8px;
-        }
-
-        .winner-name {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .winner-diff {
-            font-size: 1rem;
-            color: #e0e0e0;
-        }
-
-        /* Кликер (Набор массы) */
-        .clicker-container {
-            text-align: center;
-            padding: 10px;
-        }
-
+        .clicker-container { text-align: center; padding: 5px; }
         .pizza-clicker-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 7rem;
-            transition: transform 0.1s ease;
-            outline: none;
-            user-select: none;
-            margin: 15px 0;
-            filter: drop-shadow(0 0 20px rgba(255, 187, 0, 0.6));
+            background: none; border: none; cursor: pointer; font-size: 5.5rem;
+            margin: 10px 0; filter: drop-shadow(0 0 15px rgba(255, 187, 0, 0.6));
         }
-
-        .pizza-clicker-btn:active {
-            transform: scale(0.9);
-        }
-
         .food-progress-box {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 14px;
-            margin-bottom: 20px;
+            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px; border-radius: 12px; margin-bottom: 15px;
         }
-
-        .shop-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
+        .shop-container { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 15px; }
         .shop-item {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
         }
-
         .shop-btn {
-            background: var(--primary-color);
-            border: none;
-            color: #000;
-            font-weight: 800;
-            padding: 8px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s;
+            background: var(--primary-color); border: none; color: #000; font-weight: 800;
+            padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;
         }
+        .shop-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
 
-        .shop-btn:hover {
-            transform: scale(1.05);
+        .evil-typing-container { text-align: center; padding: 5px; }
+        .evil-screen {
+            background: #080808; border: 2px solid #9c27b0; border-radius: 12px;
+            padding: 12px; font-family: monospace; font-size: 1.2rem; color: #00ffcc;
+            min-height: 50px; margin-bottom: 15px; word-break: break-all; letter-spacing: 2px;
         }
-
-        .shop-btn:disabled {
-            background: #444;
-            color: #888;
-            cursor: not-allowed;
-            transform: none;
+        .evil-keyboard { display: flex; flex-direction: column; gap: 6px; align-items: center; margin-bottom: 15px; }
+        .evil-row { display: flex; gap: 4px; justify-content: center; width: 100%; flex-wrap: wrap; }
+        .evil-key {
+            background: #1a1a1a; border: 1px solid #444; color: #fff; font-weight: 800;
+            padding: 10px 6px; border-radius: 6px; cursor: pointer; min-width: 28px; font-size: 0.85rem;
         }
+        .evil-key.active-key-glow { background: #9c27b0 !important; border-color: #ff55ff !important; box-shadow: 0 0 15px #9c27b0; }
+        .evil-action-row { display: flex; gap: 8px; }
 
-        .ach-category-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
+        .ach-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; flex-wrap: wrap; }
         .ach-cat-btn {
-            flex: 1;
-            padding: 8px;
-            background: #1a1a1a;
-            border: 1px solid #444;
-            color: #aaa;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
+            flex: 1; min-width: 85px; padding: 8px 4px; background: #1a1a1a; border: 1px solid #333;
+            color: #888; font-weight: 800; border-radius: 10px; cursor: pointer; font-size: 0.75rem;
+            transition: all 0.2s ease; text-transform: uppercase; letter-spacing: 0.5px; text-align: center;
         }
-
-        .ach-cat-btn.active {
-            background: var(--primary-color);
-            color: #000;
-            border-color: var(--primary-color);
-        }
-
-        .achievements-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
+        .ach-cat-btn.active { background: var(--primary-color); color: #000; border-color: var(--primary-color); box-shadow: 0 0 15px var(--glow-color); }
+        
+        .achievements-grid { display: grid; grid-template-columns: 1fr; gap: 12px; max-height: 400px; overflow-y: auto; padding-right: 4px; }
         .achievement-card {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 2px solid #333;
-            opacity: 0.5;
-            transition: all 0.3s;
+            background: linear-gradient(135deg, #111111, #181818); border-radius: 14px; padding: 14px; display: flex;
+            align-items: center; gap: 14px; border: 2px solid #222; opacity: 0.45; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        .achievement-card.unlocked {
-            opacity: 1;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        .achievement-card.unlocked { 
+            opacity: 1; 
+            background: linear-gradient(135deg, #161616, #221a0a);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); 
+            transform: translateY(-2px);
         }
-
-        .rarity-common { border-color: #ffffff; }
-        .rarity-rare { border-color: #2196f3; box-shadow: 0 0 10px rgba(33, 150, 243, 0.3); }
-        .rarity-epic { border-color: #9c27b0; box-shadow: 0 0 15px rgba(156, 39, 176, 0.5); }
-        .rarity-legendary { border-color: #ff9800; box-shadow: 0 0 15px rgba(255, 152, 0, 0.5); }
-        .rarity-mythic { border-color: #f44336; box-shadow: 0 0 20px rgba(244, 67, 54, 0.7); }
-
-        .ach-icon {
-            font-size: 2.2rem;
-            min-width: 50px;
-            text-align: center;
+        .ach-icon-box {
+            width: 50px; height: 50px; background: rgba(0,0,0,0.4); border-radius: 12px; display: flex; 
+            justify-content: center; align-items: center; font-size: 1.8rem; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.05);
         }
+        .rarity-common { border-color: #777; }
+        .rarity-rare { border-color: #2196f3; box-shadow: inset 0 0 10px rgba(33, 150, 243, 0.1); }
+        .rarity-epic { border-color: #9c27b0; box-shadow: inset 0 0 10px rgba(156, 39, 176, 0.15); }
+        .rarity-legendary { border-color: #ff9800; box-shadow: inset 0 0 12px rgba(255, 152, 0, 0.2); }
+        .rarity-mythic { border-color: #f44336; box-shadow: inset 0 0 15px rgba(244, 67, 54, 0.25); }
 
-        .ach-info {
-            flex: 1;
+        .history-list { display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; }
+        .history-item {
+            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; align-items: center;
         }
-
-        .ach-title {
-            font-weight: 800;
-            font-size: 1.05rem;
-            margin-bottom: 4px;
-        }
-
-        .ach-desc {
-            font-size: 0.85rem;
-            color: #aaa;
-        }
-
-        .ach-xp {
-            font-weight: 900;
-            font-size: 0.9rem;
-            padding: 4px 8px;
-            border-radius: 6px;
-            background: #222;
+        .clear-history-btn, .reset-settings-btn {
+            background: #2a2a2a; border: 1px solid #555; color: #ccc;
+            padding: 10px; border-radius: 8px; width: 100%; margin-top: 12px; cursor: pointer; font-weight: 700;
         }
 
         .setting-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            background: var(--card-bg);
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 12px; background: var(--card-bg); padding: 10px 14px; border-radius: 10px;
         }
+        input[type="color"] { border: none; width: 30px; height: 30px; border-radius: 6px; cursor: pointer; background: none; }
+        input[type="range"] { accent-color: var(--primary-color); width: 90px; }
+        select { background: #222; color: #fff; border: 1px solid #444; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
 
-        .setting-label {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #ddd;
+        #auraOverlay, #achPopOverlay, #statsModalOverlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(3, 3, 3, 0.98); display: flex; justify-content: center; align-items: center;
+            z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
         }
-
-        .setting-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        #auraOverlay.active, #achPopOverlay.active, #statsModalOverlay.active { opacity: 1; pointer-events: auto; }
+        #auraOverlay img { max-width: 92vw; max-height: 92vh; object-fit: contain; border-radius: 16px; }
+        .ach-pop-box, .stats-box {
+            background: linear-gradient(135deg, #111, #220033); border: 3px solid var(--primary-color);
+            border-radius: 20px; padding: 24px; text-align: center; max-width: 380px; width: 90%;
         }
-
-        input[type="color"] {
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            cursor: pointer;
-            background: none;
-        }
-
-        input[type="range"] {
-            accent-color: var(--primary-color);
-            cursor: pointer;
-        }
-
-        .reset-settings-btn {
-            background: #2a2a2a;
-            border: 1px solid #555;
-            color: #ccc;
-            padding: 10px;
-            border-radius: 10px;
-            width: 100%;
-            margin-top: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .history-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-height: 450px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .history-item {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .history-info {
-            font-size: 0.9rem;
-            color: #ccc;
-        }
-
-        .history-vs {
-            color: var(--primary-color);
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .history-winner {
-            color: #fff;
-            font-weight: 800;
-            font-size: 0.95rem;
-        }
-
-        .clear-history-btn {
-            background: #3a1111;
-            border: 1px solid #7d2626;
-            color: #ff8888;
-            padding: 10px;
-            border-radius: 10px;
-            width: 100%;
-            margin-top: 15px;
-            cursor: pointer;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        #auraOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(5, 5, 5, 0.98);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        #auraOverlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        #auraOverlay img {
-            max-width: 92vw;
-            max-height: 92vh;
-            object-fit: contain;
-            border-radius: 20px;
-            box-shadow: 0 0 80px var(--glow-color);
-            transform: scale(0.7);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        #auraOverlay.active img {
-            transform: scale(1);
+        .skip-battle-btn {
+            position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.1);
+            border: 1px solid var(--primary-color); color: var(--primary-color); padding: 6px 12px;
+            border-radius: 8px; font-weight: bold; cursor: pointer; z-index: 10000;
         }
     </style>
 </head>
 <body>
 
-<!-- Кнопка сброса в левом нижнем углу с картинкой изображение_4.png -->
-<button class="reset-global-btn" onclick="globalReset()" title="Начать всё с начала">
-    <img src="изображение_4.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'60\' height=\'60\'><rect width=\'100%\' height=\'100%\' fill=\'%23111\'/><text x=\'50%\' y=\'55%\' fill=\'%23ffbb00\' font-size=\'24\' text-anchor=\'middle\' dominant-baseline=\'middle\'>🔄</text></svg>'" alt="Сброс">
+<button class="reset-global-btn" onclick="globalReset()" title="Сброс всего">
+    <img src="изображение_4.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'><rect width=\'100%\' height=\'100%\' fill=\'%23111\'/><text x=\'50%\' y=\'55%\' fill=\'%23ffbb00\' font-size=\'20\' text-anchor=\'middle\' dominant-baseline=\'middle\'>🔄</text></svg>'" alt="Сброс">
 </button>
 
 <div id="auraOverlay">
-    <img id="overlayImg" src="ауратом.jpg" alt="Аура Том" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'800\' viewBox=\'0 0 600 800\'><rect width=\'100%\' height=\'100%\' fill=\'%23111\'/><text x=\'50%\' y=\'50%\' fill=\'%23ffbb00\' font-size=\'30\' text-anchor=\'middle\' font-family=\'sans-serif\'>🔥 АУРА ТОМ 🔥</text></svg>'">
+    <button class="skip-battle-btn" onclick="skipBattleAnimation()">⏩ Пропустить</button>
+    <img id="overlayImg" src="ауратом.jpg" alt="Аура Том">
 </div>
 
-<div class="container">
+<div id="achPopOverlay">
+    <div class="ach-pop-box">
+        <div style="font-size: 0.8rem; color: #ffbb00; font-weight: bold; margin-bottom: 5px;">🔥 НОВОЕ ДОСТИЖЕНИЕ! 🔥</div>
+        <div id="achPopIcon" style="font-size: 3.5rem; margin: 8px 0;">🏆</div>
+        <div id="achPopTitle" style="font-size: 1.2rem; font-weight: 900; color: #fff; margin-bottom: 4px;">Название</div>
+        <div id="achPopDesc" style="font-size: 0.8rem; color: #aaa; margin-bottom: 12px;">Описание</div>
+        <div id="achPopXp" style="display: inline-block; background: #ffbb00; color: #000; font-weight: 900; padding: 5px 14px; border-radius: 6px;">+500 XP</div>
+        <div style="margin-top: 15px;"><button class="shop-btn" onclick="closeAchPopup()">Круто!</button></div>
+    </div>
+</div>
+
+<div id="statsModalOverlay">
+    <div class="stats-box">
+        <div style="font-size: 1.3rem; font-weight: 900; color: var(--primary-color); margin-bottom: 15px;">📊 СТАТИСТИКА ИГРОКА</div>
+        <div style="text-align: left; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 6px;">
+                <span style="color: #aaa;">Время в игре:</span>
+                <span id="statPlayTime" style="font-weight: bold; color: #fff;">0 мин.</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 6px;">
+                <span style="color: #aaa;">Всего батлов:</span>
+                <span id="statTotalBattles" style="font-weight: bold; color: #fff;">0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 6px;">
+                <span style="color: #aaa;">Кликов в массе:</span>
+                <span id="statTotalClicks" style="font-weight: bold; color: #fff;">0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 6px;">
+                <span style="color: #aaa;">Перерождений:</span>
+                <span id="statRebirths" style="font-weight: bold; color: #e91e63;">0</span>
+            </div>
+        </div>
+        <button class="shop-btn" onclick="closeStatsModal()" style="width: 100%; padding: 10px;">Закрыть</button>
+    </div>
+</div>
+
+<div class="container" id="mainContainer">
     <div class="profile-bar">
         <div>
             <div class="profile-info" id="userLevelText">Уровень 1 (0 XP)</div>
-            <div class="xp-bar-container">
-                <div class="xp-bar-fill" id="xpBarFill"></div>
-            </div>
+            <div class="xp-bar-container"><div class="xp-bar-fill" id="xpBarFill"></div></div>
             <button id="rebirthBtn" class="rebirth-btn" onclick="triggerRebirth()">🔄 Снова дом, всё тот же дом</button>
         </div>
-        <div style="text-align: right; font-size: 0.85rem; color: #888;">
+        <div style="text-align: right; font-size: 0.8rem; color: #888;">
             <div>Опыт: <span id="totalXpVal" style="color: #fff; font-weight: bold;">0</span> XP</div>
-            <div id="rebirthCounterDisplay" style="color: #e91e63; font-weight: bold; margin-top: 4px; display: none;">⚡ Перерождений: <span id="rebirthCount">0</span>/2</div>
+            <div id="rebirthCounterDisplay" style="color: #e91e63; font-weight: bold; margin-top: 2px; display: none;">⚡ Перерождение: <span id="rebirthCount">0</span>/2</div>
         </div>
     </div>
 
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('battle')">⚡ Батл</button>
-        <button class="tab-btn" onclick="switchTab('clicker')">🍕 Масса</button>
-        <button class="tab-btn" onclick="switchTab('history')">📜 История</button>
-        <button class="tab-btn" onclick="switchTab('achievements')">🏆 Ачивки</button>
-        <button class="tab-btn" onclick="switchTab('settings')">⚙️ Настройки</button>
+    <div class="tabs" id="tabsContainer">
+        <button class="tab-btn" id="btnTab0" onclick="switchTab(0)">⚡ Батл</button>
+        <button class="tab-btn" id="btnTab1" onclick="switchTab(1)">🍕 Масса</button>
+        <button class="tab-btn" id="btnTab2" onclick="switchTab(2)">⌨️ Злопечать</button>
+        <button class="tab-btn" id="btnTab3" onclick="switchTab(3)">📜 История</button>
+        <button class="tab-btn" id="btnTab4" onclick="switchTab(4)">🏆 Ачивки</button>
+        <button class="tab-btn" id="btnTab5" onclick="switchTab(5)">⚙️ Настройки</button>
     </div>
 
+    <!-- Вкладка 0: Батл -->
     <div id="battleTab" class="tab-content active">
-        <div class="title">
-            <span class="logo-letters" id="let-0" onclick="clickLogoLetter('а', 0)">А</span><span class="logo-letters" id="let-1" onclick="clickLogoLetter('у', 1)">У</span><span class="logo-letters" id="let-2" onclick="clickLogoLetter('р', 2)">Р</span><span class="logo-letters" id="let-3" onclick="clickLogoLetter('а', 3)">А</span> 
-            <span class="logo-letters" id="let-4" onclick="clickLogoLetter('б', 4)">Б</span><span class="logo-letters" id="let-5" onclick="clickLogoLetter('а', 5)">А</span><span class="logo-letters" id="let-6" onclick="clickLogoLetter('т', 6)">Т</span><span class="logo-letters" id="let-7" onclick="clickLogoLetter('л', 7)">Л</span>
+        <div class="title" id="battleLogoTitle">
+            <span class="logo-letters" onclick="clickBattleLogoLetter('а', this)">А</span><span class="logo-letters" onclick="clickBattleLogoLetter('у', this)">У</span><span class="logo-letters" onclick="clickBattleLogoLetter('р', this)">Р</span><span class="logo-letters" onclick="clickBattleLogoLetter('а', this)">А</span> 
+            <span class="logo-letters" onclick="clickBattleLogoLetter('б', this)">Б</span><span class="logo-letters" onclick="clickBattleLogoLetter('а', this)">А</span><span class="logo-letters" onclick="clickBattleLogoLetter('т', this)">Т</span><span class="logo-letters" onclick="clickBattleLogoLetter('л', this)">Л</span>
         </div>
-
-        <div id="easterEggBtnContainer">
-            <button class="secret-btn" onclick="claimEasterEgg()">
-                <img src="изображение.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'><rect width=\'100%\' height=\'100%\' fill=\'%239c27b0\'/><text x=\'50%\' y=\'55%\' fill=\'%23fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'middle\'>🦷</text></svg>'" alt="Пасхалка">
-            </button>
-        </div>
-
+        <div id="easterEggBtnContainer"><button class="secret-btn" onclick="claimEasterEgg()"><img src="изображение.png" alt="Пасхалка"></button></div>
         <div class="input-group">
-            <div class="input-label">
-                <span>🎵 Ферзь 1</span>
-                <label class="file-upload-btn">
-                    📁 Загрузить файл <input type="file" id="file1" accept="audio/*" onchange="handleFileUpload(1)">
-                </label>
-            </div>
+            <div class="input-label"><span>🎵 Ферзь 1</span><label class="file-upload-btn">📁 Файл <input type="file" id="file1" accept="audio/*" onchange="handleFileUpload(1)"></label></div>
             <input type="text" id="track1" class="track-input" placeholder="Название — Исполнитель">
         </div>
-
         <div class="vs-divider">VS</div>
-
         <div class="input-group">
-            <div class="input-label">
-                <span>🎵 Ферзь 2</span>
-                <label class="file-upload-btn">
-                    📁 Загрузить файл <input type="file" id="file2" accept="audio/*" onchange="handleFileUpload(2)">
-                </label>
-            </div>
+            <div class="input-label"><span>🎵 Ферзь 2</span><label class="file-upload-btn">📁 Файл <input type="file" id="file2" accept="audio/*" onchange="handleFileUpload(2)"></label></div>
             <input type="text" id="track2" class="track-input" placeholder="Название — Исполнитель">
         </div>
-
         <button class="btn" onclick="calculateBattle()">Рассчитать Ауру 🔥⚡</button>
-
         <div class="output-container" id="outputContainer">
-            <div class="track-card">
+            <div class="track-card" id="card1">
                 <div class="track-title" id="t1Name">Ферзь 1</div>
                 <div class="stat-row"><span>Базовая аура:</span><span id="t1Base">+0</span></div>
                 <div class="stat-row"><span>Штрафы:</span><span id="t1Penalty">-0</span></div>
                 <div class="total-score">ИТОГ: <span id="t1Total">0</span> АУРЫ</div>
             </div>
-
-            <div class="track-card">
+            <div class="track-card" id="card2">
                 <div class="track-title" id="t2Name">Ферзь 2</div>
                 <div class="stat-row"><span>Базовая аура:</span><span id="t2Base">+0</span></div>
                 <div class="stat-row"><span>Штрафы:</span><span id="t2Penalty">-0</span></div>
                 <div class="total-score">ИТОГ: <span id="t2Total">0</span> АУРЫ</div>
             </div>
-
-            <div class="winner-card">
-                <div class="winner-title">👑 ПОБЕДИТЕЛЬ АУРА-БАТЛА 👑</div>
+            <div class="winner-card" id="winnerCardBox">
+                <div style="font-size: 1.2rem; font-weight: 900; color: #fff;">👑 ПОБЕДИТЕЛЬ 👑</div>
                 <div class="winner-name" id="winnerName">---</div>
-                <div class="winner-diff" id="winnerDiff">Разница: 0 ауры</div>
+                <div id="winnerDiff" style="font-size: 0.9rem; color: #e0e0e0;">Разница: 0 ауры</div>
             </div>
         </div>
     </div>
 
-    <!-- Вкладка Набор массы (Кликер) -->
+    <!-- Вкладка 1: Кликер -->
     <div id="clickerTab" class="tab-content">
         <div class="title">🍕 НАБОР МАССЫ</div>
         <div class="clicker-container">
             <div class="food-progress-box">
-                <div style="font-size: 0.9rem; color: #888; text-transform: uppercase;">Текущий фастфуд:</div>
-                <div id="currentFoodName" style="font-size: 1.4rem; font-weight: 900; color: var(--primary-color); margin: 6px 0;">🍕 Пицца</div>
-                <div style="font-size: 0.95rem;">Всего кликов: <span id="totalClicksVal" style="font-weight: bold; color: #fff;">0</span></div>
-                <div style="font-size: 0.85rem; color: #aaa; margin-top: 4px;">До след. фастфуда: <span id="clicksToNextVal">50</span> кликов</div>
+                <div style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Фастфуд:</div>
+                <div id="currentFoodName" style="font-size: 1.2rem; font-weight: 900; color: var(--primary-color);">🍕 Пицца</div>
+                <div style="font-size: 0.9rem;">Кликов: <span id="totalClicksVal" style="font-weight: bold; color: #fff;">0</span></div>
+                <div style="font-size: 0.8rem; color: #aaa;">До след: <span id="clicksToNextVal">50</span></div>
             </div>
-
             <button class="pizza-clicker-btn" onclick="feedClicker()" id="clickerIconBtn">🍕</button>
-
             <div class="shop-container">
                 <div class="shop-item">
                     <div>
-                        <div style="font-weight: 800; color: #fff;">⚡ Ускорить темп кликов (сила x1.7)</div>
-                        <div style="font-size: 0.8rem; color: #888;">Цена: <span id="costSpeedVal">100</span> кликов</div>
+                        <div style="font-weight: 800; font-size: 0.85rem;">⚡ Ускорить (x1.7)</div>
+                        <div style="font-size: 0.75rem; color: #888;">Цена: <span id="costSpeedVal">100</span></div>
                     </div>
                     <button class="shop-btn" id="buySpeedBtn" onclick="buyClickSpeedUpgrade()">Купить</button>
                 </div>
                 <div class="shop-item">
                     <div>
-                        <div style="font-weight: 800; color: #fff;">💪 Больше порций за раз (сила x1.7)</div>
-                        <div style="font-size: 0.8rem; color: #888;">Сила клика: <span id="clickPowerVal">1</span> | Цена: <span id="costPowerVal">100</span> кликов</div>
+                        <div style="font-weight: 800; font-size: 0.85rem;">💪 Сила (x1.7)</div>
+                        <div style="font-size: 0.75rem; color: #888;">Сила: <span id="clickPowerVal">1</span> | Цена: <span id="costPowerVal">100</span></div>
                     </div>
                     <button class="shop-btn" id="buyPowerBtn" onclick="buyClickPowerUpgrade()">Купить</button>
                 </div>
-                <div class="shop-item" id="secretUpgradeCard" style="border-color: #9c27b0;">
+                <div class="shop-item">
                     <div>
-                        <div style="font-weight: 800; color: #d1c4e9;">🌟 Секрет: WuiOleddO</div>
-                        <div style="font-size: 0.8rem; color: #b39b59;">Требуется 1 000 000 кликов</div>
+                        <div style="font-weight: 800; font-size: 0.85rem;">🌌 WuieeOledTO</div>
+                        <div style="font-size: 0.75rem; color: #888;">Цена: 1 000 000 кликов (+500 XP)</div>
                     </div>
-                    <button class="shop-btn" id="secretUpgradeBtn" onclick="buySecretUpgrade()" style="background: #9c27b0; color: #fff;" disabled>Закрыто</button>
+                    <button class="shop-btn" id="buyAch1Btn" onclick="buySpecialAchievement('ach_wuiee')">Купить</button>
+                </div>
+                <div class="shop-item">
+                    <div>
+                        <div style="font-weight: 800; font-size: 0.85rem;">🍫 Шоколадный пудинг</div>
+                        <div style="font-size: 0.75rem; color: #888;">Цена: 100 000 000 кликов (+1000 XP)</div>
+                    </div>
+                    <button class="shop-btn" id="buyAch2Btn" onclick="buySpecialAchievement('ach_pudding')">Купить</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Вкладка 2: Злопечатание -->
+    <div id="evilTypingTab" class="tab-content">
+        <div class="title">⌨️ ЗЛОПЕЧАТАНИЕ</div>
+        <div class="evil-typing-container">
+            <div style="font-size: 0.8rem; color: #aaa; margin-bottom: 8px;">Введите секретный код:</div>
+            <div id="evilScreen" class="evil-screen">_</div>
+            <div class="evil-keyboard">
+                <div class="evil-row">
+                    <button class="evil-key" onclick="typeEvilChar('1', this)">1</button><button class="evil-key" onclick="typeEvilChar('2', this)">2</button><button class="evil-key" onclick="typeEvilChar('3', this)">3</button><button class="evil-key" onclick="typeEvilChar('4', this)">4</button><button class="evil-key" onclick="typeEvilChar('5', this)">5</button><button class="evil-key" onclick="typeEvilChar('6', this)">6</button><button class="evil-key" onclick="typeEvilChar('7', this)">7</button><button class="evil-key" onclick="typeEvilChar('8', this)">8</button><button class="evil-key" onclick="typeEvilChar('9', this)">9</button><button class="evil-key" onclick="typeEvilChar('0', this)">0</button>
+                </div>
+                <div class="evil-row">
+                    <button class="evil-key" onclick="typeEvilChar('Й', this)">Й</button><button class="evil-key" onclick="typeEvilChar('Ц', this)">Ц</button><button class="evil-key" onclick="typeEvilChar('У', this)">У</button><button class="evil-key" onclick="typeEvilChar('К', this)">К</button><button class="evil-key" onclick="typeEvilChar('Е', this)">Е</button><button class="evil-key" onclick="typeEvilChar('Н', this)">Н</button><button class="evil-key" onclick="typeEvilChar('Г', this)">Г</button><button class="evil-key" onclick="typeEvilChar('Ш', this)">Ш</button><button class="evil-key" onclick="typeEvilChar('Щ', this)">Щ</button><button class="evil-key" onclick="typeEvilChar('З', this)">З</button><button class="evil-key" onclick="typeEvilChar('Х', this)">Х</button><button class="evil-key" onclick="typeEvilChar('Ъ', this)">Ъ</button>
+                </div>
+                <div class="evil-row">
+                    <button class="evil-key" onclick="typeEvilChar('Ф', this)">Ф</button><button class="evil-key" onclick="typeEvilChar('Ы', this)">Ы</button><button class="evil-key" onclick="typeEvilChar('В', this)">В</button><button class="evil-key" onclick="typeEvilChar('А', this)">А</button><button class="evil-key" onclick="typeEvilChar('П', this)">П</button><button class="evil-key" onclick="typeEvilChar('Р', this)">Р</button><button class="evil-key" onclick="typeEvilChar('О', this)">О</button><button class="evil-key" onclick="typeEvilChar('Л', this)">Л</button><button class="evil-key" onclick="typeEvilChar('Д', this)">Д</button><button class="evil-key" onclick="typeEvilChar('Ж', this)">Ж</button><button class="evil-key" onclick="typeEvilChar('Э', this)">Э</button>
+                </div>
+                <div class="evil-row">
+                    <button class="evil-key" onclick="typeEvilChar('Я', this)">Я</button><button class="evil-key" onclick="typeEvilChar('Ч', this)">Ч</button><button class="evil-key" onclick="typeEvilChar('С', this)">С</button><button class="evil-key" onclick="typeEvilChar('М', this)">М</button><button class="evil-key" onclick="typeEvilChar('И', this)">И</button><button class="evil-key" onclick="typeEvilChar('Т', this)">Т</button><button class="evil-key" onclick="typeEvilChar('Ь', this)">Ь</button><button class="evil-key" onclick="typeEvilChar('Б', this)">Б</button><button class="evil-key" onclick="typeEvilChar('Ю', this)">Ю</button>
+                </div>
+            </div>
+            <div class="evil-action-row">
+                <button class="shop-btn" onclick="clearEvilInput()" style="flex: 1; background: #333; color: #ff8888;">Очистить</button>
+                <button class="btn" onclick="submitEvilCode()" style="flex: 2; padding: 10px; font-size: 0.9rem;">🔍 Распознать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Вкладка 3: История -->
     <div id="historyTab" class="tab-content">
-        <div class="title">📜 ИСТОРИЯ БАТЛОВ</div>
+        <div class="title">📜 ИСТОРИЯ</div>
         <div id="historyListContainer" class="history-list"></div>
         <button class="clear-history-btn" onclick="clearHistory()">Очистить историю</button>
     </div>
 
-    <!-- Вкладка Достижений с категориями -->
+    <!-- Вкладка 4: Ачивки -->
     <div id="achievementsTab" class="tab-content">
-        <div class="title">🏆 ДОСТИЖЕНИЯ</div>
+        <div class="title">🏆 АЧИВКИ</div>
         <div class="ach-category-tabs">
             <button class="ach-cat-btn active" onclick="switchAchCategory('battle')" id="catBtnBattle">⚡ Боевые</button>
             <button class="ach-cat-btn" onclick="switchAchCategory('clicker')" id="catBtnClicker">🍕 Кликер</button>
+            <button class="ach-cat-btn" onclick="switchAchCategory('evil')" id="catBtnEvil">⌨️ Злопечать</button>
         </div>
         <div id="achievementsListContainer" class="achievements-grid"></div>
     </div>
 
+    <!-- Вкладка 5: Настройки -->
     <div id="settingsTab" class="tab-content">
-        <div class="title">⚙️ НАСТРОЙКИ</div>
-
-        <div style="margin-bottom: 20px;">
-            <h3 style="color: var(--primary-color); margin-bottom: 10px; font-size: 1.1rem;">🔊 Звук победы / появления</h3>
-            
-            <div class="setting-row">
-                <span class="setting-label">Загрузить свой звук:</span>
-                <label class="file-upload-btn">
-                    📁 Выбрать файл <input type="file" id="customSoundFile" accept="audio/*" onchange="handleCustomSoundUpload()">
-                </label>
-            </div>
-
-            <div class="setting-row">
-                <span class="setting-label">Ссылка на звук (URL):</span>
-                <input type="text" id="customSoundUrl" class="track-input" style="width: 200px; margin:0;" placeholder="https://..." oninput="handleCustomSoundUrl()">
-            </div>
-
-            <div class="setting-row">
-                <span class="setting-label">Громкость звука эффекта:</span>
-                <div class="setting-control">
-                    <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="1" oninput="updateVolume(this.value)">
-                    <span id="volumeVal">100%</span>
-                </div>
+        <div class="title" id="settingsLogoTitle">
+            <span class="logo-letters" onclick="clickSettingsLogoLetter('⚙', this)">⚙</span><span class="logo-letters" onclick="clickSettingsLogoLetter('н', this)">Н</span><span class="logo-letters" onclick="clickSettingsLogoLetter('а', this)">А</span><span class="logo-letters" onclick="clickSettingsLogoLetter('с', this)">С</span><span class="logo-letters" onclick="clickSettingsLogoLetter('т', this)">Т</span><span class="logo-letters" onclick="clickSettingsLogoLetter('р', this)">Р</span><span class="logo-letters" onclick="clickSettingsLogoLetter('о', this)">О</span><span class="logo-letters" onclick="clickSettingsLogoLetter('й', this)">Й</span><span class="logo-letters" onclick="clickSettingsLogoLetter('к', this)">К</span><span class="logo-letters" onclick="clickSettingsLogoLetter('и', this)">И</span>
+        </div>
+        <div class="setting-row">
+            <span>Режим вкладок:</span>
+            <select id="navModeSelect" onchange="saveAndApplySettings()">
+                <option value="neighbors">Соседи (свайпы)</option>
+                <option value="classic">Как раньше (все вкладки)</option>
+            </select>
+        </div>
+        <div class="setting-row">
+            <span>Авто-скип анимации батла:</span>
+            <select id="autoSkipSelect" onchange="saveAndApplySettings()">
+                <option value="off">Выключен (показывать анимацию)</option>
+                <option value="on">Включен (сразу результаты)</option>
+            </select>
+        </div>
+        <div class="setting-row">
+            <span>Громкость:</span>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="1" oninput="updateVolume(this.value)">
+                <span id="volumeVal" style="font-size:0.8rem;">100%</span>
             </div>
         </div>
-
-        <div>
-            <h3 style="color: var(--primary-color); margin-bottom: 10px; font-size: 1.1rem;">🎨 Цветовая схема</h3>
-
-            <div class="setting-row">
-                <span class="setting-label">Основной акцент:</span>
-                <input type="color" id="primaryColorPicker" value="#ffbb00" oninput="saveAndApplySettings()">
-            </div>
-
-            <div class="setting-row">
-                <span class="setting-label">Второй цвет градиента:</span>
-                <input type="color" id="secondaryColorPicker" value="#ff5500" oninput="saveAndApplySettings()">
-            </div>
-
-            <div class="setting-row">
-                <span class="setting-label">Цвет фоновых карточек:</span>
-                <input type="color" id="cardBgPicker" value="#111111" oninput="saveAndApplySettings()">
-            </div>
-
-            <div class="setting-row">
-                <span class="setting-label">Яркость/Сила свечения (Glow):</span>
-                <div class="setting-control">
-                    <input type="range" id="glowSlider" min="10" max="100" value="50" oninput="saveAndApplySettings()">
-                    <span id="glowVal">50px</span>
-                </div>
-            </div>
+        <div class="setting-row">
+            <span>Свой звук:</span>
+            <label class="file-upload-btn">📁 Файл <input type="file" id="customSoundFile" accept="audio/*" onchange="handleCustomSoundUpload()"></label>
         </div>
-
+        <div class="setting-row">
+            <span>Основной акцент:</span>
+            <input type="color" id="primaryColorPicker" value="#ffbb00" oninput="saveAndApplySettings()">
+        </div>
+        <div class="setting-row">
+            <span>Второй цвет:</span>
+            <input type="color" id="secondaryColorPicker" value="#ff5500" oninput="saveAndApplySettings()">
+        </div>
+        <div class="setting-row">
+            <span>Фон карточек:</span>
+            <input type="color" id="cardBgPicker" value="#111111" oninput="saveAndApplySettings()">
+        </div>
+        <div class="setting-row">
+            <span>Статистика игрока:</span>
+            <button class="shop-btn" onclick="openStatsModal()" style="background:#2196f3; color:#fff;">📊 Посмотреть</button>
+        </div>
+        <div class="setting-row">
+            <span>Хайпометр:</span>
+            <button class="shop-btn" onclick="triggerHypeMeter()" style="background:#9c27b0; color:#fff;">⚡ Кликнуть</button>
+        </div>
+        <div class="setting-row">
+            <span>Хайпостопер:</span>
+            <button class="shop-btn" onclick="triggerHypeStopper()">🛡️ Сбросить</button>
+        </div>
         <button class="reset-settings-btn" onclick="resetSettings()">Сбросить настройки</button>
     </div>
 </div>
@@ -889,19 +746,31 @@
     let customVictorySound = null;
     let currentAudio = null;
     let customVolume = 1.0;
+    let battleTimeoutId = null;
+
+    let currentTabIndex = 0;
+    let availableTabIndices = [0, 1, 3, 4, 5];
+    let navMode = 'neighbors';
+    let autoSkipEnabled = false;
+    let hypeMeterClicks = 0;
+    let totalPlaySeconds = 0;
 
     const sessionSalt = Math.random().toString();
-
     let achievementsData = [
-        { id: 'first_battle', category: 'battle', title: 'Пошло поехало', desc: 'Запустите свой первый аура батл', xp: 100, rarity: 'common', unlocked: false, icon: '🚀' },
-        { id: 'easter_egg', category: 'battle', title: 'Паzzхалко', desc: 'Отыщите секретную пасхалку на логотипе', xp: 250, rarity: 'epic', unlocked: false, icon: '🦷' },
-        { id: 'negative_aura', category: 'battle', title: 'Айй карамба', desc: 'Аура одного из участников ушла в минус', xp: 250, rarity: 'rare', unlocked: false, icon: '📉' },
-        { id: 'president_ref', category: 'battle', title: 'А да нуу нафиг', desc: 'В аура батле был упомянут президент страны', xp: 500, rarity: 'legendary', unlocked: false, icon: '👔' },
-        { id: 'bruno_ref', category: 'battle', title: 'Не упоминай бруно....', desc: 'Вы совершили главную ошибку, но деньги любят вас', xp: 500, rarity: 'legendary', unlocked: false, icon: '🤫' },
-        { id: 'grozny_shampur', category: 'battle', title: 'Вы разгневали аллаха', desc: 'Связано как-то с Грозным и голубым шампуром', xp: 1000, rarity: 'mythic', unlocked: false, icon: '🔥' },
-        { id: 'rebirth_hit_1', category: 'battle', title: 'Невъебический реееп батл', desc: 'Сегодня [...] против [...]', xp: 500, rarity: 'legendary', unlocked: false, icon: '⚔️', requiresRebirth: 1 },
-        { id: 'rebirth_hit_2', category: 'battle', title: 'Блиин братааан', desc: 'Аура ушла в минус 30 лямов и больше', xp: 250, rarity: 'rare', unlocked: false, icon: '💀', requiresRebirth: 1 },
-        { id: 'rebirth_hit_3', category: 'battle', title: 'Эй чё слушаешь?', desc: 'Упомянута хайповая песенка', xp: 1000, rarity: 'mythic', unlocked: false, icon: '🥚', requiresRebirth: 1 },
+        { id: 'first_battle', category: 'battle', title: 'Пошло поехало', desc: 'Запустите свой первый эпический аура-батл', xp: 100, rarity: 'common', unlocked: false, icon: '🚀' },
+        { id: 'easter_egg', category: 'battle', title: 'Паzzхалко', desc: 'Отыщите скрытую пасхалку на священном логотипе', xp: 250, rarity: 'epic', unlocked: false, icon: '🦷' },
+        { id: 'negative_aura', category: 'battle', title: 'Айй карамба', desc: 'Аура одного из участников пробила дно и ушла в минус', xp: 250, rarity: 'rare', unlocked: false, icon: '📉' },
+        { id: 'president_ref', category: 'battle', title: 'а да нуу нафиг', desc: 'упомянут владыка, или один из....', xp: 500, rarity: 'legendary', unlocked: false, icon: '👔' },
+        { id: 'grozny_shampur', category: 'battle', title: 'вы разгневали аллаха', desc: 'вы упомянули достопримечательности Голубого Шампура, и представителей Чечни', xp: 1000, rarity: 'mythic', unlocked: false, icon: '🔥' },
+        { id: 'bruno_ref', category: 'battle', title: 'не упоминай бруно', desc: 'всем привет это я', xp: 500, rarity: 'legendary', unlocked: false, icon: '🤫' },
+        
+        { id: 'hype_builder', category: 'battle', title: 'я на стройке', desc: 'Нажмите кнопку хайпометр 10 раз в настройках', xp: 250, rarity: 'epic', unlocked: false, icon: '🏗️' },
+        
+        /* Перерожденческие секретные ачивки (скрыты условия) */
+        { id: 'rebirth_secret_chicken', category: 'battle', title: 'звонят но я не отвечу', desc: 'Секретная боевая ачивка', xp: 1500, rarity: 'mythic', unlocked: false, icon: '🥚', requiresRebirth: 1 },
+        { id: 'rebirth_secret_hitler', category: 'battle', title: 'невьъебический реееп батл', desc: 'Секретная боевая ачивка', xp: 1500, rarity: 'mythic', unlocked: false, icon: '📜', requiresRebirth: 1 },
+        { id: 'rebirth_secret_piano', category: 'battle', title: 'зимой и летом одним цветом', desc: 'Секретная боевая ачивка', xp: 1500, rarity: 'mythic', unlocked: false, icon: '🎹', requiresRebirth: 1 },
+        { id: 'shalunishka', category: 'battle', title: 'шалунишка', desc: 'Секретная пасхалка в настройках', xp: 500, rarity: 'epic', unlocked: false, icon: '😜', requiresRebirth: 2 },
 
         { id: 'food_1', category: 'clicker', title: 'Первый перекус', desc: 'Достигли фастфуда: Хот-дог', xp: 50, rarity: 'common', unlocked: false, icon: '🌭' },
         { id: 'food_2', category: 'clicker', title: 'Уже теплее', desc: 'Достигли фастфуда: Шаурма', xp: 100, rarity: 'common', unlocked: false, icon: '🌯' },
@@ -910,90 +779,48 @@
         { id: 'food_5', category: 'clicker', title: 'Гурман калорий', desc: 'Достигли фастфуда: Двойной чизбургер', xp: 350, rarity: 'epic', unlocked: false, icon: '🍔' },
         { id: 'food_6', category: 'clicker', title: 'Повелитель жира', desc: 'Достигли фастфуда: Мега-сет с наггетсами', xp: 500, rarity: 'epic', unlocked: false, icon: '🍗' },
         { id: 'food_7', category: 'clicker', title: 'Пищевой титан', desc: 'Достигли фастфуда: Самый блатной бургер', xp: 1000, rarity: 'legendary', unlocked: false, icon: '👑' },
-        { id: 'secret_clicker_beast', category: 'clicker', title: 'Тяжелый противник буквально', desc: 'Вы нашли зверя во плоти', xp: 1500, rarity: 'mythic', unlocked: false, icon: '👹' }
+
+        /* Покупные кликер-ачивки */
+        { id: 'ach_wuiee', category: 'clicker', title: 'WuieeOledTO', desc: 'самый огромный объект в галактике', xp: 500, rarity: 'legendary', unlocked: false, icon: '🌌' },
+        { id: 'ach_pudding', category: 'clicker', title: 'Шоколадный пудинг', desc: 'это был не шоколадный пуддинг?((', xp: 1000, rarity: 'mythic', unlocked: false, icon: '🍫' },
+
+        /* Злопечатание */
+        { id: 'evil_secret_1', category: 'evil', title: 'не прокатит', desc: 'Добыт секретный цифровой артефакт', xp: 500, rarity: 'legendary', unlocked: false, icon: '👑' },
+        { id: 'evil_secret_2', category: 'evil', title: 'пасхкалко пасхалко 2.0', desc: 'Взломана система секретного ввода', xp: 500, rarity: 'legendary', unlocked: false, icon: '🔢' }
     ];
+
+    const levelTitles = {
+        1: "новичок в ходьбе",
+        2: "на пол шишечки блатной",
+        3: "блатной",
+        4: "царь во дворца",
+        5: "начальник пивного завода",
+        6: "король космо-хаты",
+        7: "галактический пахан",
+        8: "император межгалактического кипиша",
+        9: "верховный авторитет вселенной",
+        10: "владыка космического трона"
+    };
 
     let currentAchCategory = 'battle';
-
-    let totalClicks = 0;
-    let clickPower = 1;
-    let currentFoodIndex = 0;
-    let nextFoodRequirement = 50;
-
-    let costSpeed = 100;
-    let costPower = 100;
-
+    let totalClicks = 0, clickPower = 1, currentFoodIndex = 0, nextFoodRequirement = 50, costSpeed = 100, costPower = 100, currentEvilInput = '';
     const foodStages = [
-        { name: '🍕 Пицца', icon: '🍕' },
-        { name: '🌭 Хот-дог', icon: '🌭' },
-        { name: '🌯 Шаурма', icon: '🌯' },
-        { name: '🍟 Картошка фри', icon: '🍟' },
-        { name: '🥤 Большая кола', icon: '🥤' },
-        { name: '🍔 Двойной чизбургер', icon: '🍔' },
-        { name: '🍗 Мега-сет с наггетсами', icon: '🍗' },
-        { name: '👑 Самый блатной бургер', icon: '👑' }
+        { name: '🍕 Пицца', icon: '🍕' }, { name: '🌭 Хот-дог', icon: '🌭' }, { name: '🌯 Шаурма', icon: '🌯' },
+        { name: '🍟 Картошка фри', icon: '🍟' }, { name: '🥤 Большая кола', icon: '🥤' }, { name: '🍔 Двойной чизбургер', icon: '🍔' },
+        { name: '🍗 Мега-сет с наггетсами', icon: '🍗' }, { name: '👑 Самый блатной бургер', icon: '👑' }
     ];
+    let userXP = 0, rebirthCount = 0;
+    
+    // Пасхалка на логотипе батла: а у р а (наоборот)
+    const secretTargetBattle = ['л', 'т', 'а', 'б', 'а', 'у', 'р', 'а'];
+    let secretProgressBattle = [];
 
-    let userXP = 0;
-    let rebirthCount = 0;
+    // Пасхалка в настройках для второго перерождения: а у р а (наоборот)
+    const secretTargetSettings = ['а', 'р', 'у', 'а'];
+    let secretProgressSettings = [];
 
-    const secretTarget = ['л', 'т', 'а', 'б', 'а', 'у', 'р', 'а'];
-    let secretProgress = [];
-    let activeLetterIndices = [];
-
-    function globalReset() {
-        if (confirm('Внимание! Вы действительно хотите полностью начать всё с начала? Весь прогресс, перерождения, кликер и достижения будут стерты.')) {
-            localStorage.clear();
-            location.reload();
-        }
-    }
-
-    function clickLogoLetter(letter, index) {
-        let expectedLetter = secretTarget[secretProgress.length];
-
-        if (letter.toLowerCase() === expectedLetter) {
-            secretProgress.push(letter.toLowerCase());
-            activeLetterIndices.push(index);
-
-            const el = document.getElementById(`let-${index}`);
-            if (el) el.classList.add('active-hit');
-
-            setTimeout(() => {
-                if (el) el.classList.remove('active-hit');
-            }, 300);
-
-            if (secretProgress.length === secretTarget.length) {
-                playEasterEggSound();
-                document.getElementById('easterEggBtnContainer').style.display = 'block';
-                secretProgress = [];
-                activeLetterIndices = [];
-            }
-        } else {
-            secretProgress = [];
-            activeLetterIndices = [];
-        }
-    }
-
-    function playEasterEggSound() {
-        try {
-            if (customVictorySound) {
-                const s = new Audio(customVictorySound);
-                s.volume = customVolume;
-                s.play().catch(() => playSyntheticEpicMusic());
-            } else {
-                playSyntheticEpicMusic();
-            }
-        } catch(e) {
-            playSyntheticEpicMusic();
-        }
-    }
-
-    function claimEasterEgg() {
-        playEasterEggSound();
-        unlockAchievement('easter_egg');
-        document.getElementById('easterEggBtnContainer').style.display = 'none';
-        alert('🔥 Пасхалка найдена! Получено достижение «Паzzхалко» (+250 XP)!');
-    }
+    let touchStartX = 0, touchEndX = 0;
+    let isMouseDown = false, mouseStartX = 0;
 
     window.addEventListener('DOMContentLoaded', () => {
         loadSettings();
@@ -1002,57 +829,163 @@
         loadAchievements();
         updateXPUI();
         updateClickerUI();
+        checkEvilUnlock();
+        switchTab(0);
+
+        setInterval(() => {
+            totalPlaySeconds++;
+            localStorage.setItem('aura_play_seconds', totalPlaySeconds);
+        }, 1000);
+
+        const savedSeconds = localStorage.getItem('aura_play_seconds');
+        if (savedSeconds) totalPlaySeconds = parseInt(savedSeconds, 10);
+
+        const container = document.getElementById('mainContainer');
+        container.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        container.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, {passive: true});
+
+        container.addEventListener('mousedown', e => {
+            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+            isMouseDown = true;
+            mouseStartX = e.clientX;
+        });
+        window.addEventListener('mouseup', e => {
+            if (!isMouseDown) return;
+            isMouseDown = false;
+            let diff = e.clientX - mouseStartX;
+            if (Math.abs(diff) > 50) navigateTab(diff > 0 ? -1 : 1);
+        });
     });
 
-    function switchTab(tabName) {
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+    function handleSwipe() {
+        let diff = touchEndX - touchStartX;
+        if (Math.abs(diff) > 50) navigateTab(diff > 0 ? -1 : 1);
+    }
 
-        if (tabName === 'battle') {
-            document.querySelectorAll('.tab-btn')[0].classList.add('active');
-            document.getElementById('battleTab').classList.add('active');
-        } else if (tabName === 'clicker') {
-            document.querySelectorAll('.tab-btn')[1].classList.add('active');
-            document.getElementById('clickerTab').classList.add('active');
-        } else if (tabName === 'history') {
-            document.querySelectorAll('.tab-btn')[2].classList.add('active');
-            document.getElementById('historyTab').classList.add('active');
-            renderHistory();
-        } else if (tabName === 'achievements') {
-            document.querySelectorAll('.tab-btn')[3].classList.add('active');
-            document.getElementById('achievementsTab').classList.add('active');
-            renderAchievements();
+    function navigateTab(direction) {
+        let currIdx = availableTabIndices.indexOf(currentTabIndex);
+        if (currIdx === -1) currIdx = 0;
+        let nextIdx = currIdx + direction;
+        if (nextIdx >= availableTabIndices.length) nextIdx = 0;
+        if (nextIdx < 0) nextIdx = availableTabIndices.length - 1;
+        switchTab(availableTabIndices[nextIdx]);
+    }
+
+    function switchTab(tabIndex) {
+        currentTabIndex = tabIndex;
+        const tabIds = ['battleTab', 'clickerTab', 'evilTypingTab', 'historyTab', 'achievementsTab', 'settingsTab'];
+
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(tabIds[tabIndex]).classList.add('active');
+
+        if (navMode === 'neighbors') {
+            let currPos = availableTabIndices.indexOf(tabIndex);
+            let prevPos = (currPos - 1 + availableTabIndices.length) % availableTabIndices.length;
+            let nextPos = (currPos + 1) % availableTabIndices.length;
+            let prevTabIdx = availableTabIndices[prevPos];
+            let nextTabIdx = availableTabIndices[nextPos];
+
+            for (let i = 0; i <= 5; i++) {
+                let btn = document.getElementById(`btnTab${i}`);
+                if (btn) {
+                    if (i === prevTabIdx || i === nextTabIdx) {
+                        btn.style.display = 'block';
+                        btn.classList.remove('active');
+                        if (i === prevTabIdx) btn.innerText = `◀ ${getTabNameWithEmoji(i)}`;
+                        if (i === nextTabIdx) btn.innerText = `${getTabNameWithEmoji(i)} ▶`;
+                    } else {
+                        btn.style.display = 'none';
+                    }
+                }
+            }
         } else {
-            document.querySelectorAll('.tab-btn')[4].classList.add('active');
-            document.getElementById('settingsTab').classList.add('active');
+            for (let i = 0; i <= 5; i++) {
+                let btn = document.getElementById(`btnTab${i}`);
+                if (btn) {
+                    if (availableTabIndices.includes(i)) {
+                        btn.style.display = 'block';
+                        btn.innerText = getTabNameWithEmoji(i);
+                        btn.classList.toggle('active', i === tabIndex);
+                    } else {
+                        btn.style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        if (tabIndex === 3) renderHistory();
+        if (tabIndex === 4) renderAchievements();
+    }
+
+    function getTabNameWithEmoji(idx) {
+        const names = ['⚡ Батл', '🍕 Масса', '⌨️ Злопечать', '📜 История', '🏆 Ачивки', '⚙️ Настройки'];
+        return names[idx] || '';
+    }
+
+    function checkEvilUnlock() {
+        const unlockedCount = achievementsData.filter(a => a.unlocked).length;
+        let level = Math.floor(userXP / 500) + 1;
+        if (unlockedCount >= 3 && level >= 3) {
+            if (!availableTabIndices.includes(2)) availableTabIndices = [0, 1, 2, 3, 4, 5];
+        } else {
+            availableTabIndices = [0, 1, 3, 4, 5];
         }
     }
 
-    function switchAchCategory(cat) {
-        currentAchCategory = cat;
-        document.getElementById('catBtnBattle').classList.toggle('active', cat === 'battle');
-        document.getElementById('catBtnClicker').classList.toggle('active', cat === 'clicker');
-        renderAchievements();
+    function globalReset() {
+        if (confirm('Сбросить весь прогресс?')) { localStorage.clear(); location.reload(); }
+    }
+
+    function clickBattleLogoLetter(letter, element) {
+        element.classList.add('active-hit');
+        setTimeout(() => element.classList.remove('active-hit'), 150);
+
+        let expectedLetter = secretTargetBattle[secretProgressBattle.length];
+        if (letter.toLowerCase() === expectedLetter) {
+            secretProgressBattle.push(letter.toLowerCase());
+            if (secretProgressBattle.length === secretTargetBattle.length) {
+                playEasterEggSound();
+                document.getElementById('easterEggBtnContainer').style.display = 'block';
+                unlockAchievement('easter_egg');
+                secretProgressBattle = [];
+            }
+        } else { secretProgressBattle = []; }
+    }
+
+    function clickSettingsLogoLetter(letter, element) {
+        element.classList.add('active-hit');
+        setTimeout(() => element.classList.remove('active-hit'), 150);
+
+        let expectedLetter = secretTargetSettings[secretProgressSettings.length];
+        if (letter.toLowerCase() === expectedLetter) {
+            secretProgressSettings.push(letter.toLowerCase());
+            if (secretProgressSettings.length === secretTargetSettings.length) {
+                playEasterEggSound();
+                if (rebirthCount >= 2) {
+                    unlockAchievement('shalunishka');
+                } else {
+                    alert('🔒 Секрет заблокирован! Требуется 2-е перерождение.');
+                }
+                secretProgressSettings = [];
+            }
+        } else { secretProgressSettings = []; }
+    }
+
+    function playEasterEggSound() {
+        try { new Audio(customVictorySound || '').play().catch(() => playSyntheticEpicMusic()); } catch(e) { playSyntheticEpicMusic(); }
+    }
+
+    function claimEasterEgg() {
+        playEasterEggSound();
+        unlockAchievement('easter_egg');
+        document.getElementById('easterEggBtnContainer').style.display = 'none';
     }
 
     function loadClickerData() {
-        const savedClicks = localStorage.getItem('aura_total_clicks');
-        if (savedClicks) totalClicks = parseInt(savedClicks, 10);
-
-        const savedPower = localStorage.getItem('aura_click_power');
-        if (savedPower) clickPower = parseFloat(savedPower);
-
-        const savedFoodIdx = localStorage.getItem('aura_food_index');
-        if (savedFoodIdx) currentFoodIndex = parseInt(savedFoodIdx, 10);
-
-        const savedReq = localStorage.getItem('aura_next_req');
-        if (savedReq) nextFoodRequirement = parseInt(savedReq, 10);
-
-        const savedCostSpeed = localStorage.getItem('aura_cost_speed');
-        if (savedCostSpeed) costSpeed = parseInt(savedCostSpeed, 10);
-
-        const savedCostPower = localStorage.getItem('aura_cost_power');
-        if (savedCostPower) costPower = parseInt(savedCostPower, 10);
+        if (localStorage.getItem('aura_total_clicks')) totalClicks = parseInt(localStorage.getItem('aura_total_clicks'), 10);
+        if (localStorage.getItem('aura_click_power')) clickPower = parseFloat(localStorage.getItem('aura_click_power'));
+        if (localStorage.getItem('aura_food_index')) currentFoodIndex = parseInt(localStorage.getItem('aura_food_index'), 10);
+        if (localStorage.getItem('aura_next_req')) nextFoodRequirement = parseInt(localStorage.getItem('aura_next_req'), 10);
     }
 
     function saveClickerData() {
@@ -1060,157 +993,221 @@
         localStorage.setItem('aura_click_power', clickPower);
         localStorage.setItem('aura_food_index', currentFoodIndex);
         localStorage.setItem('aura_next_req', nextFoodRequirement);
-        localStorage.setItem('aura_cost_speed', costSpeed);
-        localStorage.setItem('aura_cost_power', costPower);
-    }
-
-    function resetClickerData() {
-        totalClicks = 0;
-        clickPower = 1;
-        currentFoodIndex = 0;
-        let difficultyMultiplier = Math.pow(1.5, rebirthCount);
-        nextFoodRequirement = Math.round(50 * difficultyMultiplier);
-        costSpeed = 100;
-        costPower = 100;
-        saveClickerData();
     }
 
     function feedClicker() {
         totalClicks += clickPower;
-
         if (totalClicks >= nextFoodRequirement && currentFoodIndex < foodStages.length - 1) {
             currentFoodIndex++;
-            let difficultyMultiplier = Math.pow(1.5, rebirthCount);
-            nextFoodRequirement = Math.round(nextFoodRequirement * 1.5 * difficultyMultiplier);
+            nextFoodRequirement = Math.round(nextFoodRequirement * 1.5);
             if (currentFoodIndex >= 1) unlockAchievement(`food_${currentFoodIndex}`);
         }
-
         saveClickerData();
         updateClickerUI();
     }
 
     function updateClickerUI() {
-        document.getElementById('totalClicksVal').innerText = formatNum(totalClicks);
+        document.getElementById('totalClicksVal').innerText = totalClicks.toLocaleString('ru-RU');
         document.getElementById('currentFoodName').innerText = foodStages[currentFoodIndex].name;
         document.getElementById('clickerIconBtn').innerText = foodStages[currentFoodIndex].icon;
-        document.getElementById('clickPowerVal').innerText = Number.isInteger(clickPower) ? clickPower : clickPower.toFixed(1);
-
-        document.getElementById('costSpeedVal').innerText = formatNum(costSpeed);
-        document.getElementById('costPowerVal').innerText = formatNum(costPower);
-
+        document.getElementById('clickPowerVal').innerText = clickPower.toFixed(1);
+        document.getElementById('costSpeedVal').innerText = costSpeed;
+        document.getElementById('costPowerVal').innerText = costPower;
         document.getElementById('buySpeedBtn').disabled = totalClicks < costSpeed;
         document.getElementById('buyPowerBtn').disabled = totalClicks < costPower;
 
-        let leftClicks = Math.max(0, nextFoodRequirement - totalClicks);
-        if (currentFoodIndex >= foodStages.length - 1) {
-            document.getElementById('clicksToNextVal').innerText = 'Максимум достигнут! 👑';
-        } else {
-            document.getElementById('clicksToNextVal').innerText = formatNum(leftClicks);
-        }
+        let ach1 = achievementsData.find(a => a.id === 'ach_wuiee');
+        let ach2 = achievementsData.find(a => a.id === 'ach_pudding');
 
-        const secretBtn = document.getElementById('secretUpgradeBtn');
-        if (totalClicks >= 1000000) {
-            secretBtn.disabled = false;
-            secretBtn.innerText = 'Купить';
-        } else {
-            secretBtn.disabled = true;
-            secretBtn.innerText = 'Закрыто';
-        }
+        let btn1 = document.getElementById('buyAch1Btn');
+        let btn2 = document.getElementById('buyAch2Btn');
+
+        if (ach1 && ach1.unlocked) { btn1.innerText = 'Куплено'; btn1.disabled = true; }
+        else { btn1.innerText = 'Купить'; btn1.disabled = totalClicks < 1000000; }
+
+        if (ach2 && ach2.unlocked) { btn2.innerText = 'Куплено'; btn2.disabled = true; }
+        else { btn2.innerText = 'Купить'; btn2.disabled = totalClicks < 100000000; }
+
+        let left = Math.max(0, nextFoodRequirement - totalClicks);
+        document.getElementById('clicksToNextVal').innerText = currentFoodIndex >= foodStages.length - 1 ? 'Максимум 👑' : left.toLocaleString('ru-RU');
     }
 
     function buyClickSpeedUpgrade() {
-        if (totalClicks >= costSpeed) {
-            totalClicks -= costSpeed;
-            clickPower *= 1.7;
-            costSpeed = Math.round(costSpeed * 1.4);
-            saveClickerData();
-            updateClickerUI();
-        }
+        if (totalClicks >= costSpeed) { totalClicks -= costSpeed; clickPower *= 1.7; costSpeed = Math.round(costSpeed * 1.4); saveClickerData(); updateClickerUI(); }
     }
-
     function buyClickPowerUpgrade() {
-        if (totalClicks >= costPower) {
-            totalClicks -= costPower;
-            clickPower *= 1.7;
-            costPower = Math.round(costPower * 1.4);
+        if (totalClicks >= costPower) { totalClicks -= costPower; clickPower *= 1.7; costPower = Math.round(costPower * 1.4); saveClickerData(); updateClickerUI(); }
+    }
+
+    function buySpecialAchievement(id) {
+        let cost = id === 'ach_wuiee' ? 1000000 : 100000000;
+        if (totalClicks >= cost) {
+            totalClicks -= cost;
             saveClickerData();
+            unlockAchievement(id);
             updateClickerUI();
         }
     }
 
-    function buySecretUpgrade() {
-        if (totalClicks >= 1000000) {
-            unlockAchievement('secret_clicker_beast');
-            alert('👹 Секретная покупка WuiOleddO совершена! Получена легендарная ачивка «Тяжелый противник буквально» (+1500 XP)!');
-            const secretBtn = document.getElementById('secretUpgradeBtn');
-            secretBtn.innerText = 'Куплено';
-            secretBtn.disabled = true;
-        }
+    function playClickSound() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.frequency.setValueAtTime(400, ctx.currentTime);
+            g.gain.setValueAtTime(0.1 * customVolume, ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+            osc.connect(g); g.connect(ctx.destination);
+            osc.start(); osc.stop(ctx.currentTime + 0.05);
+        } catch(e){}
     }
 
-    function loadRebirthData() {
-        const savedRebirth = localStorage.getItem('aura_rebirth');
-        if (savedRebirth) {
-            rebirthCount = parseInt(savedRebirth, 10);
-        }
+    function typeEvilChar(char, btn) {
+        playClickSound();
+        currentEvilInput += char;
+        document.getElementById('evilScreen').innerText = currentEvilInput;
+        btn.classList.add('active-key-glow');
+        setTimeout(() => btn.classList.remove('active-key-glow'), 150);
     }
 
+    function clearEvilInput() {
+        playClickSound();
+        currentEvilInput = '';
+        document.getElementById('evilScreen').innerText = '_';
+    }
+
+    function submitEvilCode() {
+        playClickSound();
+        let code = currentEvilInput.trim().toLowerCase();
+        if (['князь', 'царь', 'господин', 'аллександр'].includes(code)) {
+            unlockAchievement('evil_secret_1'); alert('🔥 Код принят (+500 XP)!');
+        } else if (['67', '1488', '52', '42', '69'].includes(code)) {
+            unlockAchievement('evil_secret_2'); alert('🔥 Код принят (+500 XP)!');
+        } else { alert('Неверный код!'); }
+        clearEvilInput();
+    }
+
+    function triggerHypeMeter() {
+        playClickSound();
+        let ach = achievementsData.find(a => a.id === 'hype_builder');
+        if (!ach || !ach.unlocked) {
+            hypeMeterClicks++;
+            if (hypeMeterClicks >= 10) {
+                unlockAchievement('hype_builder');
+                hypeMeterClicks = 0;
+            }
+        }
+
+        const randomColor1 = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+        const randomColor2 = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+        const randomBg = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+
+        document.getElementById('primaryColorPicker').value = randomColor1;
+        document.getElementById('secondaryColorPicker').value = randomColor2;
+        document.getElementById('cardBgPicker').value = randomBg;
+        saveAndApplySettings();
+    }
+
+    function triggerHypeStopper() {
+        playClickSound();
+        document.getElementById('primaryColorPicker').value = '#ffbb00';
+        document.getElementById('secondaryColorPicker').value = '#ff5500';
+        document.getElementById('cardBgPicker').value = '#111111';
+        hypeMeterClicks = 0;
+        saveAndApplySettings();
+        alert('🛡️ Интерфейс восстановлен!');
+    }
+
+    function loadRebirthData() { 
+        if (localStorage.getItem('aura_rebirth')) rebirthCount = parseInt(localStorage.getItem('aura_rebirth'), 10); 
+    }
+    
     function triggerRebirth() {
-        if (rebirthCount >= 2) {
-            alert('Достигнут максимальный уровень перерождений!');
+        let level = Math.floor(userXP / 500) + 1;
+        if (level < 10) {
+            alert('Для перерождения нужно достичь 10 уровня!');
             return;
         }
+        if (rebirthCount >= 2) {
+            alert('Достигнут максимальный уровень перерождения!');
+            return;
+        }
+        rebirthCount++; 
+        localStorage.setItem('aura_rebirth', rebirthCount);
+        userXP = 0; 
+        localStorage.removeItem('aura_achievements');
+        achievementsData.forEach(a => a.unlocked = false);
+        
+        let history = JSON.parse(localStorage.getItem('aura_history') || '[]');
+        let allText = history.map(item => (item.t1 + " " + item.t2).toLowerCase()).join(" ");
 
-        if (confirm('Вы уверены, что хотите совершить перерождение? Все достижения, опыт и прогресс кликера обнулятся, а кликер станет в 1.5 раза сложнее!')) {
-            rebirthCount++;
-            localStorage.setItem('aura_rebirth', rebirthCount);
-            
-            userXP = 0;
-            localStorage.removeItem('aura_achievements');
-            achievementsData.forEach(ach => ach.unlocked = false);
+        if (allText.includes('яйца') || allText.includes('куриц')) {
+            unlockAchievement('rebirth_secret_chicken');
+        }
+        if (allText.includes('гитлер') || allText.includes('адольф') || allText.includes('чмошник')) {
+            unlockAchievement('rebirth_secret_hitler');
+        }
+        if (allText.includes('рояль')) {
+            unlockAchievement('rebirth_secret_piano');
+        }
 
-            resetClickerData();
-            updateXPUI();
-            updateClickerUI();
-            renderAchievements();
-            alert(`🎉 Перерождение успешно! Множитель ауры: x${(1 + rebirthCount * 0.2).toFixed(1)}, сложность кликера увеличена.`);
+        updateXPUI(); 
+        updateClickerUI(); 
+        renderAchievements();
+        checkRebirthAvailability();
+        alert(`⚡ Перерождение «Снова дом» #${rebirthCount} выполнено! Сложность кликера повышена в 1.6 раза, множитель ауры стал x1.2.`);
+    }
+
+    function checkRebirthAvailability() {
+        let level = Math.floor(userXP / 500) + 1;
+        const rebirthBtn = document.getElementById('rebirthBtn');
+        const rebirthCounterDisplay = document.getElementById('rebirthCounterDisplay');
+        if (rebirthCounterDisplay) {
+            rebirthCounterDisplay.style.display = 'block';
+            document.getElementById('rebirthCount').innerText = rebirthCount;
+        }
+        if (rebirthBtn) {
+            if (level >= 10 && rebirthCount < 2) {
+                rebirthBtn.style.display = 'inline-block';
+            } else {
+                rebirthBtn.style.display = 'none';
+            }
         }
     }
 
-    function handleFileUpload(trackNum) {
-        const fileInput = document.getElementById(`file${trackNum}`);
-        const textInput = document.getElementById(`track${trackNum}`);
-        
-        if (fileInput.files && fileInput.files[0]) {
-            const file = fileInput.files[0];
-            textInput.value = file.name.replace(/\.[^/.]+$/, "");
-            audioFiles[trackNum] = URL.createObjectURL(file);
-        }
+    function openStatsModal() {
+        playClickSound();
+        let history = JSON.parse(localStorage.getItem('aura_history') || '[]');
+        let mins = Math.floor(totalPlaySeconds / 60);
+        document.getElementById('statPlayTime').innerText = mins + ' мин.';
+        document.getElementById('statTotalBattles').innerText = history.length;
+        document.getElementById('statTotalClicks').innerText = totalClicks.toLocaleString('ru-RU');
+        document.getElementById('statRebirths').innerText = rebirthCount;
+        document.getElementById('statsModalOverlay').classList.add('active');
+    }
+
+    function closeStatsModal() {
+        document.getElementById('statsModalOverlay').classList.remove('active');
+    }
+
+    function handleFileUpload(n) {
+        const f = document.getElementById(`file${n}`).files[0];
+        if (f) document.getElementById(`track${n}`).value = f.name.replace(/\.[^/.]+$/, "");
     }
 
     function handleCustomSoundUpload() {
-        const fileInput = document.getElementById('customSoundFile');
-        if (fileInput.files && fileInput.files[0]) {
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                customVictorySound = e.target.result;
-                document.getElementById('customSoundUrl').value = '';
-                saveAndApplySettings();
-            };
-            reader.readAsDataURL(file);
+        const f = document.getElementById('customSoundFile').files[0];
+        if (f) {
+            const r = new FileReader();
+            r.onload = e => { customVictorySound = e.target.result; saveAndApplySettings(); };
+            r.readAsDataURL(f);
         }
-    }
-
-    function handleCustomSoundUrl() {
-        const url = document.getElementById('customSoundUrl').value.trim();
-        customVictorySound = url;
-        saveAndApplySettings();
     }
 
     function updateVolume(val) {
         customVolume = parseFloat(val);
         document.getElementById('volumeVal').innerText = Math.round(customVolume * 100) + '%';
+        if (currentAudio) currentAudio.volume = customVolume;
         saveAndApplySettings();
     }
 
@@ -1218,395 +1215,292 @@
         const primary = document.getElementById('primaryColorPicker').value;
         const secondary = document.getElementById('secondaryColorPicker').value;
         const cardBg = document.getElementById('cardBgPicker').value;
-        const glow = document.getElementById('glowSlider').value;
+        navMode = document.getElementById('navModeSelect').value;
+        autoSkipEnabled = document.getElementById('autoSkipSelect').value === 'on';
 
         document.documentElement.style.setProperty('--primary-color', primary);
         document.documentElement.style.setProperty('--secondary-color', secondary);
         document.documentElement.style.setProperty('--card-bg', cardBg);
-        document.documentElement.style.setProperty('--glow-intensity', glow + 'px');
-        document.documentElement.style.setProperty('--glow-color', primary + '66');
-        document.getElementById('glowVal').innerText = glow + 'px';
-
-        const settings = {
-            primary,
-            secondary,
-            cardBg,
-            glow,
-            volume: customVolume,
-            customSound: customVictorySound
-        };
-
-        localStorage.setItem('aura_settings', JSON.stringify(settings));
+        localStorage.setItem('aura_settings', JSON.stringify({ primary, secondary, cardBg, navMode, autoSkip: autoSkipEnabled, volume: customVolume, customSound: customVictorySound }));
+        switchTab(currentTabIndex);
     }
 
     function loadSettings() {
-        const saved = localStorage.getItem('aura_settings');
-        if (!saved) return;
-
+        const s = localStorage.getItem('aura_settings');
+        if (!s) return;
         try {
-            const settings = JSON.parse(saved);
-            if (settings.primary) document.getElementById('primaryColorPicker').value = settings.primary;
-            if (settings.secondary) document.getElementById('secondaryColorPicker').value = settings.secondary;
-            if (settings.cardBg) document.getElementById('cardBgPicker').value = settings.cardBg;
-            if (settings.glow) document.getElementById('glowSlider').value = settings.glow;
-            if (settings.volume !== undefined) {
-                document.getElementById('volumeSlider').value = settings.volume;
-                customVolume = settings.volume;
-                document.getElementById('volumeVal').innerText = Math.round(customVolume * 100) + '%';
-            }
-            if (settings.customSound) {
-                customVictorySound = settings.customSound;
-                if (settings.customSound.startsWith('http')) {
-                    document.getElementById('customSoundUrl').value = settings.customSound;
-                }
-            }
-
+            let data = JSON.parse(s);
+            if (data.primary) document.getElementById('primaryColorPicker').value = data.primary;
+            if (data.secondary) document.getElementById('secondaryColorPicker').value = data.secondary;
+            if (data.cardBg) document.getElementById('cardBgPicker').value = data.cardBg;
+            if (data.navMode) { navMode = data.navMode; document.getElementById('navModeSelect').value = navMode; }
+            if (data.autoSkip !== undefined) { autoSkipEnabled = data.autoSkip; document.getElementById('autoSkipSelect').value = autoSkipEnabled ? 'on' : 'off'; }
+            if (data.volume !== undefined) { document.getElementById('volumeSlider').value = data.volume; customVolume = data.volume; }
+            if (data.customSound) customVictorySound = data.customSound;
             saveAndApplySettings();
-        } catch (e) {
-            console.log("Ошибка загрузки настроек:", e);
-        }
+        } catch(e){}
     }
 
-    function resetSettings() {
-        localStorage.removeItem('aura_settings');
-        document.getElementById('primaryColorPicker').value = '#ffbb00';
-        document.getElementById('secondaryColorPicker').value = '#ff5500';
-        document.getElementById('cardBgPicker').value = '#111111';
-        document.getElementById('glowSlider').value = 50;
-        document.getElementById('volumeSlider').value = 1;
-        document.getElementById('customSoundUrl').value = '';
-        document.getElementById('customSoundFile').value = '';
-        customVictorySound = null;
-        customVolume = 1.0;
-        saveAndApplySettings();
-    }
+    function resetSettings() { localStorage.removeItem('aura_settings'); location.reload(); }
 
     function loadAchievements() {
-        const saved = localStorage.getItem('aura_achievements');
-        if (saved) {
-            try {
-                const unlockedIds = JSON.parse(saved);
-                achievementsData.forEach(ach => {
-                    if (unlockedIds.includes(ach.id)) {
-                        ach.unlocked = true;
-                    }
-                });
-            } catch (e) {}
+        const s = localStorage.getItem('aura_achievements');
+        if (s) {
+            try { JSON.parse(s).forEach(id => { let a = achievementsData.find(x => x.id === id); if (a) a.unlocked = true; }); } catch(e){}
         }
         calculateTotalXP();
     }
 
-    let newlyUnlockedThisBattle = [];
-
     function unlockAchievement(id) {
-        const ach = achievementsData.find(a => a.id === id);
+        let ach = achievementsData.find(a => a.id === id);
         if (ach && !ach.unlocked) {
             if (ach.requiresRebirth && rebirthCount < ach.requiresRebirth) return;
             ach.unlocked = true;
-            newlyUnlockedThisBattle.push(ach.title);
-            saveAchievementsStorage();
+            localStorage.setItem('aura_achievements', JSON.stringify(achievementsData.filter(a => a.unlocked).map(a => a.id)));
             calculateTotalXP();
+            checkEvilUnlock();
+            showAchPopup(ach);
+            if (currentTabIndex === 4) renderAchievements();
+            updateClickerUI();
         }
     }
 
-    function saveAchievementsStorage() {
-        const unlockedIds = achievementsData.filter(a => a.unlocked).map(a => a.id);
-        localStorage.setItem('aura_achievements', JSON.stringify(unlockedIds));
+    function showAchPopup(ach) {
+        document.getElementById('achPopIcon').innerText = ach.icon;
+        document.getElementById('achPopTitle').innerText = ach.title;
+        document.getElementById('achPopDesc').innerText = ach.desc;
+        document.getElementById('achPopXp').innerText = '+' + ach.xp + ' XP';
+        document.getElementById('achPopOverlay').classList.add('active');
+        playEasterEggSound();
     }
+
+    function closeAchPopup() { document.getElementById('achPopOverlay').classList.remove('active'); }
 
     function calculateTotalXP() {
         userXP = achievementsData.reduce((sum, ach) => sum + (ach.unlocked ? ach.xp : 0), 0);
         updateXPUI();
+        checkRebirthAvailability();
     }
 
     function updateXPUI() {
         document.getElementById('totalXpVal').innerText = userXP;
         let level = Math.floor(userXP / 500) + 1;
         let currentLevelXP = userXP % 500;
-        let percent = (currentLevelXP / 500) * 100;
-
-        let levelText = `Уровень ${level} (${currentLevelXP}/500 XP)`;
-        if (rebirthCount > 0) {
-            levelText += ` [x${(1 + rebirthCount * 0.2).toFixed(1)}]`;
-        }
-        document.getElementById('userLevelText').innerText = levelText;
-        document.getElementById('xpBarFill').style.width = percent + '%';
-
-        const rebirthBtn = document.getElementById('rebirthBtn');
-        const rebirthCounterDisplay = document.getElementById('rebirthCounterDisplay');
-        
-        if (rebirthCount > 0) {
-            rebirthCounterDisplay.style.display = 'block';
-            document.getElementById('rebirthCount').innerText = rebirthCount;
-        } else {
-            rebirthCounterDisplay.style.display = 'none';
-        }
-
-        if (level >= 5 && rebirthCount < 2) {
-            rebirthBtn.style.display = 'block';
-        } else {
-            rebirthBtn.style.display = 'none';
-        }
+        let titleName = levelTitles[level] || "космический авторитет";
+        document.getElementById('userLevelText').innerText = `Уровень ${level} «${titleName}» (${currentLevelXP}/500 XP)`;
+        document.getElementById('xpBarFill').style.width = ((currentLevelXP / 500) * 100) + '%';
     }
 
     function renderAchievements() {
         const container = document.getElementById('achievementsListContainer');
-        const filteredAch = achievementsData.filter(ach => ach.category === currentAchCategory && (!ach.requiresRebirth || rebirthCount >= ach.requiresRebirth));
-
-        container.innerHTML = filteredAch.map(ach => `
+        const filtered = achievementsData.filter(ach => ach.category === currentAchCategory && (!ach.requiresRebirth || rebirthCount >= ach.requiresRebirth));
+        container.innerHTML = filtered.map(ach => `
             <div class="achievement-card ${ach.unlocked ? 'unlocked' : ''} rarity-${ach.rarity}">
-                <div class="ach-icon">${ach.icon}</div>
-                <div class="ach-info">
-                    <div class="ach-title">${ach.title}</div>
-                    <div class="ach-desc">${ach.desc}</div>
+                <div class="ach-icon-box">${ach.icon}</div>
+                <div style="flex:1; text-align:left;">
+                    <div style="font-weight:800; font-size:0.95rem; color:${ach.unlocked ? '#fff' : '#aaa'};">${ach.title}</div>
+                    <div style="font-size:0.75rem; color:#888; margin-top:2px;">${ach.desc}</div>
                 </div>
-                <div class="ach-xp">+${ach.xp} XP</div>
+                <div style="font-weight:900; font-size:0.85rem; color:var(--primary-color);">+${ach.xp} XP</div>
             </div>
         `).join('');
     }
 
-    function playSyntheticEpicMusic() {
-        try {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (!AudioContext) return;
-            const ctx = new AudioContext();
-
-            const notes = [
-                { freq: 261.63, time: 0.0, duration: 0.15 }, 
-                { freq: 329.63, time: 0.15, duration: 0.15 }, 
-                { freq: 392.00, time: 0.30, duration: 0.15 }, 
-                { freq: 523.25, time: 0.45, duration: 0.6 },  
-                { freq: 659.25, time: 0.70, duration: 0.2 },  
-                { freq: 783.99, time: 0.90, duration: 0.8 }   
-            ];
-
-            notes.forEach(note => {
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(note.freq, ctx.currentTime + note.time);
-
-                gain.gain.setValueAtTime(0.2 * customVolume, ctx.currentTime + note.time);
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + note.time + note.duration);
-
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                osc.start(ctx.currentTime + note.time);
-                osc.stop(ctx.currentTime + note.time + note.duration);
-            });
-        } catch (e) {
-            console.log("Звук не смог сыграть:", e);
-        }
+    function switchAchCategory(cat) {
+        currentAchCategory = cat;
+        document.getElementById('catBtnBattle').classList.toggle('active', cat === 'battle');
+        document.getElementById('catBtnClicker').classList.toggle('active', cat === 'clicker');
+        document.getElementById('catBtnEvil').classList.toggle('active', cat === 'evil');
+        renderAchievements();
     }
 
-    function playWinnerSound(winnerTrackNum) {
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio = null;
-        }
+    function playSyntheticEpicMusic() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            [261.63, 329.63, 392.00, 523.25].forEach((f, i) => {
+                const osc = ctx.createOscillator(); const g = ctx.createGain();
+                osc.frequency.setValueAtTime(f, ctx.currentTime + i * 0.15);
+                g.gain.setValueAtTime(0.2 * customVolume, ctx.currentTime + i * 0.15);
+                g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.3);
+                osc.connect(g); g.connect(ctx.destination);
+                osc.start(ctx.currentTime + i * 0.15); osc.stop(ctx.currentTime + i * 0.15 + 0.3);
+            });
+        } catch(e){}
+    }
 
-        const audioUrl = customVictorySound || audioFiles[winnerTrackNum] || audioFiles[winnerTrackNum === 1 ? 2 : 1];
+    function playWinnerSound(num) {
+        if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+        let url = customVictorySound;
+        if (url) {
+            currentAudio = new Audio(url); currentAudio.volume = customVolume;
+            currentAudio.play().catch(() => playSyntheticEpicMusic());
+            setTimeout(() => { if (currentAudio) currentAudio.pause(); }, 4500);
+        } else { playSyntheticEpicMusic(); }
+    }
 
-        if (audioUrl) {
-            currentAudio = new Audio(audioUrl);
-            currentAudio.volume = customVolume;
-            currentAudio.currentTime = 0;
-            
-            const playPromise = currentAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    playSyntheticEpicMusic();
-                });
-            }
-
-            setTimeout(() => {
-                if (currentAudio) {
-                    let fadeInterval = setInterval(() => {
-                        if (currentAudio && currentAudio.volume > 0.05) {
-                            currentAudio.volume -= 0.05;
-                        } else {
-                            if (currentAudio) currentAudio.pause();
-                            clearInterval(fadeInterval);
-                        }
-                    }, 100);
-                }
-            }, 4500);
-
-        } else {
-            playSyntheticEpicMusic();
-        }
+    function skipBattleAnimation() {
+        if (battleTimeoutId) clearTimeout(battleTimeoutId);
+        document.getElementById('auraOverlay').classList.remove('active');
+        if (window.pendingRes) renderBattleResultsDirectly(window.pendingRes.t1, window.pendingRes.t2, window.pendingRes.res1, window.pendingRes.res2, window.pendingRes.winnerNameText);
     }
 
     function calculateAuraFromString(str) {
-        let combinedStr = str.toLowerCase().trim() + "_" + sessionSalt;
-        let hash = 0;
-        for (let i = 0; i < combinedStr.length; i++) {
-            hash = combinedStr.charCodeAt(i) + ((hash << 5) - hash);
+        let combined = str.toLowerCase().trim() + "_" + sessionSalt;
+        let hash = 0; for (let i = 0; i < combined.length; i++) hash = combined.charCodeAt(i) + ((hash << 5) - hash);
+        let base = Math.abs((hash * 13) % 90000000) + 10000000;
+        let penalty = Math.abs((hash * 17) % 110000000);
+
+        let auraMultiplier = Math.pow(1.2, rebirthCount);
+        base = Math.round(base * auraMultiplier);
+
+        return { base: Math.round(base/5)*5, penalty: Math.round(penalty/5)*5, total: Math.round(base/5)*5 - Math.round(penalty/5)*5 };
+    }
+
+    function applyAuraTierEffect(cardElement, totalScore) {
+        cardElement.className = "track-card";
+        let textSpan = cardElement.querySelector('.total-score span');
+        if (!textSpan) return;
+        textSpan.className = "";
+
+        let absScore = Math.abs(totalScore);
+        if (absScore >= 80000000) {
+            cardElement.classList.add('tier-gold');
+            textSpan.classList.add('tier-text-gold');
+        } else if (absScore >= 50000000) {
+            cardElement.classList.add('tier-red');
+            textSpan.classList.add('tier-text-red');
+        } else if (absScore >= 20000000) {
+            cardElement.classList.add('tier-purple');
+            textSpan.classList.add('tier-text-purple');
+        } else if (absScore >= 5000000) {
+            cardElement.classList.add('tier-blue');
+            textSpan.classList.add('tier-text-blue');
+        } else if (absScore >= 1000000) {
+            cardElement.classList.add('tier-green');
+            textSpan.classList.add('tier-text-green');
         }
-        
-        let base = Math.abs((hash * 13) % 90000000) + 10000000; 
-        let penalty = Math.abs((hash * 17) % 110000000); 
-
-        let multiplier = 1 + (rebirthCount * 0.2);
-        base = Math.round(base * multiplier);
-
-        base = Math.round(base / 5) * 5;
-        penalty = Math.round(penalty / 5) * 5;
-
-        return { base, penalty, total: base - penalty };
     }
 
-    function formatNum(num) {
-        return num.toLocaleString('ru-RU');
-    }
-
-    function saveToHistory(t1, t2, res1, res2, winner) {
-        newlyUnlockedThisBattle = [];
-
+    function checkBattleSecrets(t1, t2, res1, res2) {
         unlockAchievement('first_battle');
-
+        
         if (res1.total < 0 || res2.total < 0) {
             unlockAchievement('negative_aura');
         }
 
-        if (res1.total <= -30000000 || res2.total <= -30000000) {
-            unlockAchievement('rebirth_hit_2');
-        }
+        let fullText = (t1 + " " + t2).toLowerCase();
 
-        const combinedText = (t1 + " " + t2).toLowerCase();
-        if (combinedText.includes('пал лаич')) {
+        if (fullText.includes('пал лаич') || fullText.includes('ладим ладимыч') || fullText.includes('путин')) {
             unlockAchievement('president_ref');
         }
 
-        if (combinedText.includes('навальный')) {
+        if (fullText.includes('навальный') || fullText.includes('карнавальный')) {
             unlockAchievement('bruno_ref');
         }
 
-        if (combinedText.includes('барашек') || combinedText.includes('кадыров') || combinedText.includes('бисмиля')) {
+        const groznyWords = ['аллах', 'свин', 'бисмиля', 'кадыров', 'барашка', 'рамзан', 'дон'];
+        if (groznyWords.some(word => fullText.includes(word))) {
             unlockAchievement('grozny_shampur');
         }
 
-        if (combinedText.includes('адольф') || combinedText.includes('адольф гитлер') || combinedText.includes('гитлер')) {
-            unlockAchievement('rebirth_hit_1');
+        if (rebirthCount > 0) {
+            if (fullText.includes('яйца') || fullText.includes('куриц')) {
+                unlockAchievement('rebirth_secret_chicken');
+            }
+            if (fullText.includes('гитлер') || fullText.includes('адольф') || fullText.includes('чмошник')) {
+                unlockAchievement('rebirth_secret_hitler');
+            }
+            if (fullText.includes('рояль')) {
+                unlockAchievement('rebirth_secret_piano');
+            }
         }
+    }
 
-        if (combinedText.includes('человек яйца')) {
-            unlockAchievement('rebirth_hit_3');
-        }
+    function saveToHistory(t1, t2, res1, res2, winner) {
+        checkBattleSecrets(t1, t2, res1, res2);
 
         let history = JSON.parse(localStorage.getItem('aura_history') || '[]');
-        
-        const battleRecord = {
-            t1, t2,
-            t1Total: formatNum(res1.total),
-            t2Total: formatNum(res2.total),
-            winner,
-            achievements: [...newlyUnlockedThisBattle],
-            date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        };
-
-        history.unshift(battleRecord);
+        history.unshift({ 
+            t1, t2, 
+            t1Total: res1.total.toLocaleString('ru-RU'), 
+            t2Total: res2.total.toLocaleString('ru-RU'), 
+            t1Raw: res1.total,
+            t2Raw: res2.total,
+            winner, 
+            date: new Date().toLocaleDateString() 
+        });
         if (history.length > 20) history.pop();
         localStorage.setItem('aura_history', JSON.stringify(history));
     }
 
     function renderHistory() {
-        const container = document.getElementById('historyListContainer');
         let history = JSON.parse(localStorage.getItem('aura_history') || '[]');
+        document.getElementById('historyListContainer').innerHTML = history.length === 0 ? '<div style="color:#777; text-align:center;">История пуста</div>' : history.map(item => {
+            let maxScore = Math.max(Math.abs(item.t1Raw || 0), Math.abs(item.t2Raw || 0));
+            let badgeStyle = "color: #fff;";
+            if (maxScore >= 80000000) badgeStyle = "color: #ffd700; text-shadow: 0 0 10px #ffd700; font-weight:950;";
+            else if (maxScore >= 50000000) badgeStyle = "color: #ff0032; text-shadow: 0 0 10px #ff0032; font-weight:900;";
+            else if (maxScore >= 20000000) badgeStyle = "color: #b400ff; text-shadow: 0 0 10px #b400ff; font-weight:900;";
+            else if (maxScore >= 5000000) badgeStyle = "color: #0096ff; text-shadow: 0 0 10px #0096ff; font-weight:800;";
+            else if (maxScore >= 1000000) badgeStyle = "color: #00ff64; text-shadow: 0 0 10px #00ff64; font-weight:800;";
 
-        if (history.length === 0) {
-            container.innerHTML = `<div style="text-align: center; color: #777; padding: 40px 0; font-style: italic;">История пока пуста. Проведите первый батл!</div>`;
-            return;
-        }
-
-        container.innerHTML = history.map(item => {
-            let achHtml = item.achievements && item.achievements.length > 0 
-                ? `<div style="color: var(--primary-color); font-size: 0.8rem; margin-top: 4px;">🏆 Получено ачивок: ${item.achievements.join(', ')}</div>` 
-                : '';
             return `
                 <div class="history-item">
-                    <div class="history-info" style="flex: 1;">
-                        <div class="history-vs">⚔️ ${escapeHtml(item.t1)} (${item.t1Total}) vs ${escapeHtml(item.t2)} (${item.t2Total})</div>
-                        <div class="history-winner">👑 Победитель: ${escapeHtml(item.winner)}</div>
-                        ${achHtml}
+                    <div style="text-align:left; font-size:0.85rem;">
+                        <div style="color:var(--primary-color); font-weight:700;">⚔️ ${item.t1} <span style="${badgeStyle}">(${item.t1Total})</span> vs ${item.t2} <span style="${badgeStyle}">(${item.t2Total})</span></div>
+                        <div>👑 Победитель: ${item.winner}</div>
                     </div>
-                    <div style="font-size: 0.75rem; color: #777; text-align: right; min-width: 90px;">${item.date}</div>
+                    <div style="font-size:0.7rem; color:#777;">${item.date}</div>
                 </div>
             `;
         }).join('');
     }
 
-    function clearHistory() {
-        localStorage.removeItem('aura_history');
-        renderHistory();
-    }
+    function clearHistory() { localStorage.removeItem('aura_history'); renderHistory(); }
 
-    function escapeHtml(text) {
-        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    function renderBattleResultsDirectly(t1, t2, res1, res2, winnerNameText) {
+        document.getElementById('t1Name').innerText = t1;
+        document.getElementById('t1Base').innerText = '+' + res1.base.toLocaleString('ru-RU');
+        document.getElementById('t1Penalty').innerText = '-' + res1.penalty.toLocaleString('ru-RU');
+        document.getElementById('t1Total').innerText = res1.total.toLocaleString('ru-RU');
+
+        document.getElementById('t2Name').innerText = t2;
+        document.getElementById('t2Base').innerText = '+' + res2.base.toLocaleString('ru-RU');
+        document.getElementById('t2Penalty').innerText = '-' + res2.penalty.toLocaleString('ru-RU');
+        document.getElementById('t2Total').innerText = res2.total.toLocaleString('ru-RU');
+
+        applyAuraTierEffect(document.getElementById('card1'), res1.total);
+        applyAuraTierEffect(document.getElementById('card2'), res2.total);
+
+        let win = Math.max(res1.total, res2.total);
+        document.getElementById('winnerName').innerText = `«${winnerNameText}» (${win.toLocaleString('ru-RU')} ауры)`;
+        document.getElementById('outputContainer').style.display = 'flex';
     }
 
     function calculateBattle() {
         const t1 = document.getElementById('track1').value.trim();
         const t2 = document.getElementById('track2').value.trim();
-
-        if (!t1 || !t2) {
-            const container = document.getElementById('outputContainer');
-            container.style.display = 'flex';
-            document.getElementById('t1Name').innerText = 'Ошибка';
-            document.getElementById('t1Base').innerText = '+0';
-            document.getElementById('t1Penalty').innerText = '-0';
-            document.getElementById('t1Total').innerText = '0';
-            document.getElementById('t2Name').innerText = 'Заполни оба поля!';
-            document.getElementById('t2Base').innerText = '+0';
-            document.getElementById('t2Penalty').innerText = '-0';
-            document.getElementById('t2Total').innerText = '0';
-            document.getElementById('winnerName').innerText = 'Заполни оба трека!';
-            document.getElementById('winnerDiff').innerText = '---';
-            return;
-        }
-
-        const overlay = document.getElementById('auraOverlay');
-        const container = document.getElementById('outputContainer');
-
-        container.style.display = 'none';
-
+        if (!t1 || !t2) return alert('Заполните оба поля!');
         const res1 = calculateAuraFromString(t1);
         const res2 = calculateAuraFromString(t2);
-        const winnerTrackNum = res1.total >= res2.total ? 1 : 2;
-        const winnerNameText = winnerTrackNum === 1 ? t1 : t2;
-
+        const winnerNameText = res1.total >= res2.total ? t1 : t2;
+        window.pendingRes = { t1, t2, res1, res2, winnerNameText };
         saveToHistory(t1, t2, res1, res2, winnerNameText);
 
-        overlay.classList.add('active');
-        playWinnerSound(winnerTrackNum);
+        document.getElementById('outputContainer').style.display = 'none';
 
-        setTimeout(() => {
-            overlay.classList.remove('active');
-
-            setTimeout(() => {
-                document.getElementById('t1Name').innerText = t1;
-                document.getElementById('t1Base').innerText = '+' + formatNum(res1.base);
-                document.getElementById('t1Penalty').innerText = '-' + formatNum(res1.penalty);
-                document.getElementById('t1Total').innerText = formatNum(res1.total);
-
-                document.getElementById('t2Name').innerText = t2;
-                document.getElementById('t2Base').innerText = '+' + formatNum(res2.base);
-                document.getElementById('t2Penalty').innerText = '-' + formatNum(res2.penalty);
-                document.getElementById('t2Total').innerText = formatNum(res2.total);
-
-                const winScore = Math.max(res1.total, res2.total);
-                const loseScore = Math.min(res1.total, res2.total);
-                const diff = winScore - loseScore;
-
-                document.getElementById('winnerName').innerText = `«${winnerNameText}» (${formatNum(winScore)} ауры)`;
-                document.getElementById('winnerDiff').innerText = `Превосходство по ауре: +${formatNum(diff)} 🔥⚡`;
-
-                container.style.display = 'flex';
-            }, 500);
-        }, 3000);
+        if (autoSkipEnabled) {
+            document.getElementById('auraOverlay').classList.remove('active');
+            renderBattleResultsDirectly(t1, t2, res1, res2, winnerNameText);
+        } else {
+            document.getElementById('auraOverlay').classList.add('active');
+            playWinnerSound(res1.total >= res2.total ? 1 : 2);
+            if (battleTimeoutId) clearTimeout(battleTimeoutId);
+            battleTimeoutId = setTimeout(() => {
+                document.getElementById('auraOverlay').classList.remove('active');
+                renderBattleResultsDirectly(t1, t2, res1, res2, winnerNameText);
+            }, 3000);
+        }
     }
 </script>
 </body>
