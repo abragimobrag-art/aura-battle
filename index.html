@@ -3,34 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>АУРА-БАТЛ — Эпическая Битва</title>
+    <title>АУРА-БАТЛ — Царская Элита</title>
     <style>
         :root {
-            --primary-color: #ffbb00;
+            --primary-color: #ffd700;
             --secondary-color: #ff5500;
-            --glow-color: rgba(255, 170, 0, 0.4);
-            --card-bg: #111111;
-            --glow-intensity: 50px;
+            --accent-crimson: #ff2a5f;
+            --glow-color: rgba(255, 215, 0, 0.4);
+            --card-bg: #0a0a0f;
+            --card-border: rgba(255, 215, 0, 0.3);
+            --glow-intensity: 40px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #030303;
+            background: radial-gradient(circle at center, #120d1a 0%, #030305 100%);
             color: #ffffff;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 12px;
             overflow-x: hidden;
             position: relative;
+            transition: background 0.5s ease;
+        }
+
+        /* Баннер долга с таймером */
+        .debt-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #ff2a5f, #ff0000);
+            color: #fff;
+            text-align: center;
+            padding: 12px;
+            font-weight: 900;
+            font-size: 0.9rem;
+            z-index: 30000;
+            display: none;
+            box-shadow: 0 0 30px rgba(255, 42, 95, 0.9);
+            animation: pulseDebt 0.8s infinite alternate;
+        }
+        @keyframes pulseDebt {
+            0% { opacity: 0.75; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.01); }
+        }
+
+        /* Предупреждение для эпилептиков */
+        .epilepsy-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #9c27b0, #ff00ea);
+            color: #fff;
+            text-align: center;
+            padding: 14px;
+            font-weight: 900;
+            font-size: 1rem;
+            z-index: 35000;
+            display: none;
+            box-shadow: 0 0 40px rgba(255, 0, 234, 0.9);
+            animation: pulseEpilepsy 0.5s infinite alternate;
+        }
+        @keyframes pulseEpilepsy {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+
+        /* Режим Котлов генеральских (Эпилептический хаос) */
+        @keyframes epilepticFlash {
+            0% { filter: brightness(3) invert(1) hue-rotate(0deg); }
+            50% { filter: brightness(0.2) invert(0) hue-rotate(180deg) blur(2px); }
+            100% { filter: brightness(5) invert(0.8) hue-rotate(360deg); }
+        }
+        body.general-boilers-mode {
+            animation: epilepticFlash 0.15s infinite alternate !important;
+        }
+        body.general-boilers-mode .container {
+            transform: rotate(1deg) scale(1.01);
+            border-color: #ff00ea !important;
+            box-shadow: 0 0 100px #ff00ea, inset 0 0 50px #00ffff !important;
+        }
+
+        body.royal-event-mode {
+            background: radial-gradient(circle at center, #3a2e00 0%, #110d00 100%) !important;
+            --primary-color: #ffea75;
+            --secondary-color: #ffaa00;
+            --glow-color: rgba(255, 215, 0, 0.9);
+        }
+        body.royal-event-mode .container {
+            border-color: #fff !important;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.8), inset 0 0 30px rgba(255, 215, 0, 0.4) !important;
+            background: rgba(18, 14, 2, 0.96) !important;
+        }
+
+        body.pension-fund-mode {
+            background: radial-gradient(circle at center, #2b2216 0%, #0a0705 100%) !important;
+            filter: sepia(0.65) contrast(1.15);
+            --primary-color: #d4af37;
+            --secondary-color: #8b6508;
+            --glow-color: rgba(212, 175, 55, 0.5);
+        }
+        body.pension-fund-mode .container {
+            border: 4px double #d4af37 !important;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.6), inset 0 0 40px rgba(100, 80, 50, 0.5) !important;
+            background: rgba(20, 16, 12, 0.97) !important;
+        }
+        body.pension-fund-mode .container::before {
+            content: '🕰️ 🪞 [АНТИКВАРНЫЙ САЛОН: Паутина и старый буфет] 🪑 📻';
+            display: block;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #d4af37;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            border-bottom: 1px dashed #d4af37;
+            padding-bottom: 6px;
+        }
+        .cobweb-box {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 998;
+            display: none;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(220,220,220,0.35) 0%, transparent 40%),
+                radial-gradient(circle at 100% 0%, rgba(220,220,220,0.35) 0%, transparent 40%),
+                radial-gradient(circle at 0% 100%, rgba(220,220,220,0.35) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(220,220,220,0.35) 0%, transparent 40%);
+        }
+        body.pension-fund-mode .cobweb-box { display: block; }
+        body.pension-fund-mode .cobweb-box::before {
+            content: '🕸️🕷️';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 3.5rem;
+            opacity: 0.8;
+        }
+        body.pension-fund-mode .cobweb-box::after {
+            content: '🕸️';
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            font-size: 3.5rem;
+            opacity: 0.8;
+        }
+
+        .royal-particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+            display: none;
+            overflow: hidden;
+        }
+        body.royal-event-mode .royal-particles { display: block; }
+        .royal-floating-crown {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatCrown 4s infinite linear;
+            opacity: 0.8;
+        }
+        @keyframes floatCrown {
+            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
         .reset-global-btn {
@@ -39,116 +188,133 @@
             left: 15px;
             width: 50px;
             height: 50px;
-            background: var(--card-bg);
+            background: linear-gradient(135deg, #1a1a24, #0a0a0f);
             border: 2px solid var(--primary-color);
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             padding: 4px;
-            box-shadow: 0 0 15px var(--glow-color);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
             z-index: 1000;
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: transform 0.2s;
         }
-
+        .reset-global-btn:hover { transform: scale(1.1); }
         .reset-global-btn img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px;
         }
 
         .container {
-            background: rgba(12, 12, 12, 0.98);
-            border: 1px solid var(--primary-color);
-            border-radius: 20px;
-            padding: 20px;
+            background: rgba(8, 8, 12, 0.95);
+            border: 2px solid var(--primary-color);
+            border-radius: 24px;
+            padding: 24px;
             width: 100%;
-            max-width: 750px;
-            box-shadow: 0 0 var(--glow-intensity) var(--glow-color);
+            max-width: 780px;
+            box-shadow: 0 0 var(--glow-intensity) var(--glow-color), inset 0 0 25px rgba(255, 215, 0, 0.08);
             position: relative;
             user-select: none;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
         }
 
         @media (min-width: 768px) {
-            .container {
-                padding: 35px;
-                border-radius: 24px;
-            }
+            .container { padding: 35px; border-radius: 28px; }
         }
 
-        .tabs {
+        .carousel-nav-bar {
             display: flex;
-            gap: 6px;
-            margin-bottom: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(90deg, rgba(20,20,30,0.8), rgba(10,10,15,0.9));
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 10px 14px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
         }
 
-        .tab-btn {
-            flex: 1;
-            min-width: 90px;
-            max-width: 160px;
-            padding: 10px;
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #b39b59;
-            font-weight: 700;
+        .carousel-btn {
+            background: linear-gradient(135deg, #222233, #111118);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 14px;
             border-radius: 10px;
-            cursor: pointer;
+            font-weight: 800;
             font-size: 0.8rem;
-            text-align: center;
-            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 0 10px rgba(255,215,0,0.2);
+            transition: all 0.2s ease;
         }
+        .carousel-btn:hover { background: var(--primary-color); color: #000; transform: translateY(-1px); }
 
-        .tab-btn.active {
-            background: var(--primary-color);
-            color: #000;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 15px var(--glow-color);
+        .carousel-current-display { text-align: center; }
+        .carousel-current-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ffd700, #ff8c00, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .carousel-current-sub {
+            font-size: 0.65rem;
+            color: #888;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .tab-content {
             display: none;
             opacity: 0;
-            transform: translateX(30px);
+            transform: translateY(20px);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
-
         .tab-content.active {
             display: block;
             opacity: 1;
-            transform: translateX(0);
+            transform: translateY(0);
         }
 
         .profile-bar {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 16px;
-            border-radius: 14px;
-            margin-bottom: 15px;
+            background: linear-gradient(135deg, #14141c, #0a0a0f);
+            border: 1px solid var(--card-border);
+            padding: 14px 18px;
+            border-radius: 16px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         .profile-info {
-            font-weight: 800;
+            font-weight: 900;
             color: var(--primary-color);
-            font-size: 0.95rem;
+            font-size: 1rem;
+            text-shadow: 0 0 10px rgba(255,215,0,0.3);
         }
 
         .xp-bar-container {
-            width: 150px;
-            height: 8px;
-            background: #222;
-            border-radius: 4px;
+            width: 170px;
+            height: 10px;
+            background: #111;
+            border-radius: 5px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.2);
             margin-top: 6px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
         }
 
         .xp-bar-fill {
@@ -156,15 +322,16 @@
             background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
             width: 0%;
             transition: width 0.4s ease;
+            box-shadow: 0 0 10px var(--primary-color);
         }
 
         .rebirth-btn {
-            background: linear-gradient(90deg, #9c27b0, #e91e63);
+            background: linear-gradient(90deg, #9c27b0, #ff2a5f);
             border: none;
             color: #fff;
             padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: 800;
+            border-radius: 10px;
+            font-weight: 900;
             font-size: 0.75rem;
             cursor: pointer;
             margin-top: 8px;
@@ -176,19 +343,19 @@
 
         .title {
             text-align: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 900;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ffd700, #ff5500, #ffd700);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-            text-shadow: 0 0 20px var(--glow-color);
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 25px var(--glow-color);
             cursor: pointer;
         }
 
         @media (min-width: 768px) {
-            .title { font-size: 2.2rem; }
+            .title { font-size: 2.5rem; }
         }
 
         .logo-letters {
@@ -196,12 +363,11 @@
             transition: transform 0.15s ease, color 0.15s ease;
             cursor: pointer;
         }
-
         .logo-letters.active-hit {
-            color: #d1c4e9 !important;
-            -webkit-text-fill-color: #d1c4e9 !important;
-            text-shadow: 0 0 15px #9c27b0;
-            transform: scale(1.25);
+            color: #ff2a5f !important;
+            -webkit-text-fill-color: #ff2a5f !important;
+            text-shadow: 0 0 20px #ff2a5f;
+            transform: scale(1.3);
         }
 
         #easterEggBtnContainer {
@@ -221,7 +387,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .secret-btn img {
             width: 60px;
             height: 60px;
@@ -231,16 +396,17 @@
         }
 
         .input-group {
-            margin-bottom: 15px;
-            background: var(--card-bg);
-            padding: 14px;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #12121a, #0d0d12);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         .input-label {
-            font-weight: 700;
-            margin-bottom: 6px;
+            font-weight: 800;
+            margin-bottom: 8px;
             color: var(--primary-color);
             text-transform: uppercase;
             font-size: 0.8rem;
@@ -253,109 +419,114 @@
 
         .track-input {
             width: 100%;
-            padding: 10px 12px;
-            background: #080808;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
+            padding: 12px 14px;
+            background: #050508;
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 10px;
             color: #fff;
-            font-size: 0.95rem;
+            font-size: 1rem;
             outline: none;
             margin-top: 6px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
         }
+        .track-input:focus { border-color: var(--primary-color); box-shadow: 0 0 15px rgba(255,215,0,0.3); }
 
         .file-upload-btn {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 215, 0, 0.08);
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
-            padding: 5px 10px;
-            border-radius: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.7rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 800;
             text-transform: uppercase;
+            transition: all 0.2s;
         }
+        .file-upload-btn:hover { background: var(--primary-color); color: #000; }
 
         input[type="file"] { display: none; }
 
         .vs-divider {
             text-align: center;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 900;
-            margin: 10px 0;
+            margin: 12px 0;
             color: var(--primary-color);
-            text-shadow: 0 0 10px var(--glow-color);
+            text-shadow: 0 0 15px var(--glow-color);
+            letter-spacing: 2px;
         }
 
         .btn {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            padding: 16px;
+            background: linear-gradient(90deg, #ff5500, #ffd700, #ff5500);
+            background-size: 200% auto;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             color: #000;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 900;
             cursor: pointer;
             text-transform: uppercase;
-            box-shadow: 0 0 20px var(--glow-color);
+            box-shadow: 0 0 25px var(--glow-color);
+            transition: 0.3s;
+            letter-spacing: 1px;
         }
+        .btn:hover { background-position: right center; transform: translateY(-2px); box-shadow: 0 0 35px var(--primary-color); }
+        .btn:disabled { background: #333; color: #777; cursor: not-allowed; box-shadow: none; transform: none; }
 
         .output-container {
             margin-top: 20px;
             display: none;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         @keyframes auraGreenGlow {
-            0% { box-shadow: 0 0 10px rgba(0, 255, 100, 0.4); border-color: #00ff64; }
-            50% { box-shadow: 0 0 35px rgba(0, 255, 100, 0.8), inset 0 0 15px rgba(0, 255, 100, 0.4); border-color: #00ff64; }
-            100% { box-shadow: 0 0 10px rgba(0, 255, 100, 0.4); border-color: #00ff64; }
+            0% { box-shadow: 0 0 15px rgba(0, 255, 100, 0.4); border-color: #00ff64; }
+            50% { box-shadow: 0 0 45px rgba(0, 255, 100, 0.9), inset 0 0 20px rgba(0, 255, 100, 0.5); border-color: #00ff64; }
+            100% { box-shadow: 0 0 15px rgba(0, 255, 100, 0.4); border-color: #00ff64; }
         }
         @keyframes auraBlueGlow {
-            0% { box-shadow: 0 0 15px rgba(0, 150, 255, 0.5); border-color: #0096ff; }
-            50% { box-shadow: 0 0 45px rgba(0, 150, 255, 0.9), inset 0 0 20px rgba(0, 150, 255, 0.5); border-color: #0096ff; }
-            100% { box-shadow: 0 0 15px rgba(0, 150, 255, 0.5); border-color: #0096ff; }
+            0% { box-shadow: 0 0 20px rgba(0, 150, 255, 0.5); border-color: #0096ff; }
+            50% { box-shadow: 0 0 55px rgba(0, 150, 255, 1), inset 0 0 25px rgba(0, 150, 255, 0.5); border-color: #0096ff; }
+            100% { box-shadow: 0 0 20px rgba(0, 150, 255, 0.5); border-color: #0096ff; }
         }
         @keyframes auraPurpleGlow {
-            0% { box-shadow: 0 0 20px rgba(180, 0, 255, 0.6); border-color: #b400ff; }
-            50% { box-shadow: 0 0 55px rgba(180, 0, 255, 1), inset 0 0 25px rgba(180, 0, 255, 0.6); border-color: #b400ff; }
-            100% { box-shadow: 0 0 20px rgba(180, 0, 255, 0.6); border-color: #b400ff; }
+            0% { box-shadow: 0 0 25px rgba(180, 0, 255, 0.6); border-color: #b400ff; }
+            50% { box-shadow: 0 0 65px rgba(180, 0, 255, 1), inset 0 0 30px rgba(180, 0, 255, 0.6); border-color: #b400ff; }
+            100% { box-shadow: 0 0 25px rgba(180, 0, 255, 0.6); border-color: #b400ff; }
         }
         @keyframes auraRedGlow {
-            0% { box-shadow: 0 0 20px rgba(255, 0, 50, 0.7); border-color: #ff0032; }
-            50% { box-shadow: 0 0 65px rgba(255, 0, 50, 1), inset 0 0 30px rgba(255, 0, 50, 0.7); border-color: #ff0032; }
-            100% { box-shadow: 0 0 20px rgba(255, 0, 50, 0.7); border-color: #ff0032; }
+            0% { box-shadow: 0 0 25px rgba(255, 0, 50, 0.7); border-color: #ff0032; }
+            50% { box-shadow: 0 0 75px rgba(255, 0, 50, 1), inset 0 0 35px rgba(255, 0, 50, 0.7); border-color: #ff0032; }
+            100% { box-shadow: 0 0 25px rgba(255, 0, 50, 0.7); border-color: #ff0032; }
         }
         @keyframes auraRoyalGoldGlow {
-            0% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 100, 0, 0.6); border-color: #ffd700; transform: scale(1.01); }
-            50% { box-shadow: 0 0 80px rgba(255, 215, 0, 1), 0 0 120px rgba(255, 50, 0, 0.9), inset 0 0 40px rgba(255, 215, 0, 0.8); border-color: #fff; transform: scale(1.02); }
-            100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 100, 0, 0.6); border-color: #ffd700; transform: scale(1.01); }
+            0% { box-shadow: 0 0 35px rgba(255, 215, 0, 0.8), 0 0 70px rgba(255, 100, 0, 0.6); border-color: #ffd700; transform: scale(1.01); }
+            50% { box-shadow: 0 0 90px rgba(255, 215, 0, 1), 0 0 140px rgba(255, 50, 0, 0.9), inset 0 0 50px rgba(255, 215, 0, 0.8); border-color: #fff; transform: scale(1.02); }
+            100% { box-shadow: 0 0 35px rgba(255, 215, 0, 0.8), 0 0 70px rgba(255, 100, 0, 0.6); border-color: #ffd700; transform: scale(1.01); }
         }
 
-        .tier-green { animation: auraGreenGlow 2s infinite ease-in-out; border: 2px solid #00ff64 !important; background: linear-gradient(135deg, #0a1a0a, #111) !important; }
-        .tier-blue { animation: auraBlueGlow 2s infinite ease-in-out; border: 2px solid #0096ff !important; background: linear-gradient(135deg, #0a1220, #111) !important; }
-        .tier-purple { animation: auraPurpleGlow 1.8s infinite ease-in-out; border: 2px solid #b400ff !important; background: linear-gradient(135deg, #180a24, #111) !important; }
-        .tier-red { animation: auraRedGlow 1.5s infinite ease-in-out; border: 2px solid #ff0032 !important; background: linear-gradient(135deg, #240a0a, #111) !important; }
+        .tier-green { animation: auraGreenGlow 2s infinite ease-in-out; border: 2px solid #00ff64 !important; background: linear-gradient(135deg, #0a1a0a, #0d0d12) !important; }
+        .tier-blue { animation: auraBlueGlow 2s infinite ease-in-out; border: 2px solid #0096ff !important; background: linear-gradient(135deg, #0a1220, #0d0d12) !important; }
+        .tier-purple { animation: auraPurpleGlow 1.8s infinite ease-in-out; border: 2px solid #b400ff !important; background: linear-gradient(135deg, #180a24, #0d0d12) !important; }
+        .tier-red { animation: auraRedGlow 1.5s infinite ease-in-out; border: 2px solid #ff0032 !important; background: linear-gradient(135deg, #240a0a, #0d0d12) !important; }
         .tier-gold { animation: auraRoyalGoldGlow 1.2s infinite ease-in-out; border: 3px solid #ffd700 !important; background: linear-gradient(135deg, #2e2400, #161200, #2e2400) !important; }
 
-        .tier-text-green { color: #00ff64 !important; text-shadow: 0 0 10px rgba(0,255,100,0.5); }
-        .tier-text-blue { color: #0096ff !important; text-shadow: 0 0 10px rgba(0,150,255,0.6); }
-        .tier-text-purple { color: #b400ff !important; text-shadow: 0 0 15px rgba(180,0,255,0.7); }
-        .tier-text-red { color: #ff0032 !important; text-shadow: 0 0 20px rgba(255,0,50,0.8); }
-        .tier-text-gold { color: #ffd700 !important; text-shadow: 0 0 25px rgba(255,215,0,1), 0 0 10px #ff5500; font-weight: 900; }
-
         .track-card {
-            background: #0d0d0d;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 14px;
-            border-radius: 12px;
+            background: #0d0d14;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 16px;
+            border-radius: 14px;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         .track-title {
-            font-weight: 800;
-            font-size: 1rem;
+            font-weight: 900;
+            font-size: 1.05rem;
             color: var(--primary-color);
             margin-bottom: 8px;
         }
@@ -364,133 +535,251 @@
             display: flex;
             justify-content: space-between;
             font-size: 0.9rem;
-            margin-bottom: 4px;
-            color: #cccccc;
+            margin-bottom: 6px;
+            color: #d0d0d0;
         }
 
         .total-score {
-            font-size: 1.1rem;
-            font-weight: 800;
+            font-size: 1.15rem;
+            font-weight: 900;
             color: #fff;
-            margin-top: 6px;
-            padding-top: 6px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 215, 0, 0.15);
         }
 
         .winner-card {
-            background: linear-gradient(135deg, rgba(255, 187, 0, 0.15), rgba(255, 85, 0, 0.25));
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 85, 0, 0.3));
             border: 2px solid var(--primary-color);
-            border-radius: 16px;
-            padding: 18px;
+            border-radius: 18px;
+            padding: 20px;
             text-align: center;
-            box-shadow: 0 0 25px var(--glow-color);
-            margin-top: 10px;
+            box-shadow: 0 0 30px var(--glow-color);
+            margin-top: 12px;
         }
 
         .clicker-container { text-align: center; padding: 5px; }
         .pizza-clicker-btn {
-            background: none; border: none; cursor: pointer; font-size: 5.5rem;
-            margin: 10px 0; filter: drop-shadow(0 0 15px rgba(255, 187, 0, 0.6));
+            background: none; border: none; cursor: pointer; font-size: 6rem;
+            margin: 15px 0; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+            transition: transform 0.1s;
         }
+        .pizza-clicker-btn:active { transform: scale(0.92); }
+
         .food-progress-box {
-            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px; border-radius: 12px; margin-bottom: 15px;
+            background: linear-gradient(135deg, #14141c, #0a0a0f); border: 1px solid var(--card-border);
+            padding: 16px; border-radius: 16px; margin-bottom: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .shop-container { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 15px; }
+        .shop-container { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 18px; }
         .shop-item {
-            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(135deg, #14141c, #0d0d12); border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
         .shop-btn {
-            background: var(--primary-color); border: none; color: #000; font-weight: 800;
-            padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;
+            background: linear-gradient(90deg, var(--primary-color), #ff8c00); border: none; color: #000; font-weight: 900;
+            padding: 10px 14px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; box-shadow: 0 0 10px rgba(255,215,0,0.3);
+            transition: transform 0.2s;
         }
-        .shop-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
+        .shop-btn:hover { transform: scale(1.05); }
+        .shop-btn:disabled { background: #333; color: #777; cursor: not-allowed; box-shadow: none; transform: none; }
+
+        .events-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 10px; }
+        .event-card {
+            background: linear-gradient(135deg, #16121f, #0d0d14);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 16px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            transition: all 0.3s;
+        }
+        .event-card.active-event {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.6), inset 0 0 15px rgba(255, 215, 0, 0.3);
+            background: linear-gradient(135deg, #26200a, #0d0d14);
+        }
+        .event-header { display: flex; justify-content: space-between; align-items: center; }
+        .event-title { font-weight: 900; font-size: 1.1rem; color: var(--primary-color); display: flex; align-items: center; gap: 8px; }
+        .event-status { font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; background: #222; color: #888; }
+        .event-card.active-event .event-status { background: var(--primary-color); color: #000; box-shadow: 0 0 10px var(--primary-color); }
+        .event-desc { font-size: 0.85rem; color: #ccc; line-height: 1.4; }
 
         .evil-typing-container { text-align: center; padding: 5px; }
         .evil-screen {
-            background: #080808; border: 2px solid #9c27b0; border-radius: 12px;
-            padding: 12px; font-family: monospace; font-size: 1.2rem; color: #00ffcc;
-            min-height: 50px; margin-bottom: 15px; word-break: break-all; letter-spacing: 2px;
+            background: #050508; border: 2px solid #9c27b0; border-radius: 14px;
+            padding: 14px; font-family: monospace; font-size: 1.3rem; color: #00ffcc;
+            min-height: 55px; margin-bottom: 18px; word-break: break-all; letter-spacing: 2px;
+            box-shadow: inset 0 0 15px rgba(156, 39, 176, 0.3);
         }
-        .evil-keyboard { display: flex; flex-direction: column; gap: 6px; align-items: center; margin-bottom: 15px; }
-        .evil-row { display: flex; gap: 4px; justify-content: center; width: 100%; flex-wrap: wrap; }
+        .evil-keyboard { display: flex; flex-direction: column; gap: 8px; align-items: center; margin-bottom: 18px; }
+        .evil-row { display: flex; gap: 5px; justify-content: center; width: 100%; flex-wrap: wrap; }
         .evil-key {
-            background: #1a1a1a; border: 1px solid #444; color: #fff; font-weight: 800;
-            padding: 10px 6px; border-radius: 6px; cursor: pointer; min-width: 28px; font-size: 0.85rem;
+            background: #14141c; border: 1px solid #444; color: #fff; font-weight: 900;
+            padding: 12px 8px; border-radius: 8px; cursor: pointer; min-width: 32px; font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5); transition: 0.1s;
         }
-        .evil-key.active-key-glow { background: #9c27b0 !important; border-color: #ff55ff !important; box-shadow: 0 0 15px #9c27b0; }
-        .evil-action-row { display: flex; gap: 8px; }
+        .evil-key:hover { background: #222; border-color: #9c27b0; }
+        .evil-key.active-key-glow { background: #9c27b0 !important; border-color: #ff55ff !important; box-shadow: 0 0 20px #9c27b0; transform: scale(1.1); }
+        .evil-action-row { display: flex; gap: 10px; }
 
-        .ach-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; flex-wrap: wrap; }
+        .ach-category-tabs { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
         .ach-cat-btn {
-            flex: 1; min-width: 85px; padding: 8px 4px; background: #1a1a1a; border: 1px solid #333;
-            color: #888; font-weight: 800; border-radius: 10px; cursor: pointer; font-size: 0.75rem;
+            flex: 1; min-width: 75px; padding: 10px 6px; background: #14141c; border: 1px solid #333;
+            color: #888; font-weight: 900; border-radius: 10px; cursor: pointer; font-size: 0.75rem;
             transition: all 0.2s ease; text-transform: uppercase; letter-spacing: 0.5px; text-align: center;
         }
         .ach-cat-btn.active { background: var(--primary-color); color: #000; border-color: var(--primary-color); box-shadow: 0 0 15px var(--glow-color); }
         
         .achievements-grid { display: grid; grid-template-columns: 1fr; gap: 12px; max-height: 400px; overflow-y: auto; padding-right: 4px; }
         .achievement-card {
-            background: linear-gradient(135deg, #111111, #181818); border-radius: 14px; padding: 14px; display: flex;
+            background: linear-gradient(135deg, #14141c, #1a1a24); border-radius: 14px; padding: 14px; display: flex;
             align-items: center; gap: 14px; border: 2px solid #222; opacity: 0.45; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .achievement-card.unlocked { 
             opacity: 1; 
-            background: linear-gradient(135deg, #161616, #221a0a);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); 
+            background: linear-gradient(135deg, #181824, #261f0f);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255,215,0,0.15); 
             transform: translateY(-2px);
+            border-color: var(--primary-color);
         }
+        .achievement-card.tsarsky-card.unlocked {
+            background: linear-gradient(135deg, #3a2e00, #594300, #3a2e00) !important;
+            border: 3px solid #ffd700 !important;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), inset 0 0 15px rgba(255, 255, 255, 0.5) !important;
+            animation: royalPulseCard 2s infinite ease-in-out;
+        }
+        @keyframes royalPulseCard {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+            50% { transform: scale(1.02); box-shadow: 0 0 40px rgba(255, 215, 0, 1); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+        }
+
         .ach-icon-box {
-            width: 50px; height: 50px; background: rgba(0,0,0,0.4); border-radius: 12px; display: flex; 
-            justify-content: center; align-items: center; font-size: 1.8rem; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.05);
+            width: 50px; height: 50px; background: rgba(0,0,0,0.5); border-radius: 12px; display: flex; 
+            justify-content: center; align-items: center; font-size: 1.8rem; flex-shrink: 0; border: 1px solid rgba(255,215,0,0.1);
         }
-        .rarity-common { border-color: #777; }
-        .rarity-rare { border-color: #2196f3; box-shadow: inset 0 0 10px rgba(33, 150, 243, 0.1); }
-        .rarity-epic { border-color: #9c27b0; box-shadow: inset 0 0 10px rgba(156, 39, 176, 0.15); }
-        .rarity-legendary { border-color: #ff9800; box-shadow: inset 0 0 12px rgba(255, 152, 0, 0.2); }
-        .rarity-mythic { border-color: #f44336; box-shadow: inset 0 0 15px rgba(244, 67, 54, 0.25); }
 
         .history-list { display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; }
         .history-item {
-            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(135deg, #14141c, #0d0d12); border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center;
         }
         .clear-history-btn, .reset-settings-btn {
-            background: #2a2a2a; border: 1px solid #555; color: #ccc;
-            padding: 10px; border-radius: 8px; width: 100%; margin-top: 12px; cursor: pointer; font-weight: 700;
+            background: #1a1a24; border: 1px solid #555; color: #ccc;
+            padding: 12px; border-radius: 10px; width: 100%; margin-top: 14px; cursor: pointer; font-weight: 800;
         }
 
         .setting-row {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 12px; background: var(--card-bg); padding: 10px 14px; border-radius: 10px;
+            margin-bottom: 14px; background: linear-gradient(135deg, #14141c, #0d0d12); padding: 12px 16px; border-radius: 12px;
+            border: 1px solid rgba(255,215,0,0.1);
         }
-        input[type="color"] { border: none; width: 30px; height: 30px; border-radius: 6px; cursor: pointer; background: none; }
-        input[type="range"] { accent-color: var(--primary-color); width: 90px; }
-        select { background: #222; color: #fff; border: 1px solid #444; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+        input[type="color"] { border: none; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; background: none; }
+        input[type="range"] { accent-color: var(--primary-color); width: 100px; }
+        select { background: #111; color: #fff; border: 1px solid #444; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 700; }
 
-        #auraOverlay, #achPopOverlay, #statsModalOverlay {
+        .wheel-container { text-align: center; padding: 10px; }
+        .wheel-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-top: 25px;
+        }
+        .wheel-box {
+            position: relative; width: 280px; height: 280px; border-radius: 50%;
+            border: 6px solid var(--primary-color); box-shadow: 0 0 40px var(--glow-color);
+            background: conic-gradient(
+                #ff5500 0deg 51.4deg, 
+                #9c27b0 51.4deg 102.8deg, 
+                #2196f3 102.8deg 154.2deg, 
+                #00ff64 154.2deg 205.6deg, 
+                #e91e63 205.6deg 257deg, 
+                #ffeb3b 257deg 308.4deg, 
+                #00bcd4 308.4deg 360deg
+            );
+            transition: transform 4s cubic-bezier(0.15, 0.85, 0.25, 1);
+            overflow: hidden;
+        }
+        .wheel-box::after {
+            content: '';
+            position: absolute; inset: 0; border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.7);
+            pointer-events: none;
+        }
+        .wheel-pointer {
+            position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;
+            border-bottom: 22px solid #fff; filter: drop-shadow(0 0 8px #000); z-index: 10;
+        }
+        .wheel-center-hub {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 52px; height: 52px; background: #0a0a0f; border: 3px solid var(--primary-color);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.3rem;
+            z-index: 6; box-shadow: 0 0 20px rgba(0,0,0,0.9);
+        }
+
+        .wheel-emoji-item {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 38px; height: 38px;
+            margin-top: -19px; margin-left: -19px;
+            font-size: 1.25rem;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 5; background: rgba(0, 0, 0, 0.6);
+            border-radius: 50%; border: 1.5px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            cursor: pointer; transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .wheel-emoji-item:hover { transform: scale(1.2) var(--translate-pos, translate(0,0)); background: rgba(255, 215, 0, 0.4); }
+
+        #auraOverlay, #statsModalOverlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(3, 3, 3, 0.98); display: flex; justify-content: center; align-items: center;
+            background: rgba(3, 3, 6, 0.98); display: flex; justify-content: center; align-items: center;
             z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
         }
-        #auraOverlay.active, #achPopOverlay.active, #statsModalOverlay.active { opacity: 1; pointer-events: auto; }
-        #auraOverlay img { max-width: 92vw; max-height: 92vh; object-fit: contain; border-radius: 16px; }
-        .ach-pop-box, .stats-box {
-            background: linear-gradient(135deg, #111, #220033); border: 3px solid var(--primary-color);
+        #auraOverlay.active, #statsModalOverlay.active { opacity: 1; pointer-events: auto; }
+        #auraOverlay img { max-width: 92vw; max-height: 92vh; object-fit: contain; border-radius: 16px; border: 2px solid var(--primary-color); }
+        .stats-box {
+            background: linear-gradient(135deg, #14141c, #220033); border: 3px solid var(--primary-color);
             border-radius: 20px; padding: 24px; text-align: center; max-width: 380px; width: 90%;
+            box-shadow: 0 0 40px rgba(255,215,0,0.3);
         }
         .skip-battle-btn {
-            position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.1);
-            border: 1px solid var(--primary-color); color: var(--primary-color); padding: 6px 12px;
-            border-radius: 8px; font-weight: bold; cursor: pointer; z-index: 10000;
+            position: absolute; top: 20px; right: 20px; background: rgba(20,20,30,0.8);
+            border: 1px solid var(--primary-color); color: var(--primary-color); padding: 8px 14px;
+            border-radius: 10px; font-weight: bold; cursor: pointer; z-index: 10000;
         }
+
+        .toast-container {
+            position: fixed; top: 55px; left: 0; width: 100%; pointer-events: none; z-index: 20000;
+            display: flex; justify-content: space-between; padding: 0 15px;
+        }
+        .ach-toast {
+            background: linear-gradient(135deg, #181824, #261f0f);
+            border: 2px solid var(--primary-color); border-radius: 14px;
+            padding: 12px 16px; width: 290px; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255,215,0,0.3);
+            display: flex; align-items: center; gap: 12px; pointer-events: auto;
+            opacity: 0; transform: translateY(-25px); transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .ach-toast.show { opacity: 1; transform: translateY(0); }
+        .ach-toast.fade-out { opacity: 0; transform: translateY(-25px); }
     </style>
 </head>
 <body>
 
+<div class="debt-banner" id="debtBanner">🚨 УРОВЕНЬ ПОТЕРЯН ИЗ-ЗА ДОЛГА! Получите любую ачивку в течение <span id="debtTimerText">60</span> сек., чтобы спасти уровень!</div>
+<div class="epilepsy-banner" id="epilepsyBanner">⚠️ ВНИМАНИЕ ЭПИЛЕПТИКАМ: Внимание, активация «Котлов генеральских» через <span id="epilepsyTimer">3</span> сек.!</div>
+
+<div class="cobweb-box" id="cobwebBox"></div>
+<div class="royal-particles" id="royalParticlesBox"></div>
+
 <button class="reset-global-btn" onclick="globalReset()" title="Сброс всего">
-    <img src="изображение_4.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'><rect width=\'100%\' height=\'100%\' fill=\'%23111\'/><text x=\'50%\' y=\'55%\' fill=\'%23ffbb00\' font-size=\'20\' text-anchor=\'middle\' dominant-baseline=\'middle\'>🔄</text></svg>'" alt="Сброс">
+    <img src="изображение_4.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'><rect width=\'100%\' height=\'100%\' fill=\'%23111\'/><text x=\'50%\' y=\'55%\' fill=\'%23ffd700\' font-size=\'20\' text-anchor=\'middle\' dominant-baseline=\'middle\'>🔄</text></svg>'" alt="Сброс">
 </button>
 
 <div id="auraOverlay">
@@ -498,39 +787,33 @@
     <img id="overlayImg" src="ауратом.jpg" alt="Аура Том">
 </div>
 
-<div id="achPopOverlay">
-    <div class="ach-pop-box">
-        <div style="font-size: 0.8rem; color: #ffbb00; font-weight: bold; margin-bottom: 5px;">🔥 НОВОЕ ДОСТИЖЕНИЕ! 🔥</div>
-        <div id="achPopIcon" style="font-size: 3.5rem; margin: 8px 0;">🏆</div>
-        <div id="achPopTitle" style="font-size: 1.2rem; font-weight: 900; color: #fff; margin-bottom: 4px;">Название</div>
-        <div id="achPopDesc" style="font-size: 0.8rem; color: #aaa; margin-bottom: 12px;">Описание</div>
-        <div id="achPopXp" style="display: inline-block; background: #ffbb00; color: #000; font-weight: 900; padding: 5px 14px; border-radius: 6px;">+500 XP</div>
-        <div style="margin-top: 15px;"><button class="shop-btn" onclick="closeAchPopup()">Круто!</button></div>
-    </div>
+<div class="toast-container">
+    <div id="toastLeft" class="ach-toast"></div>
+    <div id="toastRight" class="ach-toast"></div>
 </div>
 
 <div id="statsModalOverlay">
     <div class="stats-box">
-        <div style="font-size: 1.3rem; font-weight: 900; color: var(--primary-color); margin-bottom: 15px;">📊 СТАТИСТИКА ИГРОКА</div>
-        <div style="text-align: left; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; margin-bottom: 20px;">
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 6px;">
+        <div style="font-size: 1.4rem; font-weight: 900; color: var(--primary-color); margin-bottom: 18px; text-shadow: 0 0 10px rgba(255,215,0,0.4);">📊 СТАТИСТИКА ИГРОКА</div>
+        <div style="text-align: left; display: flex; flex-direction: column; gap: 12px; font-size: 0.95rem; margin-bottom: 22px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 8px;">
                 <span style="color: #aaa;">Время в игре:</span>
                 <span id="statPlayTime" style="font-weight: bold; color: #fff;">0 мин.</span>
             </div>
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 6px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 8px;">
                 <span style="color: #aaa;">Всего батлов:</span>
                 <span id="statTotalBattles" style="font-weight: bold; color: #fff;">0</span>
             </div>
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 6px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 8px;">
                 <span style="color: #aaa;">Кликов в массе:</span>
                 <span id="statTotalClicks" style="font-weight: bold; color: #fff;">0</span>
             </div>
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 6px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 8px;">
                 <span style="color: #aaa;">Перерождений:</span>
-                <span id="statRebirths" style="font-weight: bold; color: #e91e63;">0</span>
+                <span id="statRebirths" style="font-weight: bold; color: #ff2a5f;">0</span>
             </div>
         </div>
-        <button class="shop-btn" onclick="closeStatsModal()" style="width: 100%; padding: 10px;">Закрыть</button>
+        <button class="shop-btn" onclick="closeStatsModal()" style="width: 100%; padding: 12px;">Закрыть</button>
     </div>
 </div>
 
@@ -541,19 +824,24 @@
             <div class="xp-bar-container"><div class="xp-bar-fill" id="xpBarFill"></div></div>
             <button id="rebirthBtn" class="rebirth-btn" onclick="triggerRebirth()">🔄 Снова дом, всё тот же дом</button>
         </div>
-        <div style="text-align: right; font-size: 0.8rem; color: #888;">
+        <div style="text-align: right; font-size: 0.85rem; color: #888;">
             <div>Опыт: <span id="totalXpVal" style="color: #fff; font-weight: bold;">0</span> XP</div>
-            <div id="rebirthCounterDisplay" style="color: #e91e63; font-weight: bold; margin-top: 2px; display: none;">⚡ Перерождение: <span id="rebirthCount">0</span>/2</div>
+            <div id="rebirthCounterDisplay" style="color: #ff2a5f; font-weight: bold; margin-top: 3px; display: none;">⚡ Перерождение: <span id="rebirthCount">0</span>/2</div>
         </div>
     </div>
 
-    <div class="tabs" id="tabsContainer">
-        <button class="tab-btn" id="btnTab0" onclick="switchTab(0)">⚡ Батл</button>
-        <button class="tab-btn" id="btnTab1" onclick="switchTab(1)">🍕 Масса</button>
-        <button class="tab-btn" id="btnTab2" onclick="switchTab(2)">⌨️ Злопечать</button>
-        <button class="tab-btn" id="btnTab3" onclick="switchTab(3)">📜 История</button>
-        <button class="tab-btn" id="btnTab4" onclick="switchTab(4)">🏆 Ачивки</button>
-        <button class="tab-btn" id="btnTab5" onclick="switchTab(5)">⚙️ Настройки</button>
+    <!-- Навигация (карусель) -->
+    <div class="carousel-nav-bar">
+        <button class="carousel-btn" onclick="navigateTab(-1)">
+            ◀ <span id="prevTabLabel">Назад</span>
+        </button>
+        <div class="carousel-current-display">
+            <div class="carousel-current-title" id="currentTabTitleName">⚡ Батл</div>
+            <div class="carousel-current-sub">Свайпни или нажми стрелки</div>
+        </div>
+        <button class="carousel-btn" onclick="navigateTab(1)">
+            <span id="nextTabLabel">Далее</span> ▶
+        </button>
     </div>
 
     <!-- Вкладка 0: Батл -->
@@ -587,50 +875,64 @@
                 <div class="total-score">ИТОГ: <span id="t2Total">0</span> АУРЫ</div>
             </div>
             <div class="winner-card" id="winnerCardBox">
-                <div style="font-size: 1.2rem; font-weight: 900; color: #fff;">👑 ПОБЕДИТЕЛЬ 👑</div>
-                <div class="winner-name" id="winnerName">---</div>
+                <div style="font-size: 1.25rem; font-weight: 900; color: #fff;">👑 ПОБЕДИТЕЛЬ 👑</div>
+                <div class="winner-name" id="winnerName" style="font-size: 1.1rem; color: var(--primary-color); font-weight: 800; margin: 6px 0;">---</div>
                 <div id="winnerDiff" style="font-size: 0.9rem; color: #e0e0e0;">Разница: 0 ауры</div>
             </div>
         </div>
     </div>
 
-    <!-- Вкладка 1: Кликер -->
+    <!-- Вкладка 1: Кликер (Масса) -->
     <div id="clickerTab" class="tab-content">
         <div class="title">🍕 НАБОР МАССЫ</div>
         <div class="clicker-container">
             <div class="food-progress-box">
                 <div style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Фастфуд:</div>
-                <div id="currentFoodName" style="font-size: 1.2rem; font-weight: 900; color: var(--primary-color);">🍕 Пицца</div>
-                <div style="font-size: 0.9rem;">Кликов: <span id="totalClicksVal" style="font-weight: bold; color: #fff;">0</span></div>
-                <div style="font-size: 0.8rem; color: #aaa;">До след: <span id="clicksToNextVal">50</span></div>
+                <div id="currentFoodName" style="font-size: 1.3rem; font-weight: 900; color: var(--primary-color);">🍕 Пицца</div>
+                <div style="font-size: 0.95rem; margin-top: 4px;">Кликов: <span id="totalClicksVal" style="font-weight: bold; color: #fff;">0</span></div>
+                <div style="font-size: 0.8rem; color: #aaa; margin-top: 2px;">До след: <span id="clicksToNextVal">75</span></div>
             </div>
             <button class="pizza-clicker-btn" onclick="feedClicker()" id="clickerIconBtn">🍕</button>
             <div class="shop-container">
                 <div class="shop-item">
                     <div>
-                        <div style="font-weight: 800; font-size: 0.85rem;">⚡ Ускорить (x1.7)</div>
-                        <div style="font-size: 0.75rem; color: #888;">Цена: <span id="costSpeedVal">100</span></div>
+                        <div style="font-weight: 900; font-size: 0.9rem;">⚡ Ускорить (x1.6)</div>
+                        <div style="font-size: 0.75rem; color: #888;">Цена: <span id="costSpeedVal">150</span></div>
                     </div>
                     <button class="shop-btn" id="buySpeedBtn" onclick="buyClickSpeedUpgrade()">Купить</button>
                 </div>
                 <div class="shop-item">
                     <div>
-                        <div style="font-weight: 800; font-size: 0.85rem;">💪 Сила (x1.7)</div>
-                        <div style="font-size: 0.75rem; color: #888;">Сила: <span id="clickPowerVal">1</span> | Цена: <span id="costPowerVal">100</span></div>
+                        <div style="font-weight: 900; font-size: 0.9rem;">💪 Сила (x1.6)</div>
+                        <div style="font-size: 0.75rem; color: #888;">Сила: <span id="clickPowerVal">1</span> | Цена: <span id="costPowerVal">150</span></div>
                     </div>
                     <button class="shop-btn" id="buyPowerBtn" onclick="buyClickPowerUpgrade()">Купить</button>
                 </div>
                 <div class="shop-item">
                     <div>
-                        <div style="font-weight: 800; font-size: 0.85rem;">🌌 WuieeOledTO</div>
-                        <div style="font-size: 0.75rem; color: #888;">Цена: 1 000 000 кликов (+500 XP)</div>
+                        <div style="font-weight: 900; font-size: 0.9rem;">🌯 Две в сырном</div>
+                        <div style="font-size: 0.75rem; color: #888;">Цена: 1 000 000 000 кликов (+5000 XP)</div>
+                    </div>
+                    <button class="shop-btn" id="buyItemCheese" onclick="buySpecialAchievement('item_cheese')">Купить</button>
+                </div>
+                <div class="shop-item">
+                    <div>
+                        <div style="font-weight: 900; font-size: 0.9rem;">🪓 Арлекино</div>
+                        <div style="font-size: 0.75rem; color: #888;">Цена: 1 000 000 000 кликов (+10000 XP)</div>
+                    </div>
+                    <button class="shop-btn" id="buyItemHarlequin" onclick="buySpecialAchievement('item_harlequin')">Купить</button>
+                </div>
+                <div class="shop-item">
+                    <div>
+                        <div style="font-weight: 900; font-size: 0.9rem;">🌌 WuieeOledTO</div>
+                        <div style="font-size: 0.75rem; color: #888;">Цена: 5 000 000 кликов (+500 XP)</div>
                     </div>
                     <button class="shop-btn" id="buyAch1Btn" onclick="buySpecialAchievement('ach_wuiee')">Купить</button>
                 </div>
                 <div class="shop-item">
                     <div>
-                        <div style="font-weight: 800; font-size: 0.85rem;">🍫 Шоколадный пудинг</div>
-                        <div style="font-size: 0.75rem; color: #888;">Цена: 100 000 000 кликов (+1000 XP)</div>
+                        <div style="font-weight: 900; font-size: 0.9rem;">🍫 Шоколадный пудинг</div>
+                        <div style="font-size: 0.75rem; color: #888;">Цена: 500 000 000 кликов (+1000 XP)</div>
                     </div>
                     <button class="shop-btn" id="buyAch2Btn" onclick="buySpecialAchievement('ach_pudding')">Купить</button>
                 </div>
@@ -642,7 +944,7 @@
     <div id="evilTypingTab" class="tab-content">
         <div class="title">⌨️ ЗЛОПЕЧАТАНИЕ</div>
         <div class="evil-typing-container">
-            <div style="font-size: 0.8rem; color: #aaa; margin-bottom: 8px;">Введите секретный код:</div>
+            <div style="font-size: 0.85rem; color: #aaa; margin-bottom: 10px;">Введите секретный код:</div>
             <div id="evilScreen" class="evil-screen">_</div>
             <div class="evil-keyboard">
                 <div class="evil-row">
@@ -659,26 +961,124 @@
                 </div>
             </div>
             <div class="evil-action-row">
-                <button class="shop-btn" onclick="clearEvilInput()" style="flex: 1; background: #333; color: #ff8888;">Очистить</button>
-                <button class="btn" onclick="submitEvilCode()" style="flex: 2; padding: 10px; font-size: 0.9rem;">🔍 Распознать</button>
+                <button class="shop-btn" onclick="clearEvilInput()" style="flex: 1; background: #222; color: #ff8888;">Очистить</button>
+                <button class="btn" onclick="submitEvilCode()" style="flex: 2; padding: 12px; font-size: 0.95rem;">🔍 Распознать</button>
             </div>
+        </div>
+    </div>
+
+    <!-- ВКЛАДКА ИВЕНТОВ -->
+    <div id="eventsTab" class="tab-content">
+        <div class="title">🔥 АВТО-ИВЕНТЫ</div>
+        <div style="font-size: 0.85rem; color: #aaa; text-align: center; margin-bottom: 15px;">
+            До 2 ивентов сразу! Отрицательные ивенты нельзя отменять. Покупка с потерей уровня запускает таймер долга.
+        </div>
+        <div class="events-grid">
+            <div class="event-card" id="eventCardX2">
+                <div class="event-header">
+                    <div class="event-title">⚡ Ивент: X2 Аура</div>
+                    <div class="event-status" id="statusEventX2">Спит</div>
+                </div>
+                <div class="event-desc">Удвоенный авторитет на районе!</div>
+                <button class="shop-btn" id="eventBtnX2" onclick="buyEvent('x2', 500)" style="margin-top:10px;">Купить за 500 XP</button>
+            </div>
+
+            <div class="event-card" id="eventCardX4">
+                <div class="event-header">
+                    <div class="event-title">🚀 Ивент: X4 Аура</div>
+                    <div class="event-status" id="statusEventX4">Спит</div>
+                </div>
+                <div class="event-desc">Четырехкратный мега-буст ауры!</div>
+                <button class="shop-btn" id="eventBtnX4" onclick="buyEvent('x4', 1500)" style="margin-top:10px;">Купить за 1500 XP</button>
+            </div>
+
+            <div class="event-card" id="eventCardHalf">
+                <div class="event-header">
+                    <div class="event-title">📉 Ивент: 0,5 Аура</div>
+                    <div class="event-status" id="statusEventHalf">Спит</div>
+                </div>
+                <div class="event-desc">Инфляция и просадка: аура делится пополам (нельзя отменить).</div>
+                <button class="shop-btn" id="eventBtnHalf" onclick="buyEvent('half', 100)" style="margin-top:10px;">Купить за 100 XP</button>
+            </div>
+
+            <div class="event-card" id="eventCardPension">
+                <div class="event-header">
+                    <div class="event-title">👵 Пенсионный фонд</div>
+                    <div class="event-status" id="statusEventPension">Спит</div>
+                </div>
+                <div class="event-desc">Паутина, антиквариат и закрытый кликер (нельзя отменить).</div>
+                <button class="shop-btn" id="eventBtnPension" onclick="buyEvent('pension', 300)" style="margin-top:10px;">Купить за 300 XP</button>
+            </div>
+
+            <div class="event-card" id="eventCardMoneyWind">
+                <div class="event-header">
+                    <div class="event-title">💸 Деньги на ветер</div>
+                    <div class="event-status" id="statusEventMoneyWind">Спит</div>
+                </div>
+                <div class="event-desc">5% шанс списать 1 уровень во время каждого батла (нельзя отменить).</div>
+                <button class="shop-btn" id="eventBtnMoneyWind" onclick="buyEvent('money_wind', 200)" style="margin-top:10px;">Купить за 200 XP</button>
+            </div>
+
+            <div class="event-card" id="eventCardBoilers">
+                <div class="event-header">
+                    <div class="event-title">⌚ Котлы генеральские</div>
+                    <div class="event-status" id="statusEventBoilers">Спит</div>
+                </div>
+                <div class="event-desc">Эпилептический световой хаос на экране! Предупреждение за 3 сек. (нельзя отменить).</div>
+                <button class="shop-btn" id="eventBtnBoilers" onclick="buyEvent('general_boilers', 400)" style="margin-top:10px;">Купить за 400 XP</button>
+            </div>
+
+            <div class="event-card" id="eventCardRoyal">
+                <div class="event-header">
+                    <div class="event-title">👑 Царский Ивент</div>
+                    <div class="event-status" id="statusEventRoyal">Спит</div>
+                </div>
+                <div class="event-desc">Золото, короны и 3% шанс выбить мифический «Царский дроп» (+1000 XP)!</div>
+                <button class="shop-btn" id="eventBtnRoyal" disabled style="margin-top:10px; background:#333; color:#777; cursor:not-allowed;">Нельзя купить 👑</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Вкладка 6: Колесо Удачи -->
+    <div id="wheelTab" class="tab-content">
+        <div class="title">🎡 КОЛЕСО УДАЧИ</div>
+        <div class="wheel-container">
+            <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 6px;">Цена прокрута: <span id="wheelCostDisplay" style="color:var(--primary-color); font-weight:bold;">100 000 кликов</span></div>
+            <div style="font-size: 0.8rem; color: #888; margin-bottom: 8px;">Нажми на любой сектор колеса, чтобы узнать его приз!</div>
+            <div class="wheel-wrapper">
+                <div class="wheel-pointer"></div>
+                <div id="fortuneWheel" class="wheel-box">
+                    <div class="wheel-center-hub">🎯</div>
+                    <div class="wheel-emoji-item" data-index="0" onclick="inspectWheelSector(0, event)">🧓</div>
+                    <div class="wheel-emoji-item" data-index="1" onclick="inspectWheelSector(1, event)">💡</div>
+                    <div class="wheel-emoji-item" data-index="2" onclick="inspectWheelSector(2, event)">⭐</div>
+                    <div class="wheel-emoji-item" data-index="3" onclick="inspectWheelSector(3, event)">🌾</div>
+                    <div class="wheel-emoji-item" data-index="4" onclick="inspectWheelSector(4, event)">💪</div>
+                    <div class="wheel-emoji-item" data-index="5" onclick="inspectWheelSector(5, event)">🚀</div>
+                    <div class="wheel-emoji-item" data-index="6" onclick="inspectWheelSector(6, event)">🤡</div>
+                </div>
+            </div>
+            <div id="wheelResultText" style="font-size: 1.1rem; font-weight: 900; color: var(--primary-color); margin: 18px 0; min-height: 32px;">Испытай удачу за клики!</div>
+            <button class="btn" id="spinWheelBtn" onclick="spinFortuneWheel()">Крутить колесо 🎲</button>
         </div>
     </div>
 
     <!-- Вкладка 3: История -->
     <div id="historyTab" class="tab-content">
-        <div class="title">📜 ИСТОРИЯ</div>
+        <div class="title">📜 ИСТОРИЯ БАТЛОВ</div>
+        <div style="font-size: 0.75rem; color: #888; text-align: center; margin-bottom: 10px;">💡 Подсказка: секретные элементы истории можно зажимать!</div>
         <div id="historyListContainer" class="history-list"></div>
         <button class="clear-history-btn" onclick="clearHistory()">Очистить историю</button>
     </div>
 
     <!-- Вкладка 4: Ачивки -->
     <div id="achievementsTab" class="tab-content">
-        <div class="title">🏆 АЧИВКИ</div>
+        <div class="title">🏆 АЧИВКИ АВТОРИТЕТА</div>
         <div class="ach-category-tabs">
             <button class="ach-cat-btn active" onclick="switchAchCategory('battle')" id="catBtnBattle">⚡ Боевые</button>
             <button class="ach-cat-btn" onclick="switchAchCategory('clicker')" id="catBtnClicker">🍕 Кликер</button>
-            <button class="ach-cat-btn" onclick="switchAchCategory('evil')" id="catBtnEvil">⌨️ Злопечать</button>
+            <button class="ach-cat-btn" onclick="switchAchCategory('evil')" id="catBtnEvil">⌨️ Секреты</button>
+            <button class="ach-cat-btn" onclick="switchAchCategory('wheel')" id="catBtnWheelTab" style="display:none;" id="catWheelBtn">🎡 Колесо</button>
         </div>
         <div id="achievementsListContainer" class="achievements-grid"></div>
     </div>
@@ -689,13 +1089,6 @@
             <span class="logo-letters" onclick="clickSettingsLogoLetter('⚙', this)">⚙</span><span class="logo-letters" onclick="clickSettingsLogoLetter('н', this)">Н</span><span class="logo-letters" onclick="clickSettingsLogoLetter('а', this)">А</span><span class="logo-letters" onclick="clickSettingsLogoLetter('с', this)">С</span><span class="logo-letters" onclick="clickSettingsLogoLetter('т', this)">Т</span><span class="logo-letters" onclick="clickSettingsLogoLetter('р', this)">Р</span><span class="logo-letters" onclick="clickSettingsLogoLetter('о', this)">О</span><span class="logo-letters" onclick="clickSettingsLogoLetter('й', this)">Й</span><span class="logo-letters" onclick="clickSettingsLogoLetter('к', this)">К</span><span class="logo-letters" onclick="clickSettingsLogoLetter('и', this)">И</span>
         </div>
         <div class="setting-row">
-            <span>Режим вкладок:</span>
-            <select id="navModeSelect" onchange="saveAndApplySettings()">
-                <option value="neighbors">Соседи (свайпы)</option>
-                <option value="classic">Как раньше (все вкладки)</option>
-            </select>
-        </div>
-        <div class="setting-row">
             <span>Авто-скип анимации батла:</span>
             <select id="autoSkipSelect" onchange="saveAndApplySettings()">
                 <option value="off">Выключен (показывать анимацию)</option>
@@ -703,19 +1096,19 @@
             </select>
         </div>
         <div class="setting-row">
-            <span>Громкость:</span>
+            <span>Громкость звуков:</span>
             <div style="display:flex; align-items:center; gap:8px;">
                 <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="1" oninput="updateVolume(this.value)">
-                <span id="volumeVal" style="font-size:0.8rem;">100%</span>
+                <span id="volumeVal" style="font-size:0.85rem; font-weight:bold;">100%</span>
             </div>
         </div>
         <div class="setting-row">
-            <span>Свой звук:</span>
+            <span>Свой аудио-победник:</span>
             <label class="file-upload-btn">📁 Файл <input type="file" id="customSoundFile" accept="audio/*" onchange="handleCustomSoundUpload()"></label>
         </div>
         <div class="setting-row">
             <span>Основной акцент:</span>
-            <input type="color" id="primaryColorPicker" value="#ffbb00" oninput="saveAndApplySettings()">
+            <input type="color" id="primaryColorPicker" value="#ffd700" oninput="saveAndApplySettings()">
         </div>
         <div class="setting-row">
             <span>Второй цвет:</span>
@@ -723,8 +1116,14 @@
         </div>
         <div class="setting-row">
             <span>Фон карточек:</span>
-            <input type="color" id="cardBgPicker" value="#111111" oninput="saveAndApplySettings()">
+            <input type="color" id="cardBgPicker" value="#0a0a0f" oninput="saveAndApplySettings()">
         </div>
+        
+        <div class="setting-row" id="pirateSecretSettingRow" style="display: none; border: 2px dashed var(--primary-color);">
+            <span>Пиратский артефакт:</span>
+            <a href="https://vk.com/video95738288_161007165" target="_blank" onclick="unlockPirateLinkAchievement()" style="background:#14141c; border:1px solid var(--primary-color); padding:8px 12px; border-radius:8px; text-decoration:none; display:flex; align-items:center; justify-content:center; font-size:1.2rem;" title="Сайт с пиратами">🏴‍☠️</a>
+        </div>
+
         <div class="setting-row">
             <span>Статистика игрока:</span>
             <button class="shop-btn" onclick="openStatsModal()" style="background:#2196f3; color:#fff;">📊 Посмотреть</button>
@@ -749,44 +1148,68 @@
     let battleTimeoutId = null;
 
     let currentTabIndex = 0;
-    let availableTabIndices = [0, 1, 3, 4, 5];
-    let navMode = 'neighbors';
     let autoSkipEnabled = false;
     let hypeMeterClicks = 0;
     let totalPlaySeconds = 0;
+    let currentWheelRotation = 0;
+    let nextWheelCost = 100000;
+    let pensionAttempts = 0;
+
+    let activeEvents = [];
+
+    // Механика долга при потере уровня
+    let isDebtActive = false;
+    let debtSecondsLeft = 60;
+    let debtInterval = null;
+    let clickerPriceMultiplier = 1.0;
+
+    let fakeBattleHoldTimer = null;
 
     const sessionSalt = Math.random().toString();
     let achievementsData = [
         { id: 'first_battle', category: 'battle', title: 'Пошло поехало', desc: 'Запустите свой первый эпический аура-батл', xp: 100, rarity: 'common', unlocked: false, icon: '🚀' },
+        { id: 'tsarsky_drop', category: 'battle', title: 'Царский дроп', desc: 'Сорвите куш во время Царского ивента в батле', xp: 1000, rarity: 'mythic', unlocked: false, icon: '👑', isTsarsky: true },
         { id: 'easter_egg', category: 'battle', title: 'Паzzхалко', desc: 'Отыщите скрытую пасхалку на священном логотипе', xp: 250, rarity: 'epic', unlocked: false, icon: '🦷' },
         { id: 'negative_aura', category: 'battle', title: 'Айй карамба', desc: 'Аура одного из участников пробила дно и ушла в минус', xp: 250, rarity: 'rare', unlocked: false, icon: '📉' },
         { id: 'president_ref', category: 'battle', title: 'а да нуу нафиг', desc: 'упомянут владыка, или один из....', xp: 500, rarity: 'legendary', unlocked: false, icon: '👔' },
         { id: 'grozny_shampur', category: 'battle', title: 'вы разгневали аллаха', desc: 'вы упомянули достопримечательности Голубого Шампура, и представителей Чечни', xp: 1000, rarity: 'mythic', unlocked: false, icon: '🔥' },
         { id: 'bruno_ref', category: 'battle', title: 'не упоминай бруно', desc: 'всем привет это я', xp: 500, rarity: 'legendary', unlocked: false, icon: '🤫' },
-        
+        { id: 'caribbean_sea', category: 'battle', title: 'разрози меня гром', desc: 'Ощутите дух далеких тропических приключений и волн', xp: 250, rarity: 'rare', unlocked: false, icon: '⚓' },
         { id: 'hype_builder', category: 'battle', title: 'я на стройке', desc: 'Нажмите кнопку хайпометр 10 раз в настройках', xp: 250, rarity: 'epic', unlocked: false, icon: '🏗️' },
         
-        /* Перерожденческие секретные ачивки (скрыты условия) */
         { id: 'rebirth_secret_chicken', category: 'battle', title: 'звонят но я не отвечу', desc: 'Секретная боевая ачивка', xp: 1500, rarity: 'mythic', unlocked: false, icon: '🥚', requiresRebirth: 1 },
         { id: 'rebirth_secret_hitler', category: 'battle', title: 'невьъебический реееп батл', desc: 'Секретная боевая ачивка', xp: 1500, rarity: 'mythic', unlocked: false, icon: '📜', requiresRebirth: 1 },
         { id: 'rebirth_secret_piano', category: 'battle', title: 'зимой и летом одним цветом', desc: 'Секретная боевая ачивка', xp: 1500, rarity: 'mythic', unlocked: false, icon: '🎹', requiresRebirth: 1 },
         { id: 'shalunishka', category: 'battle', title: 'шалунишка', desc: 'Секретная пасхалка в настройках', xp: 500, rarity: 'epic', unlocked: false, icon: '😜', requiresRebirth: 2 },
 
-        { id: 'food_1', category: 'clicker', title: 'Первый перекус', desc: 'Достигли фастфуда: Хот-дог', xp: 50, rarity: 'common', unlocked: false, icon: '🌭' },
-        { id: 'food_2', category: 'clicker', title: 'Уже теплее', desc: 'Достигли фастфуда: Шаурма', xp: 100, rarity: 'common', unlocked: false, icon: '🌯' },
+        { id: 'food_1', category: 'clicker', title: 'Первый перекус', desc: 'Достигли фастфуда: Хот-дог', xp: 150, rarity: 'common', unlocked: false, icon: '🌭' },
+        { id: 'food_2', category: 'clicker', title: 'Уже теплее', desc: 'Достигли фастфуда: Шаурма', xp: 150, rarity: 'common', unlocked: false, icon: '🌯' },
         { id: 'food_3', category: 'clicker', title: 'Мастер перекуса', desc: 'Достигли фастфуда: Картошка фри', xp: 150, rarity: 'rare', unlocked: false, icon: '🍟' },
-        { id: 'food_4', category: 'clicker', title: 'Ночной дожор', desc: 'Достигли фастфуда: Большая кола', xp: 200, rarity: 'rare', unlocked: false, icon: '🥤' },
-        { id: 'food_5', category: 'clicker', title: 'Гурман калорий', desc: 'Достигли фастфуда: Двойной чизбургер', xp: 350, rarity: 'epic', unlocked: false, icon: '🍔' },
-        { id: 'food_6', category: 'clicker', title: 'Повелитель жира', desc: 'Достигли фастфуда: Мега-сет с наггетсами', xp: 500, rarity: 'epic', unlocked: false, icon: '🍗' },
-        { id: 'food_7', category: 'clicker', title: 'Пищевой титан', desc: 'Достигли фастфуда: Самый блатной бургер', xp: 1000, rarity: 'legendary', unlocked: false, icon: '👑' },
+        { id: 'food_4', category: 'clicker', title: 'Ночной дожор', desc: 'Достигли фастфуда: Большая кола', xp: 150, rarity: 'rare', unlocked: false, icon: '🥤' },
+        { id: 'food_5', category: 'clicker', title: 'Гурман калорий', desc: 'Достигли фастфуда: Двойной чизбургер', xp: 150, rarity: 'epic', unlocked: false, icon: '🍔' },
+        { id: 'food_6', category: 'clicker', title: 'Повелитель жира', desc: 'Достигли фастфуда: Мега-сет с наггетсами', xp: 150, rarity: 'epic', unlocked: false, icon: '🍗' },
+        { id: 'food_7', category: 'clicker', title: 'Пищевой титан', desc: 'Достигли фастфуда: Самый блатной бургер', xp: 150, rarity: 'legendary', unlocked: false, icon: '👑' },
+        { id: 'food_8', category: 'clicker', title: 'Рамен бесконечности', desc: 'Достигли фастфуда: Рамен бесконечности', xp: 150, rarity: 'legendary', unlocked: false, icon: '🍜' },
+        { id: 'food_9', category: 'clicker', title: 'Блинный монстр', desc: 'Достигли фастфуда: Блинный монстр', xp: 150, rarity: 'mythic', unlocked: false, icon: '🥞' },
+        { id: 'food_10', category: 'clicker', title: 'Ледяной гигант', desc: 'Достигли фастфуда: Ледяной арбуз', xp: 150, rarity: 'mythic', unlocked: false, icon: '🧊' },
+        { id: 'food_11', category: 'clicker', title: 'Торт-гигачад', desc: 'Достигли фастфуда: Торт-гигачад', xp: 150, rarity: 'mythic', unlocked: false, icon: '🎂' },
 
-        /* Покупные кликер-ачивки */
         { id: 'ach_wuiee', category: 'clicker', title: 'WuieeOledTO', desc: 'самый огромный объект в галактике', xp: 500, rarity: 'legendary', unlocked: false, icon: '🌌' },
         { id: 'ach_pudding', category: 'clicker', title: 'Шоколадный пудинг', desc: 'это был не шоколадный пуддинг?((', xp: 1000, rarity: 'mythic', unlocked: false, icon: '🍫' },
+        { id: 'item_cheese', category: 'clicker', title: 'Две в сырном', desc: 'Легендарная мощнейшая шаурма', xp: 5000, rarity: 'mythic', unlocked: false, icon: '🌯' },
+        { id: 'item_harlequin', category: 'clicker', title: 'Арлекино', desc: 'Смертоносная коса хайпа', xp: 10000, rarity: 'mythic', unlocked: false, icon: '🪓' },
+        { id: 'pension_queue', category: 'clicker', title: 'очередь, пропусти старшее поколение', desc: 'Попытались зайти в кликер во время пенсионного фонда 15 раз', xp: 750, rarity: 'epic', unlocked: false, icon: '👵' },
 
-        /* Злопечатание */
         { id: 'evil_secret_1', category: 'evil', title: 'не прокатит', desc: 'Добыт секретный цифровой артефакт', xp: 500, rarity: 'legendary', unlocked: false, icon: '👑' },
-        { id: 'evil_secret_2', category: 'evil', title: 'пасхкалко пасхалко 2.0', desc: 'Взломана система секретного ввода', xp: 500, rarity: 'legendary', unlocked: false, icon: '🔢' }
+        { id: 'evil_secret_2', category: 'evil', title: 'пасхкалко пасхалко 2.0', desc: 'Взломана система секретного ввода', xp: 500, rarity: 'legendary', unlocked: false, icon: '🔢' },
+        { id: 'money_ach', category: 'evil', title: 'а что мне дали эти ваши', desc: 'хочется побольше', xp: 250, rarity: 'epic', unlocked: false, icon: '💸' },
+        { id: 'pirate_gun_ach', category: 'evil', title: 'вот это пистолет', desc: 'Найдено и активировано тайное пиратское оружие', xp: 500, rarity: 'legendary', unlocked: false, icon: '🔫' },
+
+        { id: 'popich', category: 'evil', title: 'попич', desc: 'Распознана старинная народная забава', xp: 300, rarity: 'epic', unlocked: false, icon: '🤡' },
+        { id: 'mama_popicha', category: 'evil', title: 'мама попича', desc: 'Зажат тайный фейковый поединок в истории', xp: 500, rarity: 'legendary', unlocked: false, icon: '👩‍👦' },
+
+        { id: 'wheel_zero_aura', category: 'wheel', title: 'пенсионеры сгрызли твой заработок', desc: 'Инфляция и коммуналка забрали всё до копейки на колесе удачи', xp: 100, rarity: 'rare', unlocked: false, icon: '🧓' },
+        { id: 'wheel_title_farmer', category: 'wheel', title: 'аура фармер', desc: 'Получен секретный титул в колесе фортуны', xp: 250, rarity: 'legendary', unlocked: false, icon: '🌾' }
     ];
 
     const levelTitles = {
@@ -799,30 +1222,43 @@
         7: "галактический пахан",
         8: "император межгалактического кипиша",
         9: "верховный авторитет вселенной",
-        10: "владыка космического трона"
+        10: "владыка космического трона",
+        11: "босс качалки",
+        12: "повелитель протеина",
+        13: "титан аурного перекуса",
+        14: "легенда подвала",
+        15: "абсолютный аватар хайпа"
     };
 
     let currentAchCategory = 'battle';
-    let totalClicks = 0, clickPower = 1, currentFoodIndex = 0, nextFoodRequirement = 50, costSpeed = 100, costPower = 100, currentEvilInput = '';
+    let totalClicks = 0, clickPower = 1, currentFoodIndex = 0, nextFoodRequirement = 75, costSpeed = 150, costPower = 150, currentEvilInput = '';
+    
     const foodStages = [
-        { name: '🍕 Пицца', icon: '🍕' }, { name: '🌭 Хот-дог', icon: '🌭' }, { name: '🌯 Шаурма', icon: '🌯' },
-        { name: '🍟 Картошка фри', icon: '🍟' }, { name: '🥤 Большая кола', icon: '🥤' }, { name: '🍔 Двойной чизбургер', icon: '🍔' },
-        { name: '🍗 Мега-сет с наггетсами', icon: '🍗' }, { name: '👑 Самый блатной бургер', icon: '👑' }
+        { name: '🍕 Пицца', icon: '🍕' }, 
+        { name: '🌭 Хот-дог', icon: '🌭' }, 
+        { name: '🌯 Шаурма', icon: '🌯' },
+        { name: '🍟 Картошка фри', icon: '🍟' }, 
+        { name: '🥤 Большая кола', icon: '🥤' }, 
+        { name: '🍔 Двойной чизбургер', icon: '🍔' },
+        { name: '🍗 Мега-сет с наггетсами', icon: '🍗' }, 
+        { name: '👑 Самый блатной бургер', icon: '👑' },
+        { name: '🍜 Рамен бесконечности', icon: '🍜' },
+        { name: '🥞 Блинный монстр', icon: '🥞' },
+        { name: '🧊 Ледяной арбуз', icon: '🧊' },
+        { name: '🎂 Торт-гигачад', icon: '🎂' }
     ];
     let userXP = 0, rebirthCount = 0;
     
-    // Пасхалка на логотипе батла: а у р а (наоборот)
     const secretTargetBattle = ['л', 'т', 'а', 'б', 'а', 'у', 'р', 'а'];
     let secretProgressBattle = [];
 
-    // Пасхалка в настройках для второго перерождения: а у р а (наоборот)
     const secretTargetSettings = ['а', 'р', 'у', 'а'];
     let secretProgressSettings = [];
 
     let touchStartX = 0, touchEndX = 0;
-    let isMouseDown = false, mouseStartX = 0;
 
     window.addEventListener('DOMContentLoaded', () => {
+        setupWheelEmojis();
         loadSettings();
         loadRebirthData();
         loadClickerData();
@@ -830,7 +1266,14 @@
         updateXPUI();
         updateClickerUI();
         checkEvilUnlock();
+        checkWheelUnlock();
+        checkPirateSecretUnlocked();
         switchTab(0);
+        setupRoyalParticles();
+
+        setInterval(() => {
+            checkAutoEvents();
+        }, 15000);
 
         setInterval(() => {
             totalPlaySeconds++;
@@ -842,93 +1285,378 @@
 
         const container = document.getElementById('mainContainer');
         container.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
-        container.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, {passive: true});
-
-        container.addEventListener('mousedown', e => {
-            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
-            isMouseDown = true;
-            mouseStartX = e.clientX;
-        });
-        window.addEventListener('mouseup', e => {
-            if (!isMouseDown) return;
-            isMouseDown = false;
-            let diff = e.clientX - mouseStartX;
+        container.addEventListener('touchend', e => { 
+            touchEndX = e.changedTouches[0].screenX; 
+            let diff = touchEndX - touchStartX;
             if (Math.abs(diff) > 50) navigateTab(diff > 0 ? -1 : 1);
-        });
+        }, {passive: true});
     });
 
-    function handleSwipe() {
-        let diff = touchEndX - touchStartX;
-        if (Math.abs(diff) > 50) navigateTab(diff > 0 ? -1 : 1);
+    function setupRoyalParticles() {
+        const box = document.getElementById('royalParticlesBox');
+        if (!box) return;
+        box.innerHTML = '';
+        for (let i = 0; i < 15; i++) {
+            let crown = document.createElement('div');
+            crown.className = 'royal-floating-crown';
+            crown.innerText = '👑';
+            crown.style.left = Math.random() * 100 + 'vw';
+            crown.style.animationDuration = (3 + Math.random() * 4) + 's';
+            crown.style.animationDelay = (Math.random() * 3) + 's';
+            box.appendChild(crown);
+        }
+    }
+
+    function checkAutoEvents() {
+        if (activeEvents.length >= 2) return;
+        
+        if (Math.random() < 0.10) {
+            const types = ['x2', 'x4', 'half', 'pension', 'royal', 'money_wind', 'general_boilers'];
+            let available = types.filter(t => !activeEvents.find(e => e.type === t));
+            if (available.length > 0) {
+                let chosen = available[Math.floor(Math.random() * available.length)];
+                activateEvent(chosen);
+            }
+        }
+    }
+
+    function startDebtTimer() {
+        isDebtActive = true;
+        debtSecondsLeft = 60;
+        const banner = document.getElementById('debtBanner');
+        if (banner) banner.style.display = 'block';
+
+        if (debtInterval) clearInterval(debtInterval);
+        debtInterval = setInterval(() => {
+            debtSecondsLeft--;
+            let tEl = document.getElementById('debtTimerText');
+            if (tEl) tEl.innerText = debtSecondsLeft;
+
+            if (debtSecondsLeft <= 0) {
+                clearInterval(debtInterval);
+                applyDebtPenalty();
+            }
+        }, 1000);
+    }
+
+    function clearDebtState() {
+        isDebtActive = false;
+        if (debtInterval) clearInterval(debtInterval);
+        const banner = document.getElementById('debtBanner');
+        if (banner) banner.style.display = 'none';
+    }
+
+    function applyDebtPenalty() {
+        userXP = 0;
+        clickerPriceMultiplier *= 1.5;
+        costSpeed = Math.round(costSpeed * 1.5);
+        costPower = Math.round(costPower * 1.5);
+        clearDebtState();
+        alert('⏰ Время вышло! Уровень сброшен до 1, а цены в кликере навсегда выросли в 1.5 раза!');
+        updateXPUI();
+        updateClickerUI();
+    }
+
+    function buyEvent(type, price) {
+        if (activeEvents.find(e => e.type === type)) {
+            alert('⚠️ Этот ивент уже активен!');
+            return;
+        }
+        if (activeEvents.length >= 2) {
+            alert('⚠️ Одновременно может быть активно максимум 2 ивента! Сначала отмените один из них.');
+            return;
+        }
+
+        let oldLevel = Math.floor(Math.max(0, userXP) / 500) + 1;
+        let newXpTest = userXP - price;
+
+        if (oldLevel <= 1 && newXpTest < 0) {
+            alert('❌ Недостаточно опыта для покупки этого ивента!');
+            return;
+        }
+
+        userXP -= price;
+        let finalLevel = Math.floor(Math.max(0, userXP) / 500) + 1;
+
+        alert(`✅ Ивент куплен за ${price} XP!`);
+
+        if (finalLevel < oldLevel) {
+            startDebtTimer();
+        }
+
+        updateXPUI();
+        activateEvent(type);
+    }
+
+    function triggerBoilersActivation() {
+        let banner = document.getElementById('epilepsyBanner');
+        let timerEl = document.getElementById('epilepsyTimer');
+        let sec = 3;
+        if (banner) banner.style.display = 'block';
+        if (timerEl) timerEl.innerText = sec;
+
+        let countInterval = setInterval(() => {
+            sec--;
+            if (timerEl) timerEl.innerText = sec;
+            if (sec <= 0) {
+                clearInterval(countInterval);
+                if (banner) banner.style.display = 'none';
+                document.body.classList.add('general-boilers-mode');
+            }
+        }, 1000);
+    }
+
+    function activateEvent(type) {
+        if (activeEvents.find(e => e.type === type) || activeEvents.length >= 2) return;
+
+        let timeoutId = setTimeout(() => {
+            cancelEvent(type);
+        }, 180000);
+
+        activeEvents.push({ type, timeoutId });
+
+        if (type === 'royal') {
+            document.body.classList.add('royal-event-mode');
+        }
+        if (type === 'pension') {
+            document.body.classList.add('pension-fund-mode');
+            pensionAttempts = 0;
+        }
+        if (type === 'general_boilers') {
+            triggerBoilersActivation();
+        }
+
+        updateEventUI();
+
+        let eventInfo = {};
+        if (type === 'x2') eventInfo = { title: '⚡ Ивент: X2 Аура', desc: 'Удвоенный авторитет!', icon: '⚡', badge: 'АКТИВЕН (X2)' };
+        if (type === 'x4') eventInfo = { title: '🚀 Ивент: X4 Аура', desc: 'Четырехкратный буст!', icon: '🚀', badge: 'АКТИВЕН (X4)' };
+        if (type === 'half') eventInfo = { title: '📉 Ивент: 0,5 Аура', desc: 'Инфляция ауры!', icon: '📉', badge: 'АКТИВЕН (0.5)' };
+        if (type === 'pension') eventInfo = { title: '👵 Пенсионный фонд', desc: 'Антиквариат и закрытый кликер!', icon: '👵', badge: '🏦 АКТИВЕН' };
+        if (type === 'money_wind') eventInfo = { title: '💸 Деньги на ветер', desc: 'Риск списания уровня!', icon: '💸', badge: '💸 АКТИВЕН' };
+        if (type === 'general_boilers') eventInfo = { title: '⌚ Котлы генеральские', desc: 'Эпилептический хаос!', icon: '⌚', badge: '⌚ АКТИВЕН' };
+        if (type === 'royal') eventInfo = { title: '👑 Царский Ивент', desc: 'Золото и короны!', icon: '👑', badge: '👑 ЦАРСКИЙ РЕЖИМ' };
+
+        queueEventToast(eventInfo);
+    }
+
+    function cancelEvent(type) {
+        let index = activeEvents.findIndex(e => e.type === type);
+        if (index !== -1) {
+            clearTimeout(activeEvents[index].timeoutId);
+            activeEvents.splice(index, 1);
+        }
+
+        if (!activeEvents.find(e => e.type === 'royal')) {
+            document.body.classList.remove('royal-event-mode');
+        }
+        if (!activeEvents.find(e => e.type === 'pension')) {
+            document.body.classList.remove('pension-fund-mode');
+        }
+        if (!activeEvents.find(e => e.type === 'general_boilers')) {
+            document.body.classList.remove('general-boilers-mode');
+            let banner = document.getElementById('epilepsyBanner');
+            if (banner) banner.style.display = 'none';
+        }
+
+        updateEventUI();
+        queueToast({ type: 'event', data: { title: '🛑 Ивент отменен', desc: 'Действие ивента досрочно прекращено.', icon: '🛑', badge: 'ОТМЕНЕН' } });
+    }
+
+    function updateEventUI() {
+        const eventMap = [
+            { type: 'x2', price: 500, cardId: 'eventCardX2', statusId: 'statusEventX2', btnId: 'eventBtnX2', cancelable: true },
+            { type: 'x4', price: 1500, cardId: 'eventCardX4', statusId: 'statusEventX4', btnId: 'eventBtnX4', cancelable: true },
+            { type: 'half', price: 100, cardId: 'eventCardHalf', statusId: 'statusEventHalf', btnId: 'eventBtnHalf', cancelable: false },
+            { type: 'pension', price: 300, cardId: 'eventCardPension', statusId: 'statusEventPension', btnId: 'eventBtnPension', cancelable: false },
+            { type: 'money_wind', price: 200, cardId: 'eventCardMoneyWind', statusId: 'statusEventMoneyWind', btnId: 'eventBtnMoneyWind', cancelable: false },
+            { type: 'general_boilers', price: 400, cardId: 'eventCardBoilers', statusId: 'statusEventBoilers', btnId: 'eventBtnBoilers', cancelable: false },
+            { type: 'royal', price: 0, cardId: 'eventCardRoyal', statusId: 'statusEventRoyal', btnId: 'eventBtnRoyal', cancelable: false }
+        ];
+
+        eventMap.forEach(ev => {
+            let activeObj = activeEvents.find(e => e.type === ev.type);
+            let card = document.getElementById(ev.cardId);
+            let status = document.getElementById(ev.statusId);
+            let btn = document.getElementById(ev.btnId);
+
+            if (card) card.classList.toggle('active-event', !!activeObj);
+            if (status) status.innerText = activeObj ? 'АКТИВЕН' : 'Спит';
+
+            if (btn) {
+                if (ev.type === 'royal') {
+                    btn.innerText = 'Нельзя купить 👑';
+                    btn.disabled = true;
+                    btn.style.background = '#333';
+                    btn.style.color = '#777';
+                } else if (activeObj) {
+                    if (ev.cancelable) {
+                        btn.innerText = '❌ Отменить ивент';
+                        btn.disabled = false;
+                        btn.style.background = '#ff2a5f';
+                        btn.style.color = '#fff';
+                        btn.onclick = () => cancelEvent(ev.type);
+                    } else {
+                        btn.innerText = '🔒 Нельзя отменить';
+                        btn.disabled = true;
+                        btn.style.background = '#441111';
+                        btn.style.color = '#ff8888';
+                        btn.onclick = null;
+                    }
+                } else {
+                    btn.innerText = `Купить за ${ev.price} XP`;
+                    btn.disabled = false;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                    btn.onclick = () => buyEvent(ev.type, ev.price);
+                }
+            }
+        });
+    }
+
+    function setupWheelEmojis() {
+        const items = document.querySelectorAll('.wheel-emoji-item');
+        const total = 7;
+        const sliceAngle = 360 / total;
+        const radius = 95;
+
+        items.forEach(item => {
+            let idx = parseInt(item.getAttribute('data-index'), 10);
+            let angleDeg = idx * sliceAngle + (sliceAngle / 2);
+            let angleRad = (angleDeg - 90) * (Math.PI / 180);
+
+            let x = Math.cos(angleRad) * radius;
+            let y = Math.sin(angleRad) * radius;
+
+            item.style.transform = `translate(${x}px, ${y}px)`;
+            item.style.setProperty('--translate-pos', `translate(${x}px, ${y}px)`);
+        });
+    }
+
+    function inspectWheelSector(index, event) {
+        event.stopPropagation();
+        playClickSound();
+        let resText = document.getElementById('wheelResultText');
+
+        if (index === 3) {
+            resText.innerText = 'Доигрался, теперь плати по крупному.';
+            nextWheelCost = 500000;
+            updateClickerUI();
+            return;
+        }
+
+        const sectorDescriptions = {
+            0: '🧓 Сектор «0 АУРЫ!» — забирает весь заработок и дает ачивку.',
+            1: '💡 Сектор «Подсказка» — дает наводку на одну из закрытых ачивок.',
+            2: '⭐ Сектор «Опыт» — начисляет +250 XP к вашему уровню.',
+            4: '💪 Сектор «Сила» — увеличивает силу вашего клика на +50.',
+            5: '🚀 Сектор «Мега-выигрыш» — моментально дает +10 000 000 кликов!',
+            6: '🤡 Сектор «Пустота» — ничего не происходит, инфляция съела попытку.'
+        };
+
+        resText.innerText = sectorDescriptions[index] || 'Неизвестный сектор удачи.';
+    }
+
+    function getActiveTabList() {
+        let list = [
+            { id: 0, name: '⚡ Батл' },
+            { id: 1, name: '🍕 Масса' },
+            { id: 7, name: '🔥 Ивенты' }
+        ];
+        
+        let achMoney = achievementsData.find(a => a.id === 'money_ach');
+        if (achMoney && achMoney.unlocked) {
+            list.push({ id: 6, name: '🎡 Колесо' });
+        }
+        
+        let unlockedCount = achievementsData.filter(a => a.unlocked).length;
+        let level = Math.floor(Math.max(0, userXP) / 500) + 1;
+        if (unlockedCount >= 3 && level >= 3) {
+            list.push({ id: 2, name: '⌨️ Злопечать' });
+        }
+
+        list.push({ id: 3, name: '📜 История' });
+        list.push({ id: 4, name: '🏆 Ачивки' });
+        list.push({ id: 5, name: '⚙️ Настройки' });
+        return list;
     }
 
     function navigateTab(direction) {
-        let currIdx = availableTabIndices.indexOf(currentTabIndex);
+        let tabs = getActiveTabList();
+        let currIdx = tabs.findIndex(t => t.id === currentTabIndex);
         if (currIdx === -1) currIdx = 0;
         let nextIdx = currIdx + direction;
-        if (nextIdx >= availableTabIndices.length) nextIdx = 0;
-        if (nextIdx < 0) nextIdx = availableTabIndices.length - 1;
-        switchTab(availableTabIndices[nextIdx]);
+        if (nextIdx >= tabs.length) nextIdx = 0;
+        if (nextIdx < 0) nextIdx = tabs.length - 1;
+        switchTab(tabs[nextIdx].id);
     }
 
     function switchTab(tabIndex) {
+        if (tabIndex === 1 && activeEvents.find(e => e.type === 'pension')) {
+            pensionAttempts++;
+            playClickSound();
+            alert(`👵 Доступ к кликеру заблокирован Пенсионным фондом! Очередь (${pensionAttempts}/15). Пропусти старшее поколение!`);
+            if (pensionAttempts >= 15) {
+                unlockAchievement('pension_queue');
+            }
+            return;
+        }
+
         currentTabIndex = tabIndex;
-        const tabIds = ['battleTab', 'clickerTab', 'evilTypingTab', 'historyTab', 'achievementsTab', 'settingsTab'];
+        const tabIds = { 
+            0: 'battleTab', 
+            1: 'clickerTab', 
+            2: 'evilTypingTab', 
+            6: 'wheelTab', 
+            7: 'eventsTab',
+            3: 'historyTab', 
+            4: 'achievementsTab', 
+            5: 'settingsTab' 
+        };
 
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.getElementById(tabIds[tabIndex]).classList.add('active');
-
-        if (navMode === 'neighbors') {
-            let currPos = availableTabIndices.indexOf(tabIndex);
-            let prevPos = (currPos - 1 + availableTabIndices.length) % availableTabIndices.length;
-            let nextPos = (currPos + 1) % availableTabIndices.length;
-            let prevTabIdx = availableTabIndices[prevPos];
-            let nextTabIdx = availableTabIndices[nextPos];
-
-            for (let i = 0; i <= 5; i++) {
-                let btn = document.getElementById(`btnTab${i}`);
-                if (btn) {
-                    if (i === prevTabIdx || i === nextTabIdx) {
-                        btn.style.display = 'block';
-                        btn.classList.remove('active');
-                        if (i === prevTabIdx) btn.innerText = `◀ ${getTabNameWithEmoji(i)}`;
-                        if (i === nextTabIdx) btn.innerText = `${getTabNameWithEmoji(i)} ▶`;
-                    } else {
-                        btn.style.display = 'none';
-                    }
-                }
-            }
-        } else {
-            for (let i = 0; i <= 5; i++) {
-                let btn = document.getElementById(`btnTab${i}`);
-                if (btn) {
-                    if (availableTabIndices.includes(i)) {
-                        btn.style.display = 'block';
-                        btn.innerText = getTabNameWithEmoji(i);
-                        btn.classList.toggle('active', i === tabIndex);
-                    } else {
-                        btn.style.display = 'none';
-                    }
-                }
-            }
+        let targetId = tabIds[tabIndex];
+        if (targetId && document.getElementById(targetId)) {
+            document.getElementById(targetId).classList.add('active');
         }
+
+        let tabs = getActiveTabList();
+        let currPos = tabs.findIndex(t => t.id === tabIndex);
+        if (currPos === -1) currPos = 0;
+
+        let prevTab = tabs[(currPos - 1 + tabs.length) % tabs.length];
+        let currTab = tabs[currPos];
+        let nextTab = tabs[(currPos + 1) % tabs.length];
+
+        document.getElementById('prevTabLabel').innerText = prevTab.name;
+        document.getElementById('currentTabTitleName').innerText = currTab.name;
+        document.getElementById('nextTabLabel').innerText = nextTab.name;
 
         if (tabIndex === 3) renderHistory();
         if (tabIndex === 4) renderAchievements();
     }
 
-    function getTabNameWithEmoji(idx) {
-        const names = ['⚡ Батл', '🍕 Масса', '⌨️ Злопечать', '📜 История', '🏆 Ачивки', '⚙️ Настройки'];
-        return names[idx] || '';
+    function checkEvilUnlock() {
+        let achMoney = achievementsData.find(a => a.id === 'money_ach');
+        if (achMoney && achMoney.unlocked) {
+            let catWheelBtn = document.getElementById('catBtnWheelTab');
+            if (catWheelBtn) catWheelBtn.style.display = 'block';
+        }
     }
 
-    function checkEvilUnlock() {
-        const unlockedCount = achievementsData.filter(a => a.unlocked).length;
-        let level = Math.floor(userXP / 500) + 1;
-        if (unlockedCount >= 3 && level >= 3) {
-            if (!availableTabIndices.includes(2)) availableTabIndices = [0, 1, 2, 3, 4, 5];
-        } else {
-            availableTabIndices = [0, 1, 3, 4, 5];
+    function checkWheelUnlock() {
+        let achMoney = achievementsData.find(a => a.id === 'money_ach');
+        if (achMoney && achMoney.unlocked) {
+            let catWheelBtn = document.getElementById('catBtnWheelTab');
+            if (catWheelBtn) catWheelBtn.style.display = 'block';
+        }
+    }
+
+    function checkPirateSecretUnlocked() {
+        let achGun = achievementsData.find(a => a.id === 'pirate_gun_ach');
+        if (achGun && (achGun.unlocked || localStorage.getItem('aura_pirate_setting_unlocked') === 'true')) {
+            let row = document.getElementById('pirateSecretSettingRow');
+            if (row) row.style.display = 'flex';
         }
     }
 
@@ -986,6 +1714,7 @@
         if (localStorage.getItem('aura_click_power')) clickPower = parseFloat(localStorage.getItem('aura_click_power'));
         if (localStorage.getItem('aura_food_index')) currentFoodIndex = parseInt(localStorage.getItem('aura_food_index'), 10);
         if (localStorage.getItem('aura_next_req')) nextFoodRequirement = parseInt(localStorage.getItem('aura_next_req'), 10);
+        if (localStorage.getItem('aura_price_mult')) clickerPriceMultiplier = parseFloat(localStorage.getItem('aura_price_mult'));
     }
 
     function saveClickerData() {
@@ -993,13 +1722,15 @@
         localStorage.setItem('aura_click_power', clickPower);
         localStorage.setItem('aura_food_index', currentFoodIndex);
         localStorage.setItem('aura_next_req', nextFoodRequirement);
+        localStorage.setItem('aura_price_mult', clickerPriceMultiplier);
     }
 
     function feedClicker() {
         totalClicks += clickPower;
+
         if (totalClicks >= nextFoodRequirement && currentFoodIndex < foodStages.length - 1) {
             currentFoodIndex++;
-            nextFoodRequirement = Math.round(nextFoodRequirement * 1.5);
+            nextFoodRequirement = Math.round(nextFoodRequirement * 1.65);
             if (currentFoodIndex >= 1) unlockAchievement(`food_${currentFoodIndex}`);
         }
         saveClickerData();
@@ -1011,36 +1742,77 @@
         document.getElementById('currentFoodName').innerText = foodStages[currentFoodIndex].name;
         document.getElementById('clickerIconBtn').innerText = foodStages[currentFoodIndex].icon;
         document.getElementById('clickPowerVal').innerText = clickPower.toFixed(1);
-        document.getElementById('costSpeedVal').innerText = costSpeed;
-        document.getElementById('costPowerVal').innerText = costPower;
-        document.getElementById('buySpeedBtn').disabled = totalClicks < costSpeed;
-        document.getElementById('buyPowerBtn').disabled = totalClicks < costPower;
+        
+        let actualCostSpeed = Math.round(costSpeed * clickerPriceMultiplier);
+        let actualCostPower = Math.round(costPower * clickerPriceMultiplier);
 
+        document.getElementById('costSpeedVal').innerText = actualCostSpeed;
+        document.getElementById('costPowerVal').innerText = actualCostPower;
+        document.getElementById('buySpeedBtn').disabled = totalClicks < actualCostSpeed;
+        document.getElementById('buyPowerBtn').disabled = totalClicks < actualCostPower;
+
+        let costFormatted = nextWheelCost.toLocaleString('ru-RU');
+        document.getElementById('wheelCostDisplay').innerText = `${costFormatted} кликов`;
+
+        let spinBtn = document.getElementById('spinWheelBtn');
+        if (spinBtn) {
+            spinBtn.disabled = totalClicks < nextWheelCost;
+            spinBtn.innerText = totalClicks < nextWheelCost ? `Нужно ${costFormatted} кликов` : `Крутить за ${costFormatted} 🎲`;
+        }
+
+        let itemCheese = achievementsData.find(a => a.id === 'item_cheese');
+        let itemHarlequin = achievementsData.find(a => a.id === 'item_harlequin');
         let ach1 = achievementsData.find(a => a.id === 'ach_wuiee');
         let ach2 = achievementsData.find(a => a.id === 'ach_pudding');
 
+        let btnCheese = document.getElementById('buyItemCheese');
+        let btnHarlequin = document.getElementById('buyItemHarlequin');
         let btn1 = document.getElementById('buyAch1Btn');
         let btn2 = document.getElementById('buyAch2Btn');
 
+        if (itemCheese && itemCheese.unlocked) { btnCheese.innerText = 'Куплено'; btnCheese.disabled = true; }
+        else { btnCheese.innerText = 'Купить'; btnCheese.disabled = totalClicks < 1000000000; }
+
+        if (itemHarlequin && itemHarlequin.unlocked) { btnHarlequin.innerText = 'Куплено'; btnHarlequin.disabled = true; }
+        else { btnHarlequin.innerText = 'Купить'; btnHarlequin.disabled = totalClicks < 1000000000; }
+
         if (ach1 && ach1.unlocked) { btn1.innerText = 'Куплено'; btn1.disabled = true; }
-        else { btn1.innerText = 'Купить'; btn1.disabled = totalClicks < 1000000; }
+        else { btn1.innerText = 'Купить'; btn1.disabled = totalClicks < 5000000; }
 
         if (ach2 && ach2.unlocked) { btn2.innerText = 'Куплено'; btn2.disabled = true; }
-        else { btn2.innerText = 'Купить'; btn2.disabled = totalClicks < 100000000; }
+        else { btn2.innerText = 'Купить'; btn2.disabled = totalClicks < 500000000; }
 
         let left = Math.max(0, nextFoodRequirement - totalClicks);
         document.getElementById('clicksToNextVal').innerText = currentFoodIndex >= foodStages.length - 1 ? 'Максимум 👑' : left.toLocaleString('ru-RU');
     }
 
     function buyClickSpeedUpgrade() {
-        if (totalClicks >= costSpeed) { totalClicks -= costSpeed; clickPower *= 1.7; costSpeed = Math.round(costSpeed * 1.4); saveClickerData(); updateClickerUI(); }
+        let actualCost = Math.round(costSpeed * clickerPriceMultiplier);
+        if (totalClicks >= actualCost) { 
+            totalClicks -= actualCost; 
+            clickPower *= 1.6; 
+            costSpeed = Math.round(costSpeed * 1.45); 
+            saveClickerData(); 
+            updateClickerUI(); 
+        }
     }
     function buyClickPowerUpgrade() {
-        if (totalClicks >= costPower) { totalClicks -= costPower; clickPower *= 1.7; costPower = Math.round(costPower * 1.4); saveClickerData(); updateClickerUI(); }
+        let actualCost = Math.round(costPower * clickerPriceMultiplier);
+        if (totalClicks >= actualCost) { 
+            totalClicks -= actualCost; 
+            clickPower *= 1.6; 
+            costPower = Math.round(costPower * 1.45); 
+            saveClickerData(); 
+            updateClickerUI(); 
+        }
     }
 
     function buySpecialAchievement(id) {
-        let cost = id === 'ach_wuiee' ? 1000000 : 100000000;
+        let cost = 0;
+        if (id === 'ach_wuiee') cost = 5000000;
+        else if (id === 'ach_pudding') cost = 500000000;
+        else if (id === 'item_cheese' || id === 'item_harlequin') cost = 1000000000;
+
         if (totalClicks >= cost) {
             totalClicks -= cost;
             saveClickerData();
@@ -1054,8 +1826,8 @@
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = ctx.createOscillator();
             const g = ctx.createGain();
-            osc.frequency.setValueAtTime(400, ctx.currentTime);
-            g.gain.setValueAtTime(0.1 * customVolume, ctx.currentTime);
+            osc.frequency.setValueAtTime(450, ctx.currentTime);
+            g.gain.setValueAtTime(0.12 * customVolume, ctx.currentTime);
             g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
             osc.connect(g); g.connect(ctx.destination);
             osc.start(); osc.stop(ctx.currentTime + 0.05);
@@ -1083,8 +1855,129 @@
             unlockAchievement('evil_secret_1'); alert('🔥 Код принят (+500 XP)!');
         } else if (['67', '1488', '52', '42', '69'].includes(code)) {
             unlockAchievement('evil_secret_2'); alert('🔥 Код принят (+500 XP)!');
+        } else if (['деньги', 'денежки', 'money', 'cash'].includes(code)) {
+            unlockAchievement('money_ach');
+            checkWheelUnlock();
+            alert('💸 Секрет раскрыт! Открыто Колесо Удачи!');
+        } else if (code === 'патеха') {
+            unlockAchievement('popich');
+            addFakeHistoryBattle();
+            alert('🔥 Код принят! В истории батлов появился подозрительный поединок...');
+        } else if (code === 'пистолет') {
+            localStorage.setItem('aura_pirate_setting_unlocked', 'true');
+            checkPirateSecretUnlocked();
+            alert('🔫 Секрет активирован! В «Настройках» появился пиратский флаг.');
         } else { alert('Неверный код!'); }
         clearEvilInput();
+    }
+
+    function addFakeHistoryBattle() {
+        let history = JSON.parse(localStorage.getItem('aura_history') || '[]');
+        if (!history.some(item => item.isFake)) {
+            history.unshift({
+                t1: 'Попич',
+                t2: 'Антипопич',
+                t1Total: '777 777',
+                t2Total: '-777 777',
+                t1Raw: 777777,
+                t2Raw: -777777,
+                winner: 'Попич',
+                date: new Date().toLocaleDateString(),
+                isFake: true
+            });
+            localStorage.setItem('aura_history', JSON.stringify(history));
+            if (currentTabIndex === 3) renderHistory();
+        }
+    }
+
+    function startFakeBattleHold(e) {
+        let target = e.currentTarget;
+        if (!target.hasAttribute('data-fake-battle')) return;
+
+        if (fakeBattleHoldTimer) clearTimeout(fakeBattleHoldTimer);
+        fakeBattleHoldTimer = setTimeout(() => {
+            unlockAchievement('mama_popicha');
+            playEasterEggSound();
+            alert('🏆 Секрет истории разгадан! Получена ачивка «мама попича» (+500 XP)!');
+            fakeBattleHoldTimer = null;
+        }, 2000);
+    }
+
+    function endFakeBattleHold() {
+        if (fakeBattleHoldTimer) {
+            clearTimeout(fakeBattleHoldTimer);
+            fakeBattleHoldTimer = null;
+        }
+    }
+
+    function unlockPirateLinkAchievement() {
+        unlockAchievement('pirate_gun_ach');
+    }
+
+    function spinFortuneWheel() {
+        if (totalClicks < nextWheelCost) {
+            alert(`Недостаточно кликов! Нужно ${nextWheelCost.toLocaleString('ru-RU')} кликов.`);
+            return;
+        }
+
+        totalClicks -= nextWheelCost;
+        nextWheelCost = 100000;
+        saveClickerData();
+        updateClickerUI();
+
+        playClickSound();
+        let wheel = document.getElementById('fortuneWheel');
+        let resText = document.getElementById('wheelResultText');
+        let spinBtn = document.getElementById('spinWheelBtn');
+
+        spinBtn.disabled = true;
+        resText.innerText = 'Колесо крутится... 🌀';
+
+        let weightedOutcomes = [
+            { index: 0, weight: 8, text: '💀 0 АУРЫ! «пенсионеры сгрызли твой заработок»', action: () => { unlockAchievement('wheel_zero_aura'); } },
+            { index: 1, weight: 15, text: '💡 Случайная подсказка получена!', action: () => { giveRandomClue(); } },
+            { index: 2, weight: 25, text: '⭐ +250 XP получено!', action: () => { userXP += 250; updateXPUI(); } },
+            { index: 3, weight: 5, text: '👑 Секретный титул «Аура Фармер»!', action: () => { unlockAchievement('wheel_title_farmer'); } },
+            { index: 4, weight: 15, text: '💪 Сила клика увеличена на +50!', action: () => { clickPower += 50; saveClickerData(); updateClickerUI(); } },
+            { index: 5, weight: 10, text: '🚀 Мега-выигрыш: +10 000 000 кликов!', action: () => { totalClicks += 10000000; saveClickerData(); updateClickerUI(); } },
+            { index: 6, weight: 22, text: '🤡 Ничего не выиграл! Инфляция съела попытку.', action: () => {} }
+        ];
+
+        let totalWeight = weightedOutcomes.reduce((sum, item) => sum + item.weight, 0);
+        let randomNum = Math.random() * totalWeight;
+        let cumulativeWeight = 0;
+        let chosenOutcome = weightedOutcomes[0];
+
+        for (let item of weightedOutcomes) {
+            cumulativeWeight += item.weight;
+            if (randomNum <= cumulativeWeight) {
+                chosenOutcome = item;
+                break;
+            }
+        }
+
+        let sliceAngle = 360 / 7;
+        let targetDegrees = chosenOutcome.index * sliceAngle + sliceAngle / 2;
+        let randomSpin = 360 * 5 + (360 - targetDegrees);
+
+        currentWheelRotation += randomSpin;
+        wheel.style.transform = `rotate(${currentWheelRotation}deg)`;
+
+        setTimeout(() => {
+            chosenOutcome.action();
+            resText.innerText = chosenOutcome.text;
+            updateClickerUI();
+        }, 4000);
+    }
+
+    function giveRandomClue() {
+        let locked = achievementsData.filter(a => !a.unlocked);
+        if (locked.length === 0) {
+            alert('💡 Все ачивки уже открыты, ты абсолютный гигачад!');
+            return;
+        }
+        let randomAch = locked[Math.floor(Math.random() * locked.length)];
+        alert(`💡 Подсказка:\nОбрати внимание на ачивку «${randomAch.title}» (${randomAch.desc})!`);
     }
 
     function triggerHypeMeter() {
@@ -1110,12 +2003,12 @@
 
     function triggerHypeStopper() {
         playClickSound();
-        document.getElementById('primaryColorPicker').value = '#ffbb00';
+        document.getElementById('primaryColorPicker').value = '#ffd700';
         document.getElementById('secondaryColorPicker').value = '#ff5500';
-        document.getElementById('cardBgPicker').value = '#111111';
+        document.getElementById('cardBgPicker').value = '#0a0a0f';
         hypeMeterClicks = 0;
         saveAndApplySettings();
-        alert('🛡️ Интерфейс восстановлен!');
+        alert('🛡️ Интерфейс восстановлен в золото!');
     }
 
     function loadRebirthData() { 
@@ -1123,9 +2016,9 @@
     }
     
     function triggerRebirth() {
-        let level = Math.floor(userXP / 500) + 1;
-        if (level < 10) {
-            alert('Для перерождения нужно достичь 10 уровня!');
+        let level = Math.floor(Math.max(0, userXP) / 500) + 1;
+        if (level < 15) {
+            alert('Для перерождения нужно достичь 15 уровня!');
             return;
         }
         if (rebirthCount >= 2) {
@@ -1141,25 +2034,19 @@
         let history = JSON.parse(localStorage.getItem('aura_history') || '[]');
         let allText = history.map(item => (item.t1 + " " + item.t2).toLowerCase()).join(" ");
 
-        if (allText.includes('яйца') || allText.includes('куриц')) {
-            unlockAchievement('rebirth_secret_chicken');
-        }
-        if (allText.includes('гитлер') || allText.includes('адольф') || allText.includes('чмошник')) {
-            unlockAchievement('rebirth_secret_hitler');
-        }
-        if (allText.includes('рояль')) {
-            unlockAchievement('rebirth_secret_piano');
-        }
+        if (allText.includes('яйца') || allText.includes('куриц')) unlockAchievement('rebirth_secret_chicken');
+        if (allText.includes('гитлер') || allText.includes('адольф') || allText.includes('чмошник')) unlockAchievement('rebirth_secret_hitler');
+        if (allText.includes('рояль')) unlockAchievement('rebirth_secret_piano');
 
         updateXPUI(); 
         updateClickerUI(); 
         renderAchievements();
         checkRebirthAvailability();
-        alert(`⚡ Перерождение «Снова дом» #${rebirthCount} выполнено! Сложность кликера повышена в 1.6 раза, множитель ауры стал x1.2.`);
+        alert(`⚡ Перерождение «Снова дом» #${rebirthCount} выполнено! Сложность повышена.`);
     }
 
     function checkRebirthAvailability() {
-        let level = Math.floor(userXP / 500) + 1;
+        let level = Math.floor(Math.max(0, userXP) / 500) + 1;
         const rebirthBtn = document.getElementById('rebirthBtn');
         const rebirthCounterDisplay = document.getElementById('rebirthCounterDisplay');
         if (rebirthCounterDisplay) {
@@ -1167,11 +2054,7 @@
             document.getElementById('rebirthCount').innerText = rebirthCount;
         }
         if (rebirthBtn) {
-            if (level >= 10 && rebirthCount < 2) {
-                rebirthBtn.style.display = 'inline-block';
-            } else {
-                rebirthBtn.style.display = 'none';
-            }
+            rebirthBtn.style.display = (level >= 15 && rebirthCount < 2) ? 'inline-block' : 'none';
         }
     }
 
@@ -1215,13 +2098,12 @@
         const primary = document.getElementById('primaryColorPicker').value;
         const secondary = document.getElementById('secondaryColorPicker').value;
         const cardBg = document.getElementById('cardBgPicker').value;
-        navMode = document.getElementById('navModeSelect').value;
         autoSkipEnabled = document.getElementById('autoSkipSelect').value === 'on';
 
         document.documentElement.style.setProperty('--primary-color', primary);
         document.documentElement.style.setProperty('--secondary-color', secondary);
         document.documentElement.style.setProperty('--card-bg', cardBg);
-        localStorage.setItem('aura_settings', JSON.stringify({ primary, secondary, cardBg, navMode, autoSkip: autoSkipEnabled, volume: customVolume, customSound: customVictorySound }));
+        localStorage.setItem('aura_settings', JSON.stringify({ primary, secondary, cardBg, autoSkip: autoSkipEnabled, volume: customVolume, customSound: customVictorySound }));
         switchTab(currentTabIndex);
     }
 
@@ -1233,7 +2115,6 @@
             if (data.primary) document.getElementById('primaryColorPicker').value = data.primary;
             if (data.secondary) document.getElementById('secondaryColorPicker').value = data.secondary;
             if (data.cardBg) document.getElementById('cardBgPicker').value = data.cardBg;
-            if (data.navMode) { navMode = data.navMode; document.getElementById('navModeSelect').value = navMode; }
             if (data.autoSkip !== undefined) { autoSkipEnabled = data.autoSkip; document.getElementById('autoSkipSelect').value = autoSkipEnabled ? 'on' : 'off'; }
             if (data.volume !== undefined) { document.getElementById('volumeSlider').value = data.volume; customVolume = data.volume; }
             if (data.customSound) customVictorySound = data.customSound;
@@ -1257,24 +2138,95 @@
             if (ach.requiresRebirth && rebirthCount < ach.requiresRebirth) return;
             ach.unlocked = true;
             localStorage.setItem('aura_achievements', JSON.stringify(achievementsData.filter(a => a.unlocked).map(a => a.id)));
+            
+            if (isDebtActive) {
+                clearDebtState();
+                queueToast({ type: 'event', data: { title: '🛡️ Уровень спасен!', desc: 'Ачивка погасила долг и восстановила ваш статус!', icon: '🛡️', badge: 'СПАСЕНИЕ' } });
+            }
+
             calculateTotalXP();
             checkEvilUnlock();
-            showAchPopup(ach);
+            checkWheelUnlock();
+            checkPirateSecretUnlocked();
+            
+            queueToast({ type: 'ach', data: ach });
+
             if (currentTabIndex === 4) renderAchievements();
             updateClickerUI();
         }
     }
 
-    function showAchPopup(ach) {
-        document.getElementById('achPopIcon').innerText = ach.icon;
-        document.getElementById('achPopTitle').innerText = ach.title;
-        document.getElementById('achPopDesc').innerText = ach.desc;
-        document.getElementById('achPopXp').innerText = '+' + ach.xp + ' XP';
-        document.getElementById('achPopOverlay').classList.add('active');
-        playEasterEggSound();
+    function queueEventToast(ev) {
+        queueToast({ type: 'event', data: ev });
     }
 
-    function closeAchPopup() { document.getElementById('achPopOverlay').classList.remove('active'); }
+    let pendingToasts = [];
+    let isToastShowing = false;
+
+    function queueToast(item) {
+        pendingToasts.push(item);
+        processToasts();
+    }
+
+    function processToasts() {
+        if (isToastShowing || pendingToasts.length === 0) return;
+        isToastShowing = true;
+
+        playEasterEggSound();
+
+        let item1 = pendingToasts.shift();
+        let item2 = pendingToasts.length > 0 ? pendingToasts.shift() : null;
+
+        let elLeft = document.getElementById('toastLeft');
+        let elRight = document.getElementById('toastRight');
+
+        elLeft.innerHTML = formatToastHTML(item1);
+        elLeft.classList.add('show');
+
+        if (item2) {
+            elRight.innerHTML = formatToastHTML(item2);
+            elRight.classList.add('show');
+        } else {
+            elRight.innerHTML = '';
+            elRight.classList.remove('show');
+        }
+
+        setTimeout(() => {
+            elLeft.classList.add('fade-out');
+            elRight.classList.add('fade-out');
+
+            setTimeout(() => {
+                elLeft.classList.remove('show', 'fade-out');
+                elRight.classList.remove('show', 'fade-out');
+                isToastShowing = false;
+                processToasts();
+            }, 300);
+        }, 1500);
+    }
+
+    function formatToastHTML(item) {
+        if (item.type === 'ach') {
+            let ach = item.data;
+            return `
+                <div style="font-size: 2rem;">${ach.icon}</div>
+                <div style="flex:1; text-align:left;">
+                    <div style="font-size: 0.7rem; color: #ffd700; font-weight: bold;">🔥 ДОСТИЖЕНИЕ 🔥</div>
+                    <div style="font-size: 0.9rem; font-weight: 900; color: #fff;">${ach.title}</div>
+                    <div style="font-size: 0.7rem; color: var(--primary-color); font-weight: bold;">+${ach.xp} XP</div>
+                </div>
+            `;
+        } else {
+            let ev = item.data;
+            return `
+                <div style="font-size: 2rem;">${ev.icon}</div>
+                <div style="flex:1; text-align:left;">
+                    <div style="font-size: 0.7rem; color: #ff8800; font-weight: bold;">⚡ АВТО-ИВЕНТ ⚡</div>
+                    <div style="font-size: 0.9rem; font-weight: 900; color: #fff;">${ev.title}</div>
+                    <div style="font-size: 0.7rem; color: #ffd700; font-weight: bold;">${ev.badge}</div>
+                </div>
+            `;
+        }
+    }
 
     function calculateTotalXP() {
         userXP = achievementsData.reduce((sum, ach) => sum + (ach.unlocked ? ach.xp : 0), 0);
@@ -1284,22 +2236,26 @@
 
     function updateXPUI() {
         document.getElementById('totalXpVal').innerText = userXP;
-        let level = Math.floor(userXP / 500) + 1;
-        let currentLevelXP = userXP % 500;
-        let titleName = levelTitles[level] || "космический авторитет";
+        let effectiveXP = Math.max(0, userXP);
+        let level = Math.floor(effectiveXP / 500) + 1;
+        let currentLevelXP = effectiveXP % 500;
+        let titleName = levelTitles[level] || "абсолютный аватар хайпа";
+        let achFarmer = achievementsData.find(a => a.id === 'wheel_title_farmer');
+        if (achFarmer && achFarmer.unlocked) titleName = "аура фармер 🌾";
+        
         document.getElementById('userLevelText').innerText = `Уровень ${level} «${titleName}» (${currentLevelXP}/500 XP)`;
-        document.getElementById('xpBarFill').style.width = ((currentLevelXP / 500) * 100) + '%';
+        document.getElementById('xpBarFill').style.width = Math.max(0, Math.min(100, (currentLevelXP / 500) * 100)) + '%';
     }
 
     function renderAchievements() {
         const container = document.getElementById('achievementsListContainer');
         const filtered = achievementsData.filter(ach => ach.category === currentAchCategory && (!ach.requiresRebirth || rebirthCount >= ach.requiresRebirth));
         container.innerHTML = filtered.map(ach => `
-            <div class="achievement-card ${ach.unlocked ? 'unlocked' : ''} rarity-${ach.rarity}">
+            <div class="achievement-card ${ach.unlocked ? 'unlocked' : ''} ${ach.isTsarsky ? 'tsarsky-card' : ''}">
                 <div class="ach-icon-box">${ach.icon}</div>
                 <div style="flex:1; text-align:left;">
-                    <div style="font-weight:800; font-size:0.95rem; color:${ach.unlocked ? '#fff' : '#aaa'};">${ach.title}</div>
-                    <div style="font-size:0.75rem; color:#888; margin-top:2px;">${ach.desc}</div>
+                    <div style="font-weight:900; font-size:0.95rem; color:${ach.unlocked ? '#fff' : '#aaa'};">${ach.title}</div>
+                    <div style="font-size:0.75rem; color:#888; margin-top:3px;">${ach.desc}</div>
                 </div>
                 <div style="font-weight:900; font-size:0.85rem; color:var(--primary-color);">+${ach.xp} XP</div>
             </div>
@@ -1311,6 +2267,8 @@
         document.getElementById('catBtnBattle').classList.toggle('active', cat === 'battle');
         document.getElementById('catBtnClicker').classList.toggle('active', cat === 'clicker');
         document.getElementById('catBtnEvil').classList.toggle('active', cat === 'evil');
+        let catWheelBtn = document.getElementById('catBtnWheelTab');
+        if (catWheelBtn) catWheelBtn.classList.toggle('active', cat === 'wheel');
         renderAchievements();
     }
 
@@ -1328,7 +2286,7 @@
         } catch(e){}
     }
 
-    function playWinnerSound(num) {
+    function playWinnerSound() {
         if (currentAudio) { currentAudio.pause(); currentAudio = null; }
         let url = customVictorySound;
         if (url) {
@@ -1347,13 +2305,21 @@
     function calculateAuraFromString(str) {
         let combined = str.toLowerCase().trim() + "_" + sessionSalt;
         let hash = 0; for (let i = 0; i < combined.length; i++) hash = combined.charCodeAt(i) + ((hash << 5) - hash);
-        let base = Math.abs((hash * 13) % 90000000) + 10000000;
-        let penalty = Math.abs((hash * 17) % 110000000);
+        let base = Math.abs((hash * 13) % 9000000) + 1000000;
+        let penalty = Math.abs((hash * 17) % 11000000);
 
         let auraMultiplier = Math.pow(1.2, rebirthCount);
         base = Math.round(base * auraMultiplier);
 
-        return { base: Math.round(base/5)*5, penalty: Math.round(penalty/5)*5, total: Math.round(base/5)*5 - Math.round(penalty/5)*5 };
+        let total = Math.round(base/5)*5 - Math.round(penalty/5)*5;
+
+        activeEvents.forEach(ev => {
+            if (ev.type === 'x2') total *= 2;
+            if (ev.type === 'x4') total *= 4;
+            if (ev.type === 'half') total = Math.round(total * 0.5);
+        });
+
+        return { base: Math.round(base/5)*5, penalty: Math.round(penalty/5)*5, total: total };
     }
 
     function applyAuraTierEffect(cardElement, totalScore) {
@@ -1384,35 +2350,42 @@
     function checkBattleSecrets(t1, t2, res1, res2) {
         unlockAchievement('first_battle');
         
-        if (res1.total < 0 || res2.total < 0) {
-            unlockAchievement('negative_aura');
+        if (res1.total < 0 || res2.total < 0) unlockAchievement('negative_aura');
+
+        if (activeEvents.find(e => e.type === 'royal') && Math.random() < 0.03) {
+            unlockAchievement('tsarsky_drop');
+        }
+
+        // Обработка ивента "Деньги на ветер" (5% шанс списать 1 уровень)
+        if (activeEvents.find(e => e.type === 'money_wind')) {
+            if (Math.random() < 0.05) {
+                let oldLevel = Math.floor(Math.max(0, userXP) / 500) + 1;
+                userXP -= 500;
+                let newLevel = Math.floor(Math.max(0, userXP) / 500) + 1;
+                alert('💸 Ивент «Деньги на ветер» сработал! Батл списал у вас 1 уровень (500 XP)!');
+                if (newLevel < oldLevel) {
+                    startDebtTimer();
+                }
+                updateXPUI();
+            }
         }
 
         let fullText = (t1 + " " + t2).toLowerCase();
 
-        if (fullText.includes('пал лаич') || fullText.includes('ладим ладимыч') || fullText.includes('путин')) {
-            unlockAchievement('president_ref');
-        }
+        if (fullText.includes('пал лаич') || fullText.includes('ладим ладимыч') || fullText.includes('путин')) unlockAchievement('president_ref');
+        if (fullText.includes('навальный') || fullText.includes('карнавальный')) unlockAchievement('bruno_ref');
 
-        if (fullText.includes('навальный') || fullText.includes('карнавальный')) {
-            unlockAchievement('bruno_ref');
-        }
-
-        const groznyWords = ['аллах', 'свин', 'бисмиля', 'кадыров', 'барашка', 'рамзан', 'дон'];
-        if (groznyWords.some(word => fullText.includes(word))) {
+        if (['аллах', 'свин', 'бисмиля', 'кадыров', 'барашка', 'рамзан', 'дон'].some(w => fullText.includes(w))) {
             unlockAchievement('grozny_shampur');
+        }
+        if (['пират', 'черти', 'ром', 'пушки'].some(w => fullText.includes(w))) {
+            unlockAchievement('caribbean_sea');
         }
 
         if (rebirthCount > 0) {
-            if (fullText.includes('яйца') || fullText.includes('куриц')) {
-                unlockAchievement('rebirth_secret_chicken');
-            }
-            if (fullText.includes('гитлер') || fullText.includes('адольф') || fullText.includes('чмошник')) {
-                unlockAchievement('rebirth_secret_hitler');
-            }
-            if (fullText.includes('рояль')) {
-                unlockAchievement('rebirth_secret_piano');
-            }
+            if (fullText.includes('яйца') || fullText.includes('куриц')) unlockAchievement('rebirth_secret_chicken');
+            if (fullText.includes('гитлер') || fullText.includes('адольф') || fullText.includes('чмошник')) unlockAchievement('rebirth_secret_hitler');
+            if (fullText.includes('рояль')) unlockAchievement('rebirth_secret_piano');
         }
     }
 
@@ -1444,13 +2417,18 @@
             else if (maxScore >= 5000000) badgeStyle = "color: #0096ff; text-shadow: 0 0 10px #0096ff; font-weight:800;";
             else if (maxScore >= 1000000) badgeStyle = "color: #00ff64; text-shadow: 0 0 10px #00ff64; font-weight:800;";
 
+            let fakeAttr = item.isFake ? `data-fake-battle="true"` : '';
+            let fakeStyle = item.isFake ? `border: 2px dashed var(--primary-color); background: linear-gradient(135deg, #22152e, #14141c); cursor: pointer;` : '';
+
             return `
-                <div class="history-item">
+                <div class="history-item" ${fakeAttr} style="${fakeStyle}" 
+                     onmousedown="startFakeBattleHold(event)" onmouseup="endFakeBattleHold()" onmouseleave="endFakeBattleHold()" 
+                     onttouchstart="startFakeBattleHold(event)" ontouchend="endFakeBattleHold()" ontouchcancel="endFakeBattleHold()">
                     <div style="text-align:left; font-size:0.85rem;">
-                        <div style="color:var(--primary-color); font-weight:700;">⚔️ ${item.t1} <span style="${badgeStyle}">(${item.t1Total})</span> vs ${item.t2} <span style="${badgeStyle}">(${item.t2Total})</span></div>
-                        <div>👑 Победитель: ${item.winner}</div>
+                        <div style="color:var(--primary-color); font-weight:800;">⚔️ ${item.t1} <span style="${badgeStyle}">(${item.t1Total})</span> vs ${item.t2} <span style="${badgeStyle}">(${item.t2Total})</span></div>
+                        <div style="margin-top: 4px;">👑 Победитель: ${item.winner} ${item.isFake ? '✨ (Секрет)' : ''}</div>
                     </div>
-                    <div style="font-size:0.7rem; color:#777;">${item.date}</div>
+                    <div style="font-size:0.75rem; color:#777;">${item.date}</div>
                 </div>
             `;
         }).join('');
@@ -1473,7 +2451,8 @@
         applyAuraTierEffect(document.getElementById('card2'), res2.total);
 
         let win = Math.max(res1.total, res2.total);
-        document.getElementById('winnerName').innerText = `«${winnerNameText}» (${win.toLocaleString('ru-RU')} ауры)`;
+        document.getElementById('winnerName').innerText = `«${winnerNameText}»`;
+        document.getElementById('winnerDiff').innerText = `Максимальная аура победника: ${win.toLocaleString('ru-RU')}`;
         document.getElementById('outputContainer').style.display = 'flex';
     }
 
@@ -1494,7 +2473,7 @@
             renderBattleResultsDirectly(t1, t2, res1, res2, winnerNameText);
         } else {
             document.getElementById('auraOverlay').classList.add('active');
-            playWinnerSound(res1.total >= res2.total ? 1 : 2);
+            playWinnerSound();
             if (battleTimeoutId) clearTimeout(battleTimeoutId);
             battleTimeoutId = setTimeout(() => {
                 document.getElementById('auraOverlay').classList.remove('active');
